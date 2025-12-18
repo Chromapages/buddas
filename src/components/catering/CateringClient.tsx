@@ -106,9 +106,9 @@ export function CateringClient({ data }: CateringClientProps) {
                                         className="opacity-60 hover:opacity-100 transition-opacity duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
                                         aria-label={partner.name}
                                     >
-                                        {partner.logo ? (
+                                        {partner.logo?.asset ? (
                                             <Image
-                                                src={partner.logo}
+                                                src={urlFor(partner.logo).width(240).url()}
                                                 alt={partner.name}
                                                 width={120}
                                                 height={40}

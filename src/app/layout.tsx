@@ -66,14 +66,14 @@ export default async function RootLayout({
     console.error("Failed to fetch site settings", error);
   }
 
-  const logoUrl = siteSettings?.logo?.asset?.url;
-  const orderUrl = siteSettings?.defaultOrderingUrl;
-  const ctaStyle = siteSettings?.headerCtaStyle;
-  const navigation = siteSettings?.mainNavigation;
-  const socialLinks = siteSettings?.socialLinks;
+  const logoUrl = siteSettings?.logo?.asset?.url || undefined;
+  const orderUrl = siteSettings?.defaultOrderingUrl || undefined;
+  const ctaStyle = siteSettings?.headerCtaStyle || undefined;
+  const navigation = siteSettings?.mainNavigation || undefined;
+  const socialLinks = siteSettings?.socialLinks || undefined;
   const contactInfo = {
-    phone: siteSettings?.primaryPhone,
-    email: siteSettings?.primaryEmail
+    phone: siteSettings?.primaryPhone || undefined,
+    email: siteSettings?.primaryEmail || undefined
   };
 
   return (
@@ -87,15 +87,17 @@ export default async function RootLayout({
         className={`${dmSans.variable} ${lilitaOne.variable} ${poppins.variable} antialiased bg-warm-sand text-deep-ocean`}
         suppressHydrationWarning
       >
-        <AnnouncementBar data={siteSettings?.announcement} />
-        <ConditionalHeader
-          logoUrl={logoUrl}
-          orderUrl={orderUrl}
-          ctaStyle={ctaStyle}
-          navigation={navigation}
-          socialLinks={socialLinks}
-          contactInfo={contactInfo}
-        />
+        <div className="sticky top-0 z-50 w-full transition-all duration-300">
+          <AnnouncementBar data={siteSettings?.announcement} />
+          <ConditionalHeader
+            logoUrl={logoUrl}
+            orderUrl={orderUrl}
+            ctaStyle={ctaStyle}
+            navigation={navigation}
+            socialLinks={socialLinks}
+            contactInfo={contactInfo}
+          />
+        </div>
         {children}
       </body>
     </html>

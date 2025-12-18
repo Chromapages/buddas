@@ -57,7 +57,7 @@ export function NewNavbar({ logoUrl, orderUrl, ctaStyle, navigation }: NewNavbar
     };
 
     return (
-        <div className="fixed top-0 left-0 right-0 z-50 bg-buddas-cream dark:bg-zinc-900 border-b-0 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.1),inset_0_1px_0_0_rgba(255,255,255,0.8)] transition-all duration-300">
+        <div className="relative w-full bg-buddas-cream dark:bg-zinc-900 border-b-0 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.1),inset_0_1px_0_0_rgba(255,255,255,0.8)] transition-all duration-300">
             <div className="w-full px-6 lg:px-12 xl:px-16">
                 <header className="flex items-center justify-between py-4">
                     {/* Logo Section */}

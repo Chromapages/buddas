@@ -34,21 +34,22 @@ export function AnnouncementBar({ data }: AnnouncementProps) {
                     exit={{ height: 0, opacity: 0 }}
                     className={`${bgColor} ${textColor} relative z-50 overflow-hidden`}
                 >
-                    <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between gap-4 text-sm font-medium font-dm-sans">
-                        <div className="flex-1 text-center md:text-left flex items-center justify-center md:justify-start gap-2">
+                    <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-center relative min-h-[44px] text-sm font-medium font-dm-sans">
+                        <div className="flex items-center justify-center gap-2 text-center px-8">
                             <span>{data.text}</span>
                             {data.link && (
                                 <Link
                                     href={data.link}
-                                    className="hidden md:inline-flex items-center gap-1 hover:underline underline-offset-4"
+                                    className="hidden md:inline-flex items-center gap-1 hover:underline underline-offset-4 decoration-white/30"
                                 >
-                                    Learn More <ArrowRight className="w-3 h-3" />
+                                    Learn More <ArrowRight className="w-3.5 h-3.5" />
                                 </Link>
                             )}
                         </div>
+
                         <button
                             onClick={() => setIsVisible(false)}
-                            className="p-1 hover:bg-white/20 rounded-full transition-colors shrink-0"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 hover:bg-white/20 rounded-full transition-colors shrink-0"
                             aria-label="Close announcement"
                         >
                             <X className="w-4 h-4" />
