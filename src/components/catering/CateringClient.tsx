@@ -15,7 +15,8 @@ import {
     Calendar,
     ChefHat,
     Package,
-    Quote
+    Quote,
+    PlusCircle
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -82,12 +83,12 @@ export function CateringClient({ data }: CateringClientProps) {
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
                         <Link href={heroCtaLink || "/contact"} className="w-full sm:w-auto">
-                            <button className="w-full flex items-center justify-center gap-2 bg-buddas-teal text-white px-8 py-4 rounded-xl font-medium transition-all shadow-[0_4px_0_0_#1C5F56,0_8px_20px_-4px_rgba(28,95,86,0.4)] hover:translate-y-[-2px] hover:shadow-[0_6px_0_0_#1C5F56,0_12px_24px_-4px_rgba(28,95,86,0.5)] active:translate-y-1 active:shadow-[0_0_0_0_#1C5F56,inset_0_2px_4px_rgba(0,0,0,0.2)] ease-[cubic-bezier(0.25,0.1,0.25,1)]">
+                            <button className="w-full flex items-center justify-center gap-2 bg-buddas-teal text-white px-8 py-4 rounded-lg font-bold uppercase tracking-wide transition-all shadow-[0_4px_0_0_#1C5F56,0_8px_20px_-4px_rgba(28,95,86,0.4)] hover:translate-y-[-2px] hover:shadow-[0_6px_0_0_#1C5F56,0_12px_24px_-4px_rgba(28,95,86,0.5)] active:translate-y-1 active:shadow-[0_0_0_0_#1C5F56,inset_0_2px_4px_rgba(0,0,0,0.2)] ease-[cubic-bezier(0.25,0.1,0.25,1)]">
                                 <CalendarPlus className="w-5 h-5" />
                                 {heroCtaLabel || "Book an Event"}
                             </button>
                         </Link>
-                        <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-transparent border-2 border-buddas-teal text-buddas-teal px-8 py-3.5 rounded-xl font-medium transition-all hover:bg-buddas-teal/10 hover:scale-105 active:scale-95 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
+                        <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-transparent border-2 border-buddas-teal text-buddas-teal px-8 py-3.5 rounded-lg font-bold uppercase tracking-wide transition-all hover:bg-buddas-teal/10 hover:scale-105 active:scale-95 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
                             <Download className="w-5 h-5" />
                             Download Menu
                         </button>
@@ -266,7 +267,7 @@ export function CateringClient({ data }: CateringClientProps) {
                                                     </ul>
                                                 )}
                                             </div>
-                                            <button className="w-full py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 mt-auto bg-white border-2 border-buddas-brown/10 text-buddas-brown hover:border-buddas-teal hover:text-buddas-teal hover:bg-buddas-teal/5 active:scale-95 ease-[cubic-bezier(0.25,0.1,0.25,1)] uppercase tracking-wider text-xs">
+                                            <button className="w-full py-4 rounded-lg font-bold transition-all flex items-center justify-center gap-2 mt-auto bg-white border-2 border-buddas-brown/10 text-buddas-brown hover:border-buddas-teal hover:text-buddas-teal hover:bg-buddas-teal/5 active:scale-95 ease-[cubic-bezier(0.25,0.1,0.25,1)] uppercase tracking-wider text-xs">
                                                 Select Package
                                             </button>
                                         </div>
@@ -314,28 +315,25 @@ export function CateringClient({ data }: CateringClientProps) {
             {faq && faq.length > 0 && (
                 <AnimatedSection delay={200}>
                     <section className="py-24 bg-buddas-cream relative z-10 border-t border-buddas-brown/10">
-                        <div className="max-w-4xl mx-auto px-6">
+                        <div className="max-w-6xl mx-auto px-6">
                             <div className="text-center mb-16">
                                 <span className="text-buddas-orange font-bold tracking-widest uppercase text-xs mb-3 block">Common Questions</span>
                                 <h2 className="text-3xl md:text-5xl font-bold text-buddas-brown tracking-tight font-poppins">Frequently Asked Questions</h2>
                             </div>
 
-                            <Accordion type="single" collapsible className="w-full space-y-4">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
                                 {faq.map((item: any, idx: number) => (
-                                    <AccordionItem
-                                        key={item._key || idx}
-                                        value={`item-${idx}`}
-                                        className="bg-white px-6 rounded-2xl border border-buddas-brown/10 shadow-sm data-[state=open]:border-buddas-teal/30 transition-all duration-300"
-                                    >
-                                        <AccordionTrigger className="text-left text-lg font-semibold text-buddas-brown hover:text-buddas-teal hover:no-underline py-6 [&[data-state=open]]:text-buddas-teal font-poppins">
-                                            {item.question}
-                                        </AccordionTrigger>
-                                        <AccordionContent className="text-buddas-brown/70 leading-relaxed pb-6 text-base font-dm-sans">
+                                    <div key={item._key || idx} className="group bg-white rounded-xl border border-buddas-brown/10 p-6 hover:shadow-lg hover:border-buddas-teal/30 transition-all cursor-pointer">
+                                        <div className="flex justify-between items-center">
+                                            <h3 className="font-semibold text-buddas-brown">{item.question}</h3>
+                                            <PlusCircle className="text-buddas-brown/40 w-6 h-6 group-hover:text-buddas-teal group-hover:rotate-45 transition-all" />
+                                        </div>
+                                        <p className="text-buddas-brown/70 text-sm mt-3 leading-relaxed hidden group-hover:block animate-in fade-in duration-300">
                                             {item.answer}
-                                        </AccordionContent>
-                                    </AccordionItem>
+                                        </p>
+                                    </div>
                                 ))}
-                            </Accordion>
+                            </div>
                         </div>
                     </section>
                 </AnimatedSection>

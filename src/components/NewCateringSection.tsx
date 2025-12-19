@@ -114,7 +114,7 @@ export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
 
                             <Link
                                 href={card.link}
-                                className={`w-full h-12 px-6 rounded-xl font-bold transition-all shadow-sm hover:shadow-lg flex items-center justify-center gap-2 text-sm uppercase tracking-wide ${card.theme.button}`}
+                                className={`w-full h-12 px-6 rounded-lg font-bold transition-all shadow-sm hover:shadow-lg flex items-center justify-center gap-2 text-sm uppercase tracking-wide ${card.theme.button}`}
                             >
                                 {card.cta}
                                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

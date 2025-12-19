@@ -23,6 +23,8 @@ interface HomePageData {
     primaryPhone?: string;
     primaryEmail?: string;
     defaultOrderingUrl?: string;
+    mainNavigation?: any[];
+    socialLinks?: any[];
   };
   featuredMenuItems?: any[];
   popularItems?: any[];
@@ -141,7 +143,7 @@ export default async function Home() {
   const newItems = (data?.newItems || []).map(mapMenuItem);
 
   return (
-    <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans selection:bg-teal-500 selection:text-white">
+    <div className="min-h-screen bg-buddas-cream text-buddas-brown font-sans selection:bg-teal-500 selection:text-white">
 
       <main>
         <AnimatedSection>
@@ -175,7 +177,16 @@ export default async function Home() {
         </AnimatedSection>
       </main>
 
-      <Footer />
+      <Footer
+        logoUrl={logoUrl}
+        navigation={data?.siteSettings?.mainNavigation?.map((item: any) => ({
+          label: item.label,
+          url: item.url
+        }))}
+        socialLinks={data?.siteSettings?.socialLinks}
+        primaryPhone={data?.siteSettings?.primaryPhone}
+        primaryEmail={data?.siteSettings?.primaryEmail}
+      />
     </div >
   );
 }

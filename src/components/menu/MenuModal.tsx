@@ -32,7 +32,7 @@ export function MenuModal({ item, isOpen, onClose }: MenuModalProps) {
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 font-sans bg-buddas-brown/60 backdrop-blur-md transition-opacity duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
             <div className="relative w-full max-w-5xl group perspective-1000 animate-in zoom-in-95 duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
-                <div className="relative bg-white dark:bg-zinc-900 rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[600px] w-full transform transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] dark:border dark:border-white/5">
+                <div className="relative bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[600px] w-full transform transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] dark:border dark:border-white/5">
 
                     {/* Close Button Mobile */}
                     <button
@@ -131,6 +131,17 @@ export function MenuModal({ item, isOpen, onClose }: MenuModalProps) {
                                     {item.prepTime || '15-20'} <span className="text-sm font-normal text-buddas-brown/50 font-dm-sans">min</span>
                                 </span>
                             </div>
+                        </div>
+
+                        {/* Order Now CTA */}
+                        <div className="mt-4 mb-8">
+                            <a
+                                href="/order"
+                                className="w-full flex items-center justify-center gap-2 bg-buddas-teal hover:bg-buddas-teal-dark text-white font-bold py-4 rounded-lg shadow-lg shadow-teal-500/20 transition-all duration-300 transform active:scale-95 text-lg uppercase tracking-wide group"
+                            >
+                                <span className="group-hover:translate-x-1 transition-transform">Order Now</span>
+                                <span className="sr-only">Order {item.name}</span>
+                            </a>
                         </div>
 
                         {/* Divider */}

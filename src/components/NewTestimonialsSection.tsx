@@ -140,7 +140,7 @@ export function NewTestimonialsSection({ testimonials = [] }: NewTestimonialsSec
                         <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-buddas-gold/10 text-buddas-gold-dark text-xs font-bold uppercase tracking-widest border border-buddas-gold/20 font-dm-sans">
                             Community Love
                         </span>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-poppins font-bold text-buddas-brown leading-[0.9] tracking-tight">
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-poppins font-semibold text-buddas-brown leading-[0.9] tracking-tight">
                             Talk of the Town
                         </h2>
                         <p className="text-buddas-brown/70 font-dm-sans text-lg">See what our locals are saying.</p>

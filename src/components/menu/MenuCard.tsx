@@ -22,7 +22,10 @@ export function MenuCard({ item, onClick }: MenuCardProps) {
     return (
         <div
             onClick={onClick}
-            className="bg-white rounded-xl p-4 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)] border border-buddas-brown/5 hover:shadow-[0_12px_20px_-5px_rgba(0,0,0,0.1)] hover:border-buddas-teal/20 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] group hover:-translate-y-1 h-full flex flex-col cursor-pointer"
+            role="button"
+            tabIndex={0}
+            aria-label={`View details for ${item.name}`}
+            className="bg-white rounded-xl p-4 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)] border border-buddas-brown/5 hover:shadow-[0_12px_20px_-5px_rgba(0,0,0,0.1)] hover:border-buddas-teal/20 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] group hover:-translate-y-1 h-full flex flex-col cursor-pointer outline-none focus:ring-2 focus:ring-buddas-teal focus:ring-offset-2"
         >
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-4 shrink-0 bg-buddas-cream">
                 {/* Badges */}

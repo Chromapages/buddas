@@ -39,7 +39,7 @@ export function MenuClient({ categories }: MenuClientProps) {
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);
         if (element) {
-            const offset = 180; // Account for sticky header + nav
+            const offset = 210; // Account for sticky header + announcement + menu nav
             const bodyRect = document.body.getBoundingClientRect().top;
             const elementRect = element.getBoundingClientRect().top;
             const elementPosition = elementRect - bodyRect;
@@ -88,9 +88,9 @@ export function MenuClient({ categories }: MenuClientProps) {
             </header>
 
             {/* Quick Nav (Sticky) */}
-            <div className="sticky top-[100px] z-40 bg-buddas-cream/95 backdrop-blur-md border-b border-buddas-brown/5 shadow-sm transition-all duration-300 w-full">
-                <div className="w-full px-4 md:px-8 lg:px-12 py-4 md:py-6">
-                    <div className="flex items-center gap-3 overflow-x-auto no-scrollbar mask-fade-right">
+            <div className="sticky top-[136px] z-40 bg-buddas-cream/95 backdrop-blur-md border-b border-buddas-brown/5 shadow-sm transition-all duration-300 w-full">
+                <div className="w-full px-4 md:px-8 lg:px-12 py-2">
+                    <div className="flex items-center gap-3 overflow-x-auto no-scrollbar mask-fade-right py-2">
                         {categories.map((category) => (
                             <button
                                 key={category._id}

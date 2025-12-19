@@ -36,9 +36,9 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
     const eventTypes = ["Wedding Catering", "Corporate Event", "Social Party", "Private Chef", "Other"];
 
     return (
-        <div className="bg-white min-h-screen font-sans text-buddas-dark">
+        <div className="bg-white min-h-screen font-sans text-buddas-brown">
             {/* Parallax Hero */}
-            <header className="relative h-[65vh] flex items-center justify-center overflow-hidden bg-buddas-dark">
+            <header className="relative h-[65vh] flex items-center justify-center overflow-hidden bg-buddas-brown">
                 <div className="absolute inset-0 z-0">
                     <Image
                         src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=2400&auto=format&fit=crop"
@@ -47,11 +47,11 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                         className="object-cover opacity-60"
                         priority
                     />
-                    <div className="absolute inset-0 bg-buddas-dark/50"></div>
+                    <div className="absolute inset-0 bg-buddas-brown/50"></div>
                 </div>
 
                 <AnimatedSection className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white space-y-4 mt-10">
-                    <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight font-poppins drop-shadow-md">
+                    <h1 className="text-5xl md:text-7xl font-semibold tracking-tight leading-tight font-poppins drop-shadow-md">
                         Let's Plan Your <br />
                         <span className="text-buddas-teal italic font-serif drop-shadow-sm">Perfect Event</span>
                     </h1>
@@ -63,12 +63,12 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
 
             {/* Main Content Card */}
             <main className="relative z-20 -mt-24 px-4 pb-20">
-                <div className="max-w-7xl mx-auto bg-white rounded-[2.5rem] shadow-2xl shadow-zinc-900/5 border border-zinc-100 overflow-hidden">
+                <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-2xl shadow-zinc-900/5 border border-zinc-100 overflow-hidden">
                     <div className="flex flex-col lg:flex-row">
 
                         <AnimatedSection delay={100} className="w-full lg:w-3/5 p-8 md:p-12 lg:p-16">
                             <div className="mb-10">
-                                <h2 className="text-3xl font-bold text-buddas-dark tracking-tight mb-2 font-poppins">Send us a message</h2>
+                                <h2 className="text-3xl font-semibold text-buddas-brown tracking-tight mb-2 font-poppins">Send us a message</h2>
                                 <p className="text-zinc-500">Fill out the form below and we'll get back to you within 24 hours.</p>
                             </div>
 
@@ -116,7 +116,7 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                                             {eventTypes.map((type) => (
                                                 <div
                                                     key={type}
-                                                    className="px-4 py-3 hover:bg-orange-50 cursor-pointer text-zinc-700 hover:text-buddas-dark transition-colors flex items-center gap-2"
+                                                    className="px-4 py-3 hover:bg-orange-50 cursor-pointer text-zinc-700 hover:text-buddas-brown transition-colors flex items-center gap-2"
                                                     onClick={() => {
                                                         setEventType(type);
                                                         setIsDropdownOpen(false);
@@ -167,7 +167,7 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                                         </div>
                                     </label>
                                     <p className="text-sm text-zinc-500 leading-tight pt-1">
-                                        I agree to the <Link href="#" className="text-buddas-dark underline decoration-zinc-300 underline-offset-2 hover:decoration-buddas-orange transition-colors">Terms of Service</Link> and <Link href="#" className="text-buddas-dark underline decoration-zinc-300 underline-offset-2 hover:decoration-buddas-orange transition-colors">Privacy Policy</Link>.
+                                        I agree to the <Link href="#" className="text-buddas-brown underline decoration-zinc-300 underline-offset-2 hover:decoration-buddas-orange transition-colors">Terms of Service</Link> and <Link href="#" className="text-buddas-brown underline decoration-zinc-300 underline-offset-2 hover:decoration-buddas-orange transition-colors">Privacy Policy</Link>.
                                     </p>
                                 </div>
 
@@ -183,18 +183,18 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
 
                         <AnimatedSection delay={200} direction="left" className="w-full lg:w-2/5 bg-zinc-50 border-t lg:border-t-0 lg:border-l border-zinc-100 p-8 md:p-12 relative overflow-hidden">
                             {/* Decorative Pattern */}
-                            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-orange-200/20 rounded-full blur-3xl"></div>
-                            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-zinc-200/40 rounded-full blur-3xl"></div>
+                            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-buddas-orange/20 rounded-full blur-3xl"></div>
+                            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-buddas-teal/20 rounded-full blur-3xl"></div>
 
                             <div className="relative z-10 h-full flex flex-col justify-between space-y-12">
                                 <div>
-                                    <h3 className="text-xl font-bold text-buddas-dark mb-6 flex items-center gap-2 font-poppins">
-                                        <MapPin className="text-buddas-dark w-6 h-6" />
+                                    <h3 className="text-xl font-semibold text-buddas-brown mb-6 flex items-center gap-2 font-poppins">
+                                        <MapPin className="text-buddas-brown w-6 h-6" />
                                         Visit Our Kitchen
                                     </h3>
 
                                     {/* Google Maps Embed */}
-                                    <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-sm border border-zinc-200 group mb-8">
+                                    <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-sm border border-zinc-200 group mb-8">
                                         <iframe
                                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3040.4371424638875!2d-111.7366577!3d40.3548305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x874d853ad86df1af%3A0x2c17a0f9a8aad114!2sBudda&#39;s%20Bakery%20%26%20Breakfast!5e0!3m2!1sen!2sus!4v1765920548351!5m2!1sen!2sus"
                                             width="100%"
@@ -218,7 +218,7 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                                                 <Building2 className="w-5 h-5" />
                                             </div>
                                             <div>
-                                                <p className="font-semibold text-buddas-dark text-sm">Headquarters</p>
+                                                <p className="font-semibold text-buddas-brown text-sm">Headquarters</p>
                                                 <p className="text-zinc-500 text-sm leading-relaxed mt-0.5">
                                                     {primaryLocation?.addressLine1 || "123 Culinary Avenue, Suite 400"}<br />
                                                     {primaryLocation ? `${primaryLocation.city}, ${primaryLocation.state} ${primaryLocation.zip}` : "New York, NY 10012"}
@@ -231,7 +231,7 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                                                 <Phone className="w-5 h-5" />
                                             </div>
                                             <div>
-                                                <p className="font-semibold text-buddas-dark text-sm">Contact Info</p>
+                                                <p className="font-semibold text-buddas-brown text-sm">Contact Info</p>
                                                 <p className="text-zinc-500 text-sm mt-0.5 hover:text-buddas-orange transition-colors cursor-pointer">
                                                     {primaryLocation?.phone || "+1 (555) 0123-456"}
                                                 </p>
@@ -246,7 +246,7 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                                                 <Clock className="w-5 h-5" />
                                             </div>
                                             <div>
-                                                <p className="font-semibold text-buddas-dark text-sm">Office Hours</p>
+                                                <p className="font-semibold text-buddas-brown text-sm">Office Hours</p>
                                                 <p className="text-zinc-500 text-sm mt-0.5">Mon - Fri: 9am - 6pm</p>
                                                 <p className="text-zinc-500 text-sm">Sat - Sun: Events Only</p>
                                             </div>
@@ -258,7 +258,7 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                                 <div>
                                     <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Follow Us</p>
                                     <div className="flex gap-4">
-                                        <a href="#" className="w-12 h-12 rounded-full bg-buddas-dark text-white flex items-center justify-center transition-all shadow-[0_4px_0_0_rgba(0,0,0,0.3)] hover:-translate-y-1 hover:shadow-[0_6px_0_0_rgba(0,0,0,0.3),0_8px_15px_-3px_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none">
+                                        <a href="#" className="w-12 h-12 rounded-full bg-buddas-brown text-white flex items-center justify-center transition-all shadow-[0_4px_0_0_rgba(0,0,0,0.3)] hover:-translate-y-1 hover:shadow-[0_6px_0_0_rgba(0,0,0,0.3),0_8px_15px_-3px_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none">
                                             <Instagram className="w-5 h-5" />
                                         </a>
                                         <a href="#" className="w-12 h-12 rounded-full bg-zinc-100 text-zinc-600 flex items-center justify-center transition-all shadow-[0_4px_0_0_rgba(0,0,0,0.1)] hover:-translate-y-1 hover:shadow-[0_6px_0_0_rgba(0,0,0,0.1),0_8px_15px_-3px_rgba(0,0,0,0.1)] hover:bg-white active:translate-y-1 active:shadow-none">
@@ -276,42 +276,42 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
             </main>
 
             <AnimatedSection delay={300}>
-                <section className="py-20 px-6 max-w-4xl mx-auto w-full">
+                <section className="py-20 px-6 max-w-6xl mx-auto w-full">
                     <div className="text-center mb-12">
                         <span className="text-buddas-orange font-bold tracking-widest uppercase text-xs mb-3 block">Support</span>
-                        <h2 className="text-3xl font-bold text-buddas-dark tracking-tight font-poppins">Frequently Asked Questions</h2>
+                        <h2 className="text-3xl font-semibold text-buddas-brown tracking-tight font-poppins">Frequently Asked Questions</h2>
                     </div>
 
-                    <div className="grid gap-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
                         {/* FAQ Item 1 */}
-                        <div className="group bg-white rounded-2xl border border-zinc-100 p-6 hover:shadow-lg hover:border-orange-100 transition-all cursor-pointer">
+                        <div className="group bg-white rounded-xl border border-buddas-brown/10 p-6 hover:shadow-lg hover:border-buddas-teal/30 transition-all cursor-pointer">
                             <div className="flex justify-between items-center">
-                                <h3 className="font-semibold text-buddas-dark">How far in advance should I book?</h3>
-                                <PlusCircle className="text-zinc-400 w-6 h-6 group-hover:text-buddas-orange group-hover:rotate-45 transition-all" />
+                                <h3 className="font-semibold text-buddas-brown">How far in advance should I book?</h3>
+                                <PlusCircle className="text-buddas-brown/40 w-6 h-6 group-hover:text-buddas-teal group-hover:rotate-45 transition-all" />
                             </div>
-                            <p className="text-zinc-500 text-sm mt-3 leading-relaxed hidden group-hover:block animate-in fade-in duration-300">
+                            <p className="text-buddas-brown/70 text-sm mt-3 leading-relaxed hidden group-hover:block animate-in fade-in duration-300">
                                 We recommend booking at least 3 months in advance for large events (weddings, galas) and 2 weeks for smaller corporate gatherings to ensure availability.
                             </p>
                         </div>
 
                         {/* FAQ Item 2 */}
-                        <div className="group bg-white rounded-2xl border border-zinc-100 p-6 hover:shadow-lg hover:border-orange-100 transition-all cursor-pointer">
+                        <div className="group bg-white rounded-xl border border-buddas-brown/10 p-6 hover:shadow-lg hover:border-buddas-teal/30 transition-all cursor-pointer">
                             <div className="flex justify-between items-center">
-                                <h3 className="font-semibold text-buddas-dark">Do you accommodate dietary restrictions?</h3>
-                                <PlusCircle className="text-zinc-400 w-6 h-6 group-hover:text-buddas-orange group-hover:rotate-45 transition-all" />
+                                <h3 className="font-semibold text-buddas-brown">Do you accommodate dietary restrictions?</h3>
+                                <PlusCircle className="text-buddas-brown/40 w-6 h-6 group-hover:text-buddas-teal group-hover:rotate-45 transition-all" />
                             </div>
-                            <p className="text-zinc-500 text-sm mt-3 leading-relaxed hidden group-hover:block animate-in fade-in duration-300">
+                            <p className="text-buddas-brown/70 text-sm mt-3 leading-relaxed hidden group-hover:block animate-in fade-in duration-300">
                                 Absolutely. Our culinary team specializes in creating delicious menus for vegan, gluten-free, keto, and kosher requirements without compromising on taste.
                             </p>
                         </div>
 
                         {/* FAQ Item 3 */}
-                        <div className="group bg-white rounded-2xl border border-zinc-100 p-6 hover:shadow-lg hover:border-orange-100 transition-all cursor-pointer">
+                        <div className="group bg-white rounded-xl border border-buddas-brown/10 p-6 hover:shadow-lg hover:border-buddas-teal/30 transition-all cursor-pointer">
                             <div className="flex justify-between items-center">
-                                <h3 className="font-semibold text-buddas-dark">Is there a minimum guest count?</h3>
-                                <PlusCircle className="text-zinc-400 w-6 h-6 group-hover:text-buddas-orange group-hover:rotate-45 transition-all" />
+                                <h3 className="font-semibold text-buddas-brown">Is there a minimum guest count?</h3>
+                                <PlusCircle className="text-buddas-brown/40 w-6 h-6 group-hover:text-buddas-teal group-hover:rotate-45 transition-all" />
                             </div>
-                            <p className="text-zinc-500 text-sm mt-3 leading-relaxed hidden group-hover:block animate-in fade-in duration-300">
+                            <p className="text-buddas-brown/70 text-sm mt-3 leading-relaxed hidden group-hover:block animate-in fade-in duration-300">
                                 Our minimum for full-service catering is 10 guests. For smaller private chef experiences, we can accommodate groups as small as 2.
                             </p>
                         </div>
