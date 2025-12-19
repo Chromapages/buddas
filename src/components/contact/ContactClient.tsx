@@ -36,7 +36,7 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
     const eventTypes = ["Wedding Catering", "Corporate Event", "Social Party", "Private Chef", "Other"];
 
     return (
-        <div className="bg-white min-h-screen font-sans text-buddas-brown">
+        <div className="bg-buddas-cream min-h-screen font-sans text-buddas-brown">
             {/* Parallax Hero */}
             <header className="relative h-[65vh] flex items-center justify-center overflow-hidden bg-buddas-brown">
                 <div className="absolute inset-0 z-0">
@@ -52,11 +52,11 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
 
                 <AnimatedSection className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white space-y-4 mt-10">
                     <h1 className="text-5xl md:text-7xl font-semibold tracking-tight leading-tight font-poppins drop-shadow-md">
-                        Let's Plan Your <br />
-                        <span className="text-buddas-teal italic font-serif drop-shadow-sm">Perfect Event</span>
+                        Questions? <br />
+                        <span className="text-buddas-teal italic font-serif drop-shadow-sm">We're Here, Ohana.</span>
                     </h1>
                     <p className="text-lg md:text-xl text-white/90 max-w-xl mx-auto font-light drop-shadow-sm">
-                        Have a question or want to book our catering services? We're here to help you create unforgettable culinary memories.
+                        From catering your big day to answering your questions, we're ready to help bring the Aloha spirit to your table.
                     </p>
                 </AnimatedSection>
             </header>
@@ -69,45 +69,45 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                         <AnimatedSection delay={100} className="w-full lg:w-3/5 p-8 md:p-12 lg:p-16">
                             <div className="mb-10">
                                 <h2 className="text-3xl font-semibold text-buddas-brown tracking-tight mb-2 font-poppins">Send us a message</h2>
-                                <p className="text-zinc-500">Fill out the form below and we'll get back to you within 24 hours.</p>
+                                <p className="text-buddas-brown/60">Fill out the form below and we'll get back to you within 24 hours.</p>
                             </div>
 
                             <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* First Name */}
                                     <div className="space-y-2">
-                                        <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 ml-1">First Name</label>
-                                        <input type="text" placeholder="Jane" className="w-full px-4 py-3.5 rounded-xl bg-zinc-50 border border-zinc-200 shadow-inner text-zinc-800 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-100 focus:border-buddas-orange transition-all" />
+                                        <label className="text-xs font-semibold uppercase tracking-wider text-buddas-brown/70 ml-1">First Name</label>
+                                        <input type="text" placeholder="Jane" className="w-full px-4 py-3.5 rounded-lg bg-buddas-cream/50 border border-buddas-brown/20 shadow-inner text-buddas-brown placeholder:text-buddas-brown/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all" />
                                     </div>
                                     {/* Last Name */}
                                     <div className="space-y-2">
-                                        <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 ml-1">Last Name</label>
-                                        <input type="text" placeholder="Doe" className="w-full px-4 py-3.5 rounded-xl bg-zinc-50 border border-zinc-200 shadow-inner text-zinc-800 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-100 focus:border-buddas-orange transition-all" />
+                                        <label className="text-xs font-semibold uppercase tracking-wider text-buddas-brown/70 ml-1">Last Name</label>
+                                        <input type="text" placeholder="Doe" className="w-full px-4 py-3.5 rounded-lg bg-buddas-cream/50 border border-buddas-brown/20 shadow-inner text-buddas-brown placeholder:text-buddas-brown/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all" />
                                     </div>
                                 </div>
 
                                 {/* Email */}
                                 <div className="space-y-2">
-                                    <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 ml-1">Email Address</label>
+                                    <label className="text-xs font-semibold uppercase tracking-wider text-buddas-brown/70 ml-1">Email Address</label>
                                     <div className="relative">
-                                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 w-5 h-5" />
-                                        <input type="email" placeholder="jane@example.com" className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-zinc-50 border border-zinc-200 shadow-inner text-zinc-800 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-100 focus:border-buddas-orange transition-all" />
+                                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-buddas-brown/40 w-5 h-5" />
+                                        <input type="email" placeholder="jane@example.com" className="w-full pl-11 pr-4 py-3.5 rounded-lg bg-buddas-cream/50 border border-buddas-brown/20 shadow-inner text-buddas-brown placeholder:text-buddas-brown/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all" />
                                     </div>
                                 </div>
 
                                 {/* Custom Dropdown Trigger (Event Type) */}
                                 <div className="space-y-2 relative">
-                                    <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 ml-1">Event Type</label>
+                                    <label className="text-xs font-semibold uppercase tracking-wider text-buddas-brown/70 ml-1">Event Type</label>
                                     <div
                                         className="relative group cursor-pointer"
                                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                     >
-                                        <div className={`w-full px-4 py-3.5 rounded-xl bg-white border ${isDropdownOpen ? 'border-buddas-orange ring-2 ring-orange-100' : 'border-zinc-200 shadow-sm'} text-zinc-800 flex items-center justify-between hover:border-zinc-300 transition-all`}>
+                                        <div className={`w-full px-4 py-3.5 rounded-lg bg-white border ${isDropdownOpen ? 'border-buddas-teal ring-2 ring-buddas-teal/20' : 'border-buddas-brown/20 shadow-sm'} text-buddas-brown flex items-center justify-between hover:border-buddas-teal/50 transition-all`}>
                                             <span className="flex items-center gap-2">
-                                                <Wine className="text-buddas-orange w-5 h-5" />
+                                                <Wine className="text-buddas-teal w-5 h-5" />
                                                 {eventType}
                                             </span>
-                                            <ChevronDown className={`text-zinc-400 w-5 h-5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                                            <ChevronDown className={`text-buddas-brown/40 w-5 h-5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
                                         </div>
                                     </div>
 
@@ -116,13 +116,13 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                                             {eventTypes.map((type) => (
                                                 <div
                                                     key={type}
-                                                    className="px-4 py-3 hover:bg-orange-50 cursor-pointer text-zinc-700 hover:text-buddas-brown transition-colors flex items-center gap-2"
+                                                    className="px-4 py-3 hover:bg-buddas-cream cursor-pointer text-buddas-brown hover:text-buddas-teal-dark transition-colors flex items-center gap-2"
                                                     onClick={() => {
                                                         setEventType(type);
                                                         setIsDropdownOpen(false);
                                                     }}
                                                 >
-                                                    {eventType === type && <Check className="w-4 h-4 text-buddas-orange" />}
+                                                    {eventType === type && <Check className="w-4 h-4 text-buddas-teal" />}
                                                     <span className={eventType === type ? "font-semibold ml-0" : "ml-6"}>{type}</span>
                                                 </div>
                                             ))}
@@ -133,8 +133,8 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                                 {/* Custom Slider (Guest Count) */}
                                 <div className="space-y-4 pt-2">
                                     <div className="flex justify-between items-end">
-                                        <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 ml-1">Guest Estimate</label>
-                                        <span className="text-sm font-bold text-buddas-orange bg-orange-50 px-2 py-1 rounded-md">{guestCount} Guests</span>
+                                        <label className="text-xs font-semibold uppercase tracking-wider text-buddas-brown/70 ml-1">Guest Estimate</label>
+                                        <span className="text-sm font-bold text-buddas-teal bg-buddas-teal/10 px-2 py-1 rounded-md">{guestCount} Guests</span>
                                     </div>
                                     <div className="relative w-full h-6 flex items-center">
                                         <input
@@ -143,10 +143,10 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                                             max="500"
                                             value={guestCount}
                                             onChange={(e) => setGuestCount(parseInt(e.target.value))}
-                                            className="w-full h-2 bg-zinc-100 rounded-full appearance-none cursor-pointer accent-buddas-orange focus:outline-none focus:ring-2 focus:ring-orange-100"
+                                            className="w-full h-2 bg-buddas-brown/10 rounded-full appearance-none cursor-pointer accent-buddas-teal focus:outline-none focus:ring-2 focus:ring-buddas-teal/20"
                                         />
                                     </div>
-                                    <div className="flex justify-between text-xs text-zinc-400 font-medium">
+                                    <div className="flex justify-between text-xs text-buddas-brown/40 font-medium">
                                         <span>10</span>
                                         <span>500+</span>
                                     </div>
@@ -154,26 +154,26 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
 
                                 {/* Message */}
                                 <div className="space-y-2">
-                                    <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 ml-1">Message</label>
-                                    <textarea rows={4} placeholder="Tell us about your dietary requirements, theme ideas..." className="w-full px-4 py-3.5 rounded-xl bg-zinc-50 border border-zinc-200 shadow-inner text-zinc-800 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-100 focus:border-buddas-orange transition-all resize-none"></textarea>
+                                    <label className="text-xs font-semibold uppercase tracking-wider text-buddas-brown/70 ml-1">Message</label>
+                                    <textarea rows={4} placeholder="Tell us about your dietary requirements, theme ideas..." className="w-full px-4 py-3.5 rounded-lg bg-buddas-cream/50 border border-buddas-brown/20 shadow-inner text-buddas-brown placeholder:text-buddas-brown/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all resize-none"></textarea>
                                 </div>
 
                                 {/* Custom Toggle / Checkbox */}
                                 <div className="flex items-start gap-3">
                                     <label className="relative flex items-center cursor-pointer p-1">
                                         <input type="checkbox" className="sr-only peer" />
-                                        <div className="w-5 h-5 border-2 border-zinc-300 rounded-[6px] peer-checked:bg-buddas-orange peer-checked:border-buddas-orange transition-all flex items-center justify-center text-white">
+                                        <div className="w-5 h-5 border-2 border-buddas-brown/30 rounded-[6px] peer-checked:bg-buddas-teal peer-checked:border-buddas-teal transition-all flex items-center justify-center text-white">
                                             <Check className="w-3.5 h-3.5 opacity-0 peer-checked:opacity-100 transition-opacity" />
                                         </div>
                                     </label>
-                                    <p className="text-sm text-zinc-500 leading-tight pt-1">
+                                    <p className="text-sm text-buddas-brown/60 leading-tight pt-1">
                                         I agree to the <Link href="#" className="text-buddas-brown underline decoration-zinc-300 underline-offset-2 hover:decoration-buddas-orange transition-colors">Terms of Service</Link> and <Link href="#" className="text-buddas-brown underline decoration-zinc-300 underline-offset-2 hover:decoration-buddas-orange transition-colors">Privacy Policy</Link>.
                                     </p>
                                 </div>
 
                                 <Button
                                     type="submit"
-                                    className="w-full py-6 rounded-xl text-base font-bold uppercase tracking-wide shadow-lg hover:shadow-xl hover:translate-y-[-2px] hover:bg-black/90 active:scale-95 transition-all"
+                                    className="w-full py-6 rounded-lg bg-buddas-teal text-white text-base font-bold uppercase tracking-wide shadow-lg hover:shadow-xl hover:translate-y-[-2px] hover:bg-buddas-teal-dark active:scale-95 transition-all"
                                 >
                                     {MICROCOPY.sendRequest || "Send Request"}
                                     <Send className="w-4 h-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -181,7 +181,7 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                             </form>
                         </AnimatedSection>
 
-                        <AnimatedSection delay={200} direction="left" className="w-full lg:w-2/5 bg-zinc-50 border-t lg:border-t-0 lg:border-l border-zinc-100 p-8 md:p-12 relative overflow-hidden">
+                        <AnimatedSection delay={200} direction="left" className="w-full lg:w-2/5 bg-buddas-cream border-t lg:border-t-0 lg:border-l border-buddas-brown/10 p-8 md:p-12 relative overflow-hidden">
                             {/* Decorative Pattern */}
                             <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-buddas-orange/20 rounded-full blur-3xl"></div>
                             <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-buddas-teal/20 rounded-full blur-3xl"></div>
@@ -194,7 +194,7 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                                     </h3>
 
                                     {/* Google Maps Embed */}
-                                    <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-sm border border-zinc-200 group mb-8">
+                                    <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-sm border border-buddas-brown/20 group mb-8">
                                         <iframe
                                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3040.4371424638875!2d-111.7366577!3d40.3548305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x874d853ad86df1af%3A0x2c17a0f9a8aad114!2sBudda&#39;s%20Bakery%20%26%20Breakfast!5e0!3m2!1sen!2sus!4v1765920548351!5m2!1sen!2sus"
                                             width="100%"
@@ -206,7 +206,7 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                                             className="absolute inset-0"
                                             title="Budda's Hawaiian Location"
                                         ></iframe>
-                                        <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-800 shadow-sm flex items-center gap-1 pointer-events-none">
+                                        <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur px-3 py-1.5 rounded-lg text-xs font-semibold text-buddas-brown shadow-sm flex items-center gap-1 pointer-events-none">
                                             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                                             Open Now
                                         </div>
@@ -214,12 +214,12 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
 
                                     <div className="space-y-6">
                                         <div className="flex items-start gap-4">
-                                            <div className="w-10 h-10 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-600 shrink-0">
+                                            <div className="w-10 h-10 rounded-full bg-white border border-buddas-brown/10 flex items-center justify-center text-buddas-brown/70 shrink-0">
                                                 <Building2 className="w-5 h-5" />
                                             </div>
                                             <div>
                                                 <p className="font-semibold text-buddas-brown text-sm">Headquarters</p>
-                                                <p className="text-zinc-500 text-sm leading-relaxed mt-0.5">
+                                                <p className="text-buddas-brown/60 text-sm leading-relaxed mt-0.5">
                                                     {primaryLocation?.addressLine1 || "123 Culinary Avenue, Suite 400"}<br />
                                                     {primaryLocation ? `${primaryLocation.city}, ${primaryLocation.state} ${primaryLocation.zip}` : "New York, NY 10012"}
                                                 </p>
@@ -227,28 +227,28 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
                                         </div>
 
                                         <div className="flex items-start gap-4">
-                                            <div className="w-10 h-10 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-600 shrink-0">
+                                            <div className="w-10 h-10 rounded-full bg-white border border-buddas-brown/10 flex items-center justify-center text-buddas-brown/70 shrink-0">
                                                 <Phone className="w-5 h-5" />
                                             </div>
                                             <div>
                                                 <p className="font-semibold text-buddas-brown text-sm">Contact Info</p>
-                                                <p className="text-zinc-500 text-sm mt-0.5 hover:text-buddas-orange transition-colors cursor-pointer">
+                                                <p className="text-buddas-brown/60 text-sm mt-0.5 hover:text-buddas-orange transition-colors cursor-pointer">
                                                     {primaryLocation?.phone || "+1 (555) 0123-456"}
                                                 </p>
-                                                <p className="text-zinc-500 text-sm hover:text-buddas-orange transition-colors cursor-pointer">
+                                                <p className="text-buddas-brown/60 text-sm hover:text-buddas-orange transition-colors cursor-pointer">
                                                     hello@buddas.com
                                                 </p>
                                             </div>
                                         </div>
 
                                         <div className="flex items-start gap-4">
-                                            <div className="w-10 h-10 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-600 shrink-0">
+                                            <div className="w-10 h-10 rounded-full bg-white border border-buddas-brown/10 flex items-center justify-center text-buddas-brown/70 shrink-0">
                                                 <Clock className="w-5 h-5" />
                                             </div>
                                             <div>
                                                 <p className="font-semibold text-buddas-brown text-sm">Office Hours</p>
-                                                <p className="text-zinc-500 text-sm mt-0.5">Mon - Fri: 9am - 6pm</p>
-                                                <p className="text-zinc-500 text-sm">Sat - Sun: Events Only</p>
+                                                <p className="text-buddas-brown/60 text-sm mt-0.5">Mon - Fri: 9am - 6pm</p>
+                                                <p className="text-buddas-brown/60 text-sm">Sat - Sun: Events Only</p>
                                             </div>
                                         </div>
                                     </div>
@@ -256,15 +256,15 @@ export function ContactClient({ primaryLocation }: ContactClientProps) {
 
                                 {/* Socials */}
                                 <div>
-                                    <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Follow Us</p>
+                                    <p className="text-xs font-bold uppercase tracking-widest text-buddas-brown/40 mb-4">Follow Us</p>
                                     <div className="flex gap-4">
-                                        <a href="#" className="w-12 h-12 rounded-full bg-buddas-brown text-white flex items-center justify-center transition-all shadow-[0_4px_0_0_rgba(0,0,0,0.3)] hover:-translate-y-1 hover:shadow-[0_6px_0_0_rgba(0,0,0,0.3),0_8px_15px_-3px_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none">
+                                        <a href="#" className="w-12 h-12 rounded-full bg-buddas-brown text-white flex items-center justify-center transition-all shadow-md hover:-translate-y-1 hover:bg-buddas-teal">
                                             <Instagram className="w-5 h-5" />
                                         </a>
-                                        <a href="#" className="w-12 h-12 rounded-full bg-zinc-100 text-zinc-600 flex items-center justify-center transition-all shadow-[0_4px_0_0_rgba(0,0,0,0.1)] hover:-translate-y-1 hover:shadow-[0_6px_0_0_rgba(0,0,0,0.1),0_8px_15px_-3px_rgba(0,0,0,0.1)] hover:bg-white active:translate-y-1 active:shadow-none">
+                                        <a href="#" className="w-12 h-12 rounded-full bg-white border border-buddas-brown/10 text-buddas-brown flex items-center justify-center transition-all shadow-sm hover:-translate-y-1 hover:bg-buddas-brown hover:text-white">
                                             <Twitter className="w-5 h-5" />
                                         </a>
-                                        <a href="#" className="w-12 h-12 rounded-full bg-zinc-100 text-zinc-600 flex items-center justify-center transition-all shadow-[0_4px_0_0_rgba(0,0,0,0.1)] hover:-translate-y-1 hover:shadow-[0_6px_0_0_rgba(0,0,0,0.1),0_8px_15px_-3px_rgba(0,0,0,0.1)] hover:bg-white active:translate-y-1 active:shadow-none">
+                                        <a href="#" className="w-12 h-12 rounded-full bg-white border border-buddas-brown/10 text-buddas-brown flex items-center justify-center transition-all shadow-sm hover:-translate-y-1 hover:bg-buddas-brown hover:text-white">
                                             <Linkedin className="w-5 h-5" />
                                         </a>
                                     </div>
