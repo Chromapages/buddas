@@ -22,6 +22,13 @@ const menuItem = defineType({
             initialValue: false,
         }),
         defineField({
+            name: "isFeatured",
+            title: "Featured Item?",
+            type: "boolean",
+            description: "Show in the Featured Items section at the top of the menu.",
+            initialValue: false,
+        }),
+        defineField({
             name: "slug",
             title: "Slug",
             type: "slug",

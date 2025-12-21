@@ -16,9 +16,9 @@ export function NewHero({ heroSlides }: NewHeroProps) {
     const slide = heroSlides && heroSlides.length > 0 ? heroSlides[0] : null;
 
     // Sanity Data Mapping with Explicit Fallbacks only if slide is null
-    const heroTitle = slide?.title ?? "Healthy Eating is an Important Part of Lifestyle";
+    const heroTitle = slide?.title ?? "Island-Fresh Comfort. Served with Aloha.";
     const heroSubtitle = slide?.subtitle ?? "We Prepare Delicious Food For You We Are Always here to serve you the best healthy meals.";
-    const heroBadge = slide?.badge ?? "#1 Food Delivery Service";
+    const heroBadge = slide?.badge ?? "Authentic Hawaiian";
 
     // Buttons
     const primaryCtaLabel = slide?.primaryCtaLabel ?? "Explore Now";
@@ -54,7 +54,7 @@ export function NewHero({ heroSlides }: NewHeroProps) {
                     priority
                 />
                 {/* Dark Gradient Overlay for Readability */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-buddas-brown/85 via-buddas-brown/50 to-transparent" />
             </div>
 
             {/* Main Content */}
@@ -64,7 +64,7 @@ export function NewHero({ heroSlides }: NewHeroProps) {
                 <div className="space-y-8 max-w-2xl 2xl:max-w-3xl">
                     {/* Badge (Brand Guidelines: Display above headline) */}
                     {heroBadge && (
-                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-buddas-gold/20 text-buddas-gold text-sm font-medium border border-buddas-gold/30 backdrop-blur-sm animate-in fade-in duration-300 delay-100">
+                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-buddas-gold text-buddas-brown text-sm font-bold shadow-sm uppercase tracking-wider animate-in fade-in duration-300 delay-100">
                             {heroBadge}
                         </span>
                     )}
@@ -94,9 +94,9 @@ export function NewHero({ heroSlides }: NewHeroProps) {
                         */}
                         <Button
                             asChild
-                            variant="outline" // Glass/Outline style (Exception for Hero contrast)
+                            variant="outline" // Outline style (Exception for Hero contrast)
                             size="xl"
-                            className="rounded-lg border-white/20 text-white bg-white/10 hover:bg-white/20 hover:text-white backdrop-blur-md shadow-lg"
+                            className="rounded-lg border-2 border-white/50 text-white bg-transparent hover:bg-white hover:text-buddas-brown shadow-lg transition-all"
                         >
                             <Link href={secondaryCtaLink}>
                                 <span>{secondaryCtaLabel || MICROCOPY.viewMenu}</span>

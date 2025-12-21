@@ -1,9 +1,10 @@
 
 
 
-import { PromoBanner } from "./PromoBanner";
+import { ValuePropositionSection } from "@/components/ValuePropositionSection";
 import { TrustedBy } from "./TrustedBy";
 import { NewArrivalsSlideshow } from "./NewArrivalsSlideshow";
+import { FeaturedItemsGrid } from "@/components/FeaturedItemsGrid";
 
 interface MenuOffersSectionProps {
     featuredItems: any[];
@@ -20,8 +21,11 @@ export function MenuOffersSection({ featuredItems, popularItems, newItems, promo
             {/* Trusted By Section (New) */}
             <TrustedBy trustedByData={trustedByData} />
 
-            {/* Part A: Promos & Limited-Time Offers */}
-            <PromoBanner promotions={promotions} />
+            {/* Featured Items Grid (New) */}
+            <FeaturedItemsGrid items={featuredItems} />
+
+            {/* Part A: Values Section (Swapped) */}
+            <ValuePropositionSection />
 
 
 

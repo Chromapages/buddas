@@ -8,6 +8,7 @@ import heroSlide from './heroSlide'
 import location from './location'
 import menuCategory from './menuCategory'
 import menuItem from './menuItem'
+import menuPage from './menuPage'
 import page from './page'
 import program from './program'
 import promotion from './promotion'
@@ -30,6 +31,7 @@ export const schema = {
         contactPage,
 
         // Menu
+        menuPage,
         menuCategory,
         menuItem,
 

@@ -4,13 +4,15 @@ import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
 import { Footer } from "@/components/Footer";
 import { NewNavbar } from "@/components/NewNavbar";
 import { NewHero } from "@/components/NewHero";
+import { PromoBanner } from "@/components/PromoBanner";
+import { KeyInfoStrip } from "@/components/KeyInfoStrip";
 
 import { MenuOffersSection } from "@/components/MenuOffersSection";
 import { NewCateringSection } from "@/components/NewCateringSection";
 import { NewAboutSection } from "@/components/NewAboutSection";
 import { AppDownloadCTA } from "@/components/AppDownloadCTA";
 import { NewTestimonialsSection } from "@/components/NewTestimonialsSection";
-import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { LocationsSection } from "@/components/LocationsSection";
 import { urlFor } from "@/sanity/lib/image";
 
 // Keep existing metadata logic for now, but we might want to update it later
@@ -146,35 +148,31 @@ export default async function Home() {
     <div className="min-h-screen bg-buddas-cream text-buddas-brown font-sans selection:bg-teal-500 selection:text-white">
 
       <main>
-        <AnimatedSection>
-          <NewHero heroSlides={heroSlides} />
-        </AnimatedSection>
+        <KeyInfoStrip
+          primaryPhone={data?.siteSettings?.primaryPhone}
+          locations={locationsSafe}
+        />
+        <NewHero heroSlides={heroSlides} />
 
-        <AnimatedSection delay={200}>
-          <MenuOffersSection
-            featuredItems={bentoItems}
-            popularItems={popularItems}
-            newItems={newItems}
-            promotions={data?.promotions}
-            trustedByData={data?.trustedByData}
-          />
-        </AnimatedSection>
+        <PromoBanner promotions={data?.promotions} />
 
-        <AnimatedSection delay={200}>
-          <NewCateringSection cateringData={data?.cateringData} />
-        </AnimatedSection>
+        <MenuOffersSection
+          featuredItems={bentoItems}
+          popularItems={popularItems}
+          newItems={newItems}
+          promotions={data?.promotions}
+          trustedByData={data?.trustedByData}
+        />
 
-        <AnimatedSection delay={200}>
-          <NewAboutSection aboutData={data?.aboutData} />
-        </AnimatedSection>
+        <NewCateringSection cateringData={data?.cateringData} />
 
-        <AnimatedSection delay={200}>
-          <NewTestimonialsSection testimonials={data?.testimonials} />
-        </AnimatedSection>
+        <NewAboutSection aboutData={data?.aboutData} />
 
-        <AnimatedSection delay={400}>
-          <AppDownloadCTA ctaData={data?.ctaData} />
-        </AnimatedSection>
+        <LocationsSection locations={locationsSafe} />
+
+        <NewTestimonialsSection testimonials={data?.testimonials} />
+
+        <AppDownloadCTA ctaData={data?.ctaData} />
       </main>
 
       <Footer

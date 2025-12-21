@@ -64,6 +64,13 @@ const cateringPage = defineType({
             group: "content",
         }),
         defineField({
+            name: "menuPdf",
+            title: "Downloadable Menu PDF",
+            type: "file",
+            group: "content",
+            options: { accept: ".pdf" }
+        }),
+        defineField({
             name: "introduction",
             title: "Introduction Text",
             type: "text",
@@ -263,6 +270,35 @@ const cateringPage = defineType({
 
         // --- MENU SECTION ---
         defineField({
+            name: "valueProposition",
+            title: "Value Proposition (Why Choose Us)",
+            type: "array",
+            group: "content",
+            of: [
+                defineField({
+                    name: "feature",
+                    type: "object",
+                    fields: [
+                        defineField({ name: "title", title: "Title", type: "string" }),
+                        defineField({ name: "description", title: "Description", type: "text", rows: 2 }),
+                        defineField({
+                            name: "icon",
+                            title: "Icon",
+                            type: "string",
+                            options: {
+                                list: [
+                                    { title: "Fresh Daily", value: "fresh" },
+                                    { title: "Authentic", value: "authentic" },
+                                    { title: "Flexible", value: "flexible" },
+                                    { title: "Dietary Friendly", value: "dietary" }
+                                ]
+                            }
+                        })
+                    ]
+                })
+            ]
+        }),
+        defineField({
             name: "serviceTypes",
             title: "Service Types",
             type: "array",
@@ -284,6 +320,19 @@ const cateringPage = defineType({
                             title: "Description",
                             type: "text",
                             rows: 2,
+                        }),
+                        defineField({
+                            name: "icon",
+                            title: "Icon",
+                            type: "string",
+                            options: {
+                                list: [
+                                    { title: "Briefcase (Corporate)", value: "briefcase" },
+                                    { title: "Heart (Wedding)", value: "heart" },
+                                    { title: "Party Popper (Social)", value: "party" },
+                                    { title: "Chef Hat (Private)", value: "chef" }
+                                ]
+                            }
                         }),
                         defineField({
                             name: "image",
@@ -349,9 +398,55 @@ const cateringPage = defineType({
                             of: [{ type: "string" }],
                             description: "List 3-4 key features like 'Premium Ingredients', 'Customizable', etc.",
                         }),
+                        defineField({
+                            name: "isBestseller",
+                            title: "Is Bestseller?",
+                            type: "boolean",
+                            initialValue: false
+                        }),
+                        defineField({
+                            name: "dietaryTags",
+                            title: "Dietary Tags",
+                            type: "array",
+                            of: [{ type: "string" }],
+                            options: {
+                                list: [
+                                    { title: "Vegetarian", value: "Vegetarian" },
+                                    { title: "Gluten-Free", value: "GF" },
+                                    { title: "Vegan", value: "Vegan" },
+                                    { title: "Dairy-Free", value: "DF" },
+                                    { title: "Nut-Free", value: "NF" },
+                                    { title: "Spicy", value: "Spicy" }
+                                ]
+                            }
+                        }),
                     ],
                 }),
             ],
+        }),
+        defineField({
+            name: "testimonials",
+            title: "Testimonials",
+            type: "array",
+            group: "content",
+            of: [
+                defineField({
+                    name: "testimonial",
+                    type: "object",
+                    fields: [
+                        defineField({ name: "quote", title: "Quote", type: "text", rows: 3 }),
+                        defineField({ name: "authorName", title: "Author Name", type: "string" }),
+                        defineField({ name: "authorTitle", title: "Author Title/Role", type: "string" }),
+                        defineField({ name: "authorImage", title: "Author Image", type: "image", options: { hotspot: true } }),
+                        defineField({
+                            name: "eventType",
+                            title: "Event Type",
+                            type: "string",
+                            options: { list: ["Corporate", "Wedding", "Private Party", "Community"] }
+                        })
+                    ]
+                })
+            ]
         }),
         defineField({
             name: "howItWorks",
@@ -379,6 +474,19 @@ const cateringPage = defineType({
                         defineField({
                             name: "icon",
                             title: "Icon",
+                            type: "string",
+                            options: {
+                                list: [
+                                    { title: "Clipboard (Quote)", value: "clipboard" },
+                                    { title: "Calendar (Plan)", value: "calendar" },
+                                    { title: "Chef Hat (Cook)", value: "chef" },
+                                    { title: "Package (Deliver)", value: "package" }
+                                ]
+                            }
+                        }),
+                        defineField({
+                            name: "customIcon",
+                            title: "Custom Icon (Image)",
                             type: "image",
                             options: { hotspot: true },
                         }),
@@ -413,6 +521,71 @@ const cateringPage = defineType({
                     ],
                 }),
             ],
+        }),
+        defineField({
+            name: "closingCta",
+            title: "Closing CTA",
+            type: "object",
+            group: "content",
+            fields: [
+                defineField({ name: "title", title: "Title", type: "string" }),
+                defineField({ name: "subtitle", title: "Subtitle", type: "string" }),
+                defineField({ name: "buttonLabel", title: "Button Label", type: "string" }),
+                defineField({ name: "buttonLink", title: "Button Link", type: "url" }),
+            ]
+        }),
+        defineField({
+            name: "gallery",
+            title: "Catering Gallery",
+            type: "array",
+            group: "content",
+            of: [
+                defineField({
+                    name: "image",
+                    type: "image",
+                    title: "Image",
+                    options: { hotspot: true },
+                    fields: [
+                        defineField({ name: "alt", title: "Alt Text", type: "string" }),
+                        defineField({ name: "caption", title: "Caption", type: "string" })
+                    ]
+                })
+            ]
+        }),
+        defineField({
+            name: "pricingSection",
+            title: "Pricing Section",
+            type: "object",
+            group: "menu",
+            fields: [
+                defineField({ name: "title", title: "Title", type: "string" }),
+                defineField({ name: "subtitle", title: "Subtitle", type: "string" }),
+                defineField({ name: "minimumNote", title: "Minimum Order Note", type: "string" }),
+                defineField({
+                    name: "packages",
+                    title: "Packages",
+                    type: "array",
+                    of: [{
+                        type: "object",
+                        fields: [
+                            defineField({ name: "name", title: "Name", type: "string" }),
+                            defineField({ name: "price", title: "Price", type: "string" }),
+                            defineField({ name: "description", title: "Description", type: "string" }),
+                            defineField({ name: "features", title: "Features", type: "array", of: [{ type: "string" }] })
+                        ]
+                    }]
+                }),
+            ]
+        }),
+        defineField({
+            name: "quoteFormConfig",
+            title: "Quote Form Configuration",
+            type: "object",
+            group: "content",
+            fields: [
+                defineField({ name: "title", title: "Title", type: "string" }),
+                defineField({ name: "subtitle", title: "Subtitle", type: "text" }),
+            ]
         }),
         defineField({
             name: "seo",

@@ -59,13 +59,13 @@ export function Footer({
     return (
         <footer className="bg-buddas-brown-dark text-buddas-cream pt-16 pb-12 border-t border-buddas-cream/10 font-dm-sans">
             <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-8 mb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-10 xl:gap-12 mb-12">
 
                     {/* Brand Column */}
                     <div className="lg:col-span-1 space-y-6">
                         <Link href="/" className="inline-block">
                             {logoUrl ? (
-                                <div className="relative h-16 w-32">
+                                <div className="relative h-16 w-32 lg:h-20 lg:w-40">
                                     <Image
                                         src={logoUrl}
                                         alt="Buddas Hawaiian"

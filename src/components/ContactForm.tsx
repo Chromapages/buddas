@@ -74,7 +74,7 @@ export function ContactForm() {
                 <div className="space-y-2">
                     <label
                         htmlFor="firstName"
-                        className="block text-sm font-bold text-[#3A2F2B] uppercase tracking-wide"
+                        className="block text-sm font-medium font-dm-sans text-buddas-brown uppercase tracking-wide"
                     >
                         First Name
                     </label>
@@ -84,14 +84,14 @@ export function ContactForm() {
                         type="text"
                         placeholder="e.g. Kai"
                         className={cn(
-                            "w-full bg-[#FAF2D8]/50 border border-[#3A2F2B] rounded-xl px-5 py-4 text-lg text-[#3A2F2B] placeholder-[#3A2F2B]/30 outline-none transition-all duration-200",
-                            "focus:border-[#54BFA5] focus:border-2 focus:bg-white focus:shadow-[0_0_0_4px_rgba(84,191,165,0.1)]",
-                            errors.firstName && touched.firstName && "border-red-500 focus:border-red-500"
+                            "w-full bg-white border border-buddas-brown/20 rounded-lg px-4 py-3 text-lg text-buddas-brown placeholder-buddas-brown/30 outline-none transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]",
+                            "focus:border-buddas-teal focus:ring-2 focus:ring-buddas-teal/20 focus:bg-white",
+                            errors.firstName && touched.firstName && "border-buddas-orange focus:border-buddas-orange focus:ring-buddas-orange/20"
                         )}
                         onBlur={() => handleBlur("firstName")}
                     />
                     {errors.firstName && touched.firstName && (
-                        <p className="text-red-500 text-sm font-medium animate-in slide-in-from-top-1">
+                        <p className="text-buddas-orange text-sm font-medium animate-in slide-in-from-top-1">
                             {errors.firstName}
                         </p>
                     )}
@@ -100,7 +100,7 @@ export function ContactForm() {
                 <div className="space-y-2">
                     <label
                         htmlFor="lastName"
-                        className="block text-sm font-bold text-[#3A2F2B] uppercase tracking-wide"
+                        className="block text-sm font-medium font-dm-sans text-buddas-brown uppercase tracking-wide"
                     >
                         Last Name
                     </label>
@@ -110,8 +110,8 @@ export function ContactForm() {
                         type="text"
                         placeholder="e.g. Loa"
                         className={cn(
-                            "w-full bg-[#FAF2D8]/50 border border-[#3A2F2B] rounded-xl px-5 py-4 text-lg text-[#3A2F2B] placeholder-[#3A2F2B]/30 outline-none transition-all duration-200",
-                            "focus:border-[#54BFA5] focus:border-2 focus:bg-white focus:shadow-[0_0_0_4px_rgba(84,191,165,0.1)]"
+                            "w-full bg-white border border-buddas-brown/20 rounded-lg px-4 py-3 text-lg text-buddas-brown placeholder-buddas-brown/30 outline-none transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]",
+                            "focus:border-buddas-teal focus:ring-2 focus:ring-buddas-teal/20 focus:bg-white"
                         )}
                     />
                 </div>
@@ -120,7 +120,7 @@ export function ContactForm() {
             <div className="space-y-2">
                 <label
                     htmlFor="email"
-                    className="block text-sm font-bold text-[#3A2F2B] uppercase tracking-wide"
+                    className="block text-sm font-medium font-dm-sans text-buddas-brown uppercase tracking-wide"
                 >
                     Email Address
                 </label>
@@ -130,14 +130,14 @@ export function ContactForm() {
                     type="email"
                     placeholder="kai@example.com"
                     className={cn(
-                        "w-full bg-[#FAF2D8]/50 border border-[#3A2F2B] rounded-xl px-5 py-4 text-lg text-[#3A2F2B] placeholder-[#3A2F2B]/30 outline-none transition-all duration-200",
-                        "focus:border-[#54BFA5] focus:border-2 focus:bg-white focus:shadow-[0_0_0_4px_rgba(84,191,165,0.1)]",
-                        errors.email && touched.email && "border-red-500 focus:border-red-500"
+                        "w-full bg-white border border-buddas-brown/20 rounded-lg px-4 py-3 text-lg text-buddas-brown placeholder-buddas-brown/30 outline-none transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]",
+                        "focus:border-buddas-teal focus:ring-2 focus:ring-buddas-teal/20 focus:bg-white",
+                        errors.email && touched.email && "border-buddas-orange focus:border-buddas-orange focus:ring-buddas-orange/20"
                     )}
                     onBlur={() => handleBlur("email")}
                 />
                 {errors.email && touched.email && (
-                    <p className="text-red-500 text-sm font-medium animate-in slide-in-from-top-1">
+                    <p className="text-buddas-orange text-sm font-medium animate-in slide-in-from-top-1">
                         {errors.email}
                     </p>
                 )}
@@ -146,7 +146,7 @@ export function ContactForm() {
             <div className="space-y-2">
                 <label
                     htmlFor="topic"
-                    className="block text-sm font-bold text-[#3A2F2B] uppercase tracking-wide"
+                    className="block text-sm font-medium font-dm-sans text-buddas-brown uppercase tracking-wide"
                 >
                     Topic
                 </label>
@@ -156,8 +156,8 @@ export function ContactForm() {
                     type="text"
                     placeholder="General Inquiry, Catering, Feedback..."
                     className={cn(
-                        "w-full bg-[#FAF2D8]/50 border border-[#3A2F2B] rounded-xl px-5 py-4 text-lg text-[#3A2F2B] placeholder-[#3A2F2B]/30 outline-none transition-all duration-200",
-                        "focus:border-[#54BFA5] focus:border-2 focus:bg-white focus:shadow-[0_0_0_4px_rgba(84,191,165,0.1)]"
+                        "w-full bg-white border border-buddas-brown/20 rounded-lg px-4 py-3 text-lg text-buddas-brown placeholder-buddas-brown/30 outline-none transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]",
+                        "focus:border-buddas-teal focus:ring-2 focus:ring-buddas-teal/20 focus:bg-white"
                     )}
                 />
             </div>
@@ -165,7 +165,7 @@ export function ContactForm() {
             <div className="space-y-2">
                 <label
                     htmlFor="message"
-                    className="block text-sm font-bold text-[#3A2F2B] uppercase tracking-wide"
+                    className="block text-sm font-medium font-dm-sans text-buddas-brown uppercase tracking-wide"
                 >
                     Message
                 </label>
@@ -175,14 +175,14 @@ export function ContactForm() {
                     rows={5}
                     placeholder="How can we help you today?"
                     className={cn(
-                        "w-full bg-[#FAF2D8]/50 border border-[#3A2F2B] rounded-xl px-5 py-4 text-lg text-[#3A2F2B] placeholder-[#3A2F2B]/30 outline-none transition-all duration-200 resize-none",
-                        "focus:border-[#54BFA5] focus:border-2 focus:bg-white focus:shadow-[0_0_0_4px_rgba(84,191,165,0.1)]",
-                        errors.message && touched.message && "border-red-500 focus:border-red-500"
+                        "w-full bg-white border border-buddas-brown/20 rounded-lg px-4 py-3 text-lg text-buddas-brown placeholder-buddas-brown/30 outline-none transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)] resize-none",
+                        "focus:border-buddas-teal focus:ring-2 focus:ring-buddas-teal/20 focus:bg-white",
+                        errors.message && touched.message && "border-buddas-orange focus:border-buddas-orange focus:ring-buddas-orange/20"
                     )}
                     onBlur={() => handleBlur("message")}
                 />
                 {errors.message && touched.message && (
-                    <p className="text-red-500 text-sm font-medium animate-in slide-in-from-top-1">
+                    <p className="text-buddas-orange text-sm font-medium animate-in slide-in-from-top-1">
                         {errors.message}
                     </p>
                 )}
@@ -192,7 +192,7 @@ export function ContactForm() {
                 <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full h-14 bg-[#54BFA5] text-[#3A2F2B] hover:bg-[#54BFA5]/90 font-bold text-lg rounded-xl shadow-none hover:translate-y-[-2px] active:translate-y-[0px] transition-all duration-200"
+                    className="w-full h-14 bg-buddas-teal text-white hover:bg-buddas-teal-dark font-bold text-lg rounded-xl shadow-lg shadow-buddas-teal/30 hover:shadow-xl hover:translate-y-[-2px] active:translate-y-[0px] transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
                 >
                     {isSubmitting ? (
                         <>
@@ -203,7 +203,7 @@ export function ContactForm() {
                         "Send Message"
                     )}
                 </Button>
-                <p className="text-center text-[#3A2F2B]/60 text-sm font-medium">
+                <p className="text-center text-buddas-brown/60 text-sm font-medium">
                     We usually reply within 24 hours.
                 </p>
             </div>

@@ -62,7 +62,7 @@ export function EventsClient({ data }: EventsClientProps) {
         : 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2000&auto=format&fit=crop';
 
     return (
-        <div className="bg-buddas-cream min-h-screen font-sans text-buddas-brown-dark">
+        <div className="bg-buddas-cream min-h-screen font-sans text-buddas-brown">
             {/* Parallax Hero Section */}
             <header className="relative h-[65vh] flex items-center justify-center overflow-hidden bg-buddas-brown">
                 {/* Parallax Background Image */}
@@ -74,11 +74,11 @@ export function EventsClient({ data }: EventsClientProps) {
                         className="object-cover opacity-60"
                         priority
                     />
-                    <div className="absolute inset-0 bg-buddas-brown/40 backdrop-blur-[1px]"></div>
+                    <div className="absolute inset-0 bg-buddas-brown/60"></div>
                 </div>
 
                 <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white space-y-8 mt-10">
-                    <div className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold uppercase tracking-wider shadow-lg">
+                    <div className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-buddas-gold text-buddas-brown text-xs font-bold uppercase tracking-wider shadow-lg">
                         <Sparkles className="w-4 h-4" />
                         <span>{heroBadge || "Full Service Event Planning"}</span>
                     </div>
@@ -87,7 +87,7 @@ export function EventsClient({ data }: EventsClientProps) {
                         {heroTitle || <>Events That <br /><span className="text-buddas-gold pr-2 drop-shadow-md">Taste</span> Extraordinary</>}
                     </h1>
 
-                    <p className="text-lg md:text-2xl text-white/80 max-w-2xl mx-auto font-light leading-relaxed drop-shadow-md">
+                    <p className="text-lg md:text-2xl text-white/80 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
                         {heroSubtitle || "Whether it's an intimate gathering or a gala for thousands, we craft immersive culinary experiences tailored to your vision."}
                     </p>
 
@@ -106,7 +106,7 @@ export function EventsClient({ data }: EventsClientProps) {
             {trustedBy?.partners?.length > 0 && (
                 <div>
                     <section className="border-b border-zinc-200/60 bg-white relative z-10">
-                        <div className="max-w-7xl mx-auto px-6 py-12">
+                        <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16 py-12">
                             <p className="text-center text-xs font-bold text-buddas-brown/60 uppercase tracking-widest mb-10">
                                 {trustedBy.title || "Event Partners & Corporate Clients"}
                             </p>
@@ -121,7 +121,7 @@ export function EventsClient({ data }: EventsClientProps) {
                                                 className="object-contain"
                                             />
                                         ) : (
-                                            <span className="text-2xl font-black text-buddas-brown-dark">{partner.name}</span>
+                                            <span className="text-2xl font-black text-buddas-brown">{partner.name}</span>
                                         )}
                                     </div>
                                 ))}
@@ -135,11 +135,11 @@ export function EventsClient({ data }: EventsClientProps) {
             {upcomingEvents?.length > 0 && (
                 <div>
                     <section className="py-20 bg-white border-b border-buddas-brown/5 relative z-10">
-                        <div className="max-w-7xl mx-auto px-6">
+                        <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16">
                             <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                                 <div>
                                     <span className="text-buddas-orange font-bold tracking-widest uppercase text-xs mb-3 block">Join the Fun</span>
-                                    <h2 className="text-3xl md:text-5xl font-semibold text-buddas-brown-dark tracking-tight font-poppins">
+                                    <h2 className="text-3xl md:text-5xl font-semibold text-buddas-brown tracking-tight font-poppins">
                                         Upcoming Events
                                     </h2>
                                 </div>
@@ -151,18 +151,18 @@ export function EventsClient({ data }: EventsClientProps) {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {upcomingEvents.map((event: any, index: number) => (
-                                    <div key={index} className="group bg-white rounded-2xl overflow-hidden border border-buddas-brown/10 hover:shadow-xl transition-all duration-300">
+                                    <div key={index} className="group bg-white rounded-2xl overflow-hidden border border-buddas-brown/10 hover:shadow-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
                                         <div className="relative aspect-[16/9] overflow-hidden">
-                                            <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md rounded-lg p-2 text-center min-w-[60px] shadow-sm">
+                                            <div className="absolute top-4 left-4 z-10 bg-white rounded-lg p-2 text-center min-w-[60px] shadow-md">
                                                 <div className="text-xs font-bold text-buddas-brown/60 uppercase tracking-wider">{new Date(event.date).toLocaleString('default', { month: 'short' })}</div>
-                                                <div className="text-2xl font-bold text-buddas-brown-dark">{new Date(event.date).getDate()}</div>
+                                                <div className="text-2xl font-bold text-buddas-brown">{new Date(event.date).getDate()}</div>
                                             </div>
                                             {event.image && (
                                                 <Image
                                                     src={urlFor(event.image).width(600).url()}
                                                     alt={event.title}
                                                     fill
-                                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                                    className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:scale-110"
                                                 />
                                             )}
                                         </div>
@@ -171,13 +171,13 @@ export function EventsClient({ data }: EventsClientProps) {
                                                 <MapPin className="w-3 h-3" />
                                                 {event.location || "Buddas Hawaiian BBQ"}
                                             </div>
-                                            <h3 className="text-xl font-bold text-buddas-brown-dark mb-3 font-poppins group-hover:text-buddas-teal transition-colors">
+                                            <h3 className="text-xl font-semibold text-buddas-brown mb-3 font-poppins group-hover:text-buddas-teal transition-colors duration-300">
                                                 {event.title}
                                             </h3>
                                             <p className="text-buddas-brown/70 text-sm mb-6 line-clamp-2">
                                                 {event.description}
                                             </p>
-                                            <Button asChild variant="outline" className="w-full border-buddas-teal text-buddas-teal hover:bg-buddas-teal hover:text-white transition-colors uppercase tracking-wide font-bold">
+                                            <Button asChild variant="outline" className="w-full border-buddas-teal text-buddas-teal hover:bg-buddas-teal hover:text-white transition-all uppercase tracking-wide font-bold duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
                                                 <a href={event.ctaLink || "#"} target="_blank">{event.ctaLabel || "RSVP Now"}</a>
                                             </Button>
                                         </div>
@@ -192,10 +192,10 @@ export function EventsClient({ data }: EventsClientProps) {
             {/* Event Types Section */}
             <div>
                 <section className="py-24 bg-buddas-cream relative z-10">
-                    <div className="max-w-7xl mx-auto px-6">
+                    <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16">
                         <div className="text-center mb-16">
                             <span className="text-buddas-orange font-bold tracking-widest uppercase text-xs mb-3 block">Ways to Celebrate</span>
-                            <h2 className="text-4xl md:text-5xl font-semibold text-buddas-brown-dark tracking-tight mb-6 font-poppins">
+                            <h2 className="text-4xl md:text-5xl font-semibold text-buddas-brown tracking-tight mb-6 font-poppins">
                                 Find the Perfect Fit
                             </h2>
                             <p className="text-buddas-brown/80 text-lg max-w-2xl mx-auto">
@@ -227,19 +227,19 @@ export function EventsClient({ data }: EventsClientProps) {
                                     image: null
                                 }
                             ]).map((type: any, index: number) => (
-                                <div key={index} className="group relative overflow-hidden rounded-2xl aspect-[4/5] md:aspect-[3/4] shadow-xl hover:shadow-2xl transition-all duration-500">
+                                <div key={index} className="group relative overflow-hidden rounded-2xl aspect-[4/5] md:aspect-[3/4] shadow-xl hover:shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
                                     <div className="absolute inset-0">
                                         <Image
                                             src={type.image?.asset ? urlFor(type.image).width(800).url() : `https://images.unsplash.com/photo-${index === 0 ? '1511795409834-ef04bbd61622' : index === 1 ? '1555244162-803834f70033' : '1530103862676-de3c9a59aa28'}?q=80&w=800&auto=format&fit=crop`}
                                             alt={type.title}
                                             fill
-                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:scale-110"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-buddas-brown-dark/90 via-buddas-brown-dark/40 to-transparent"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-buddas-brown/90 via-buddas-brown/40 to-transparent"></div>
                                     </div>
 
                                     <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
-                                        <h3 className="text-3xl font-bold font-poppins mb-3">{type.title}</h3>
+                                        <h3 className="text-3xl font-semibold font-poppins mb-3">{type.title}</h3>
                                         <p className="text-white/80 mb-6 leading-relaxed">
                                             {type.description}
                                         </p>
@@ -260,7 +260,7 @@ export function EventsClient({ data }: EventsClientProps) {
             {/* Fundraising Program Section */}
             <div>
                 <section className="py-24 bg-white relative z-10 overflow-hidden">
-                    <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div className="order-2 lg:order-1 relative aspect-square lg:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl rotate-1 hover:rotate-0 transition-all duration-500">
                             <Image
                                 src={data.fundraisingProgram?.programImage?.asset ? urlFor(data.fundraisingProgram.programImage).width(1200).url() : "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1200&auto=format&fit=crop"}
@@ -277,7 +277,7 @@ export function EventsClient({ data }: EventsClientProps) {
                                 <Heart className="w-4 h-4" />
                                 <span>Support Local</span>
                             </div>
-                            <h2 className="text-4xl md:text-5xl font-semibold text-buddas-brown-dark tracking-tight mb-6 font-poppins">
+                            <h2 className="text-4xl md:text-5xl font-semibold text-buddas-brown tracking-tight mb-6 font-poppins">
                                 {data.fundraisingProgram?.title || "Fundraising Made Delicious"}
                             </h2>
                             <p className="text-buddas-brown/80 text-lg leading-relaxed mb-8">
@@ -286,13 +286,13 @@ export function EventsClient({ data }: EventsClientProps) {
 
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <Link href="/contact">
-                                    <Button size="lg" className="bg-buddas-teal text-white hover:bg-buddas-teal-dark font-bold uppercase tracking-wide">
+                                    <Button size="lg" className="bg-buddas-teal text-white hover:bg-buddas-teal-dark font-bold uppercase tracking-wide shadow-lg shadow-buddas-teal/30 hover:translate-y-[-2px] transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
                                         Book a Benefit Night
                                     </Button>
                                 </Link>
                                 {data.fundraisingProgram?.flyerDownload && (
                                     <a href={data.fundraisingProgram.flyerDownload} target="_blank" rel="noopener noreferrer">
-                                        <Button variant="outline" size="lg" className="border-buddas-teal text-buddas-teal hover:bg-buddas-teal/10 font-bold uppercase tracking-wide">
+                                        <Button variant="outline" size="lg" className="border-buddas-teal text-buddas-teal hover:bg-buddas-teal/10 font-bold uppercase tracking-wide transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
                                             Download Info Packet
                                         </Button>
                                     </a>
@@ -308,9 +308,9 @@ export function EventsClient({ data }: EventsClientProps) {
             {/* Past Events Gallery */}
             <div>
                 <section className="py-24 bg-white relative z-10">
-                    <div className="max-w-7xl mx-auto px-6">
+                    <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16">
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl md:text-4xl font-semibold text-buddas-brown-dark tracking-tight mb-4 font-poppins">
+                            <h2 className="text-3xl md:text-4xl font-semibold text-buddas-brown tracking-tight mb-4 font-poppins">
                                 {data.pastEventsGallery?.title || "Memories Made with Buddas"}
                             </h2>
                         </div>
@@ -324,7 +324,7 @@ export function EventsClient({ data }: EventsClientProps) {
                                         src={img?.asset ? urlFor(img).width(800).url() : `https://images.unsplash.com/photo-${index === 0 ? '1519741497674-611481863552' : index === 1 ? '1541532713592-79a0317b6b77' : '1520342868574-5fa3804e551c'}?q=80&w=800&auto=format&fit=crop`}
                                         alt="Gallery Image"
                                         fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all"></div>
                                 </div>
@@ -337,10 +337,10 @@ export function EventsClient({ data }: EventsClientProps) {
             {/* Benefits / Expertise Section */}
             <div>
                 <section className="py-24 relative z-10 bg-buddas-cream">
-                    <div className="max-w-7xl mx-auto px-6">
-                        <div className="mb-20 text-center max-w-3xl mx-auto">
+                    <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16">
+                        <div className="mb-20 text-center max-w-4xl mx-auto">
                             <span className="text-buddas-orange font-bold tracking-widest uppercase text-xs mb-3 block">Our Expertise</span>
-                            <h2 className="text-4xl md:text-5xl font-semibold text-buddas-brown-dark tracking-tight mb-6 font-poppins">
+                            <h2 className="text-4xl md:text-5xl font-semibold text-buddas-brown tracking-tight mb-6 font-poppins">
                                 {benefitsSectionTitle || "Designed for Every Occasion"}
                             </h2>
                             <p className="text-buddas-brown/80 text-lg">
@@ -382,7 +382,7 @@ export function EventsClient({ data }: EventsClientProps) {
                                             )}
                                         </div>
                                         <div>
-                                            <h3 className="text-xl font-semibold text-buddas-brown-dark mb-2 font-poppins">{benefit.title}</h3>
+                                            <h3 className="text-xl font-semibold text-buddas-brown mb-2 font-poppins">{benefit.title}</h3>
                                             <p className="text-buddas-brown/70 leading-relaxed">{benefit.description}</p>
                                         </div>
                                     </div>
@@ -403,10 +403,10 @@ export function EventsClient({ data }: EventsClientProps) {
                             fill
                             className="object-cover"
                         />
-                        <div className="absolute inset-0 bg-buddas-brown/80 backdrop-blur-[2px]"></div>
+                        <div className="absolute inset-0 bg-buddas-brown/90"></div>
                     </div>
 
-                    <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                    <div className="relative z-10 max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
                         <div className="col-span-1 md:col-span-2 text-white">
                             <h2 className="text-4xl md:text-6xl font-semibold tracking-tight mb-6 font-poppins">
                                 {statsSection?.title || "500+ Events, Countless Memories"}
@@ -443,9 +443,9 @@ export function EventsClient({ data }: EventsClientProps) {
             {/* How It Works Section */}
             <div>
                 <section className="py-24 bg-buddas-cream relative z-10">
-                    <div className="max-w-7xl mx-auto px-6">
+                    <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16">
                         <div className="text-center mb-16">
-                            <h2 className="text-3xl md:text-4xl font-semibold text-buddas-brown-dark mb-4 tracking-tight font-poppins">
+                            <h2 className="text-3xl md:text-4xl font-semibold text-buddas-brown mb-4 tracking-tight font-poppins">
                                 {howItWorksSectionTitle || "Everything You Need"}
                             </h2>
                             <p className="text-buddas-brown/70">
@@ -472,16 +472,39 @@ export function EventsClient({ data }: EventsClientProps) {
                                     icon: null
                                 }
                             ]).map((step: any, index: number) => (
-                                <div key={index} className="bg-white p-8 rounded-xl border border-buddas-brown/10 shadow-[0_4px_6px_-1px_rgba(90,58,31,0.05)] hover:shadow-[0_20px_25px_-5px_rgba(90,58,31,0.15)] hover:-translate-y-2 transition-all duration-300">
-                                    <div className="w-12 h-12 bg-buddas-cream rounded-xl flex items-center justify-center text-buddas-teal mb-6 shadow-sm">
-                                        {step.icon ? (
-                                            <Image src={urlFor(step.icon).url()} alt="" width={24} height={24} />
-                                        ) : (
-                                            <div className="font-bold text-xl">{index + 1}</div>
-                                        )}
+                                <div
+                                    key={index}
+                                    className="group relative bg-white p-8 rounded-2xl border border-buddas-brown/10 shadow-sm hover:shadow-[0_20px_40px_-5px_rgba(84,191,165,0.15)] hover:border-buddas-teal/30 hover:-translate-y-2 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] overflow-hidden"
+                                >
+                                    {/* Large Background Watermark Number */}
+                                    <div className="absolute -right-6 -top-6 text-[10rem] font-bold text-buddas-teal/5 font-poppins leading-none select-none group-hover:text-buddas-teal/10 transition-colors duration-300 pointer-events-none">
+                                        {index + 1}
                                     </div>
-                                    <h3 className="text-lg font-semibold text-buddas-brown-dark mb-2">{step.title}</h3>
-                                    <p className="text-buddas-brown/70 text-sm leading-relaxed">{step.description}</p>
+
+                                    {/* Content Container */}
+                                    <div className="relative z-10 flex flex-col items-start h-full">
+                                        {/* Icon Box */}
+                                        <div className="w-16 h-16 bg-buddas-teal/10 rounded-2xl flex items-center justify-center text-buddas-teal mb-6 group-hover:scale-110 group-hover:bg-buddas-teal group-hover:text-white transition-all duration-300 shadow-sm border border-buddas-teal/20 group-hover:border-transparent">
+                                            {step.icon ? (
+                                                <Image src={urlFor(step.icon).url()} alt="" width={32} height={32} className="transition-transform duration-300" />
+                                            ) : (
+                                                <span className="text-2xl font-bold font-poppins">{index + 1}</span>
+                                            )}
+                                        </div>
+
+                                        {/* Step Label */}
+                                        <span className="text-buddas-orange text-xs font-bold uppercase tracking-widest mb-3 inline-block">
+                                            Step 0{index + 1}
+                                        </span>
+
+                                        <h3 className="text-xl md:text-2xl font-semibold text-buddas-brown mb-3 font-poppins group-hover:text-buddas-teal-dark transition-colors duration-300">
+                                            {step.title}
+                                        </h3>
+
+                                        <p className="text-buddas-brown/70 leading-relaxed font-dm-sans text-base">
+                                            {step.description}
+                                        </p>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -492,10 +515,10 @@ export function EventsClient({ data }: EventsClientProps) {
             {/* Catering Packages Section */}
             <div>
                 <section className="py-24 bg-white relative z-10">
-                    <div className="max-w-7xl mx-auto px-6">
+                    <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16">
                         <div className="text-center mb-16">
                             <span className="text-buddas-orange font-bold tracking-widest uppercase text-xs mb-3 block">Simplicity & Value</span>
-                            <h2 className="text-3xl md:text-4xl font-semibold text-buddas-brown-dark tracking-tight mb-6 font-poppins">
+                            <h2 className="text-3xl md:text-4xl font-semibold text-buddas-brown tracking-tight mb-6 font-poppins">
                                 Popular Catering Packages
                             </h2>
                             <p className="text-buddas-brown/70 max-w-2xl mx-auto">
@@ -536,7 +559,7 @@ export function EventsClient({ data }: EventsClientProps) {
                                             Most Popular
                                         </div>
                                     )}
-                                    <h3 className="text-2xl font-bold text-buddas-brown-dark mb-2 font-poppins">{pkg.name}</h3>
+                                    <h3 className="text-2xl font-semibold text-buddas-brown mb-2 font-poppins">{pkg.name}</h3>
                                     <div className="text-buddas-gold font-bold text-xl mb-4">{pkg.price}</div>
                                     <p className="text-buddas-brown/70 text-sm mb-8 leading-relaxed border-b border-buddas-brown/10 pb-6">
                                         {pkg.description}
@@ -549,7 +572,7 @@ export function EventsClient({ data }: EventsClientProps) {
                                             </li>
                                         ))}
                                     </ul>
-                                    <Button asChild className={`w-full font-bold uppercase tracking-wide ${pkg.highlight ? 'bg-buddas-teal hover:bg-buddas-teal-dark text-white' : 'bg-buddas-cream text-buddas-brown hover:bg-buddas-brown/10'}`}>
+                                    <Button asChild className={`w-full font-bold uppercase tracking-wide transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${pkg.highlight ? 'bg-buddas-teal hover:bg-buddas-teal-dark text-white shadow-lg shadow-buddas-teal/30 hover:-translate-y-[2px]' : 'bg-buddas-cream text-buddas-brown hover:bg-buddas-brown/10'}`}>
                                         <Link href="/contact">Inquire Now</Link>
                                     </Button>
                                 </div>
@@ -563,9 +586,9 @@ export function EventsClient({ data }: EventsClientProps) {
             {(true) && (
                 <div>
                     <section className="py-24 bg-buddas-cream relative z-10">
-                        <div className="max-w-6xl mx-auto px-6">
+                        <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16">
                             <div className="text-center mb-16">
-                                <h2 className="text-3xl md:text-4xl font-semibold text-buddas-brown-dark mb-4 tracking-tight font-poppins">Frequently Asked Questions</h2>
+                                <h2 className="text-3xl md:text-4xl font-semibold text-buddas-brown mb-4 tracking-tight font-poppins">Frequently Asked Questions</h2>
                                 <p className="text-buddas-brown/70">Common questions about planning your event with us.</p>
                             </div>
 
@@ -588,7 +611,7 @@ export function EventsClient({ data }: EventsClientProps) {
                                         answer: "For drop-off catering, we ask for 48 hours notice. For full-service events or Benefit Nights, we recommend booking at least 2-3 weeks in advance to ensure availability and proper promotion."
                                     }
                                 ]).map((item: any, index: number) => (
-                                    <div key={index} className="group bg-white rounded-xl border border-buddas-brown/10 p-6 hover:shadow-lg hover:border-buddas-teal/30 transition-all cursor-pointer">
+                                    <div key={index} className="group bg-white rounded-xl border border-buddas-brown/10 p-6 hover:shadow-lg hover:border-buddas-teal/30 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] cursor-pointer">
                                         <div className="flex justify-between items-center">
                                             <h3 className="font-semibold text-buddas-brown">{item.question}</h3>
                                             <PlusCircle className="text-buddas-brown/40 w-6 h-6 group-hover:text-buddas-teal group-hover:rotate-45 transition-all" />
@@ -607,9 +630,9 @@ export function EventsClient({ data }: EventsClientProps) {
             {/* Closing CTA & Inquiry Form */}
             <section className="py-24 relative bg-buddas-teal overflow-hidden" id="inquire">
                 <div className="absolute inset-0 opacity-10 pattern-dots"></div>
-                <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div className="relative z-10 max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div className="text-white text-center lg:text-left">
-                        <span className="inline-block px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold uppercase tracking-wider mb-8">
+                        <span className="inline-block px-4 py-2 rounded-full bg-buddas-gold border border-white/20 text-buddas-brown text-xs font-bold uppercase tracking-wider mb-8">
                             Let's Get The Party Started
                         </span>
                         <h2 className="text-4xl md:text-6xl font-semibold mb-6 font-poppins leading-tight">

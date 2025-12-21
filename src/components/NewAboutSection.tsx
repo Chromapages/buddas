@@ -41,7 +41,7 @@ export function NewAboutSection({ aboutData }: NewAboutSectionProps) {
                 backgroundColor: '#5A3A1F' // Fallback color (brand brown)
             }}
         >
-            <div className={`max-w-4xl mx-auto px-6 md:px-8 text-center transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            <div className={`max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 md:px-8 xl:px-12 2xl:px-16 text-center transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{ transitionTimingFunction: 'cubic-bezier(0.25, 0.1, 0.25, 1)' }} // Aloha Motion
             >
 
@@ -54,13 +54,13 @@ export function NewAboutSection({ aboutData }: NewAboutSectionProps) {
                 </h2>
 
                 {/* Body Text - DM Sans, Buddas Cream for warmth */}
-                <p className="text-lg md:text-xl text-buddas-cream leading-relaxed mb-8 font-dm-sans max-w-xl mx-auto drop-shadow-sm">
+                <p className="text-lg md:text-xl text-buddas-cream leading-relaxed mb-8 font-dm-sans max-w-xl lg:max-w-3xl mx-auto drop-shadow-sm">
                     {snippet}
                 </p>
 
                 {/* Stats Bar - Premium Inline Design */}
                 {stats.length > 0 && (
-                    <div className="inline-flex items-center justify-center gap-0 mb-10 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-2 py-2 shadow-lg">
+                    <div className="inline-flex items-center justify-center gap-0 mb-10 bg-buddas-brown/90 border border-buddas-gold/30 rounded-full px-2 py-2 shadow-lg">
                         {stats.map((stat, idx) => (
                             <div key={idx} className="flex items-center">
                                 {/* Stat Item */}

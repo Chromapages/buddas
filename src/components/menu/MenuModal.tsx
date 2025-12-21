@@ -30,14 +30,14 @@ export function MenuModal({ item, isOpen, onClose }: MenuModalProps) {
     const imageUrl = item.image ? urlFor(item.image).width(1200).height(1200).url() : null;
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 font-sans bg-buddas-brown/60 backdrop-blur-md transition-opacity duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 font-sans bg-buddas-brown/90 transition-opacity duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
             <div className="relative w-full max-w-5xl group perspective-1000 animate-in zoom-in-95 duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
                 <div className="relative bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[600px] w-full transform transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] dark:border dark:border-white/5">
 
                     {/* Close Button Mobile */}
                     <button
                         onClick={onClose}
-                        className="absolute top-5 right-5 z-20 p-2 rounded-full bg-white/80 dark:bg-black/50 backdrop-blur-md text-gray-800 dark:text-white hover:bg-white dark:hover:bg-black transition-all duration-200 shadow-sm md:hidden"
+                        className="absolute top-5 right-5 z-20 p-2 rounded-full bg-white dark:bg-black text-gray-800 dark:text-white hover:bg-white dark:hover:bg-black transition-all duration-200 shadow-md md:hidden"
                     >
                         <X className="w-5 h-5" />
                     </button>
@@ -60,7 +60,7 @@ export function MenuModal({ item, isOpen, onClose }: MenuModalProps) {
 
                         {/* Tags / Best Seller Badge */}
                         {item.isSignature && (
-                            <div className="absolute top-6 left-6 bg-buddas-cream border border-buddas-teal/10 text-buddas-teal-dark font-bold text-xs uppercase tracking-wider py-1.5 px-3 rounded-full shadow-lg backdrop-blur-sm">
+                            <div className="absolute top-6 left-6 bg-buddas-gold text-buddas-brown font-bold text-xs uppercase tracking-wider py-1.5 px-3 rounded-full shadow-sm">
                                 Best Seller
                             </div>
                         )}
@@ -118,7 +118,7 @@ export function MenuModal({ item, isOpen, onClose }: MenuModalProps) {
                                     <Flame className="w-4 h-4 text-buddas-teal" />
                                     Calories
                                 </div>
-                                <span className="text-buddas-brown dark:text-white font-bold text-lg font-poppins">
+                                <span className="text-buddas-brown dark:text-white font-semibold text-lg font-poppins">
                                     {item.calories || 'N/A'} <span className="text-sm font-normal text-buddas-brown/50 font-dm-sans">kcal</span>
                                 </span>
                             </div>
@@ -127,7 +127,7 @@ export function MenuModal({ item, isOpen, onClose }: MenuModalProps) {
                                     <Clock className="w-4 h-4 text-buddas-teal" />
                                     Prep time
                                 </div>
-                                <span className="text-buddas-brown dark:text-white font-bold text-lg font-poppins">
+                                <span className="text-buddas-brown dark:text-white font-semibold text-lg font-poppins">
                                     {item.prepTime || '15-20'} <span className="text-sm font-normal text-buddas-brown/50 font-dm-sans">min</span>
                                 </span>
                             </div>
@@ -137,7 +137,7 @@ export function MenuModal({ item, isOpen, onClose }: MenuModalProps) {
                         <div className="mt-4 mb-8">
                             <a
                                 href="/order"
-                                className="w-full flex items-center justify-center gap-2 bg-buddas-teal hover:bg-buddas-teal-dark text-white font-bold py-4 rounded-lg shadow-lg shadow-teal-500/20 transition-all duration-300 transform active:scale-95 text-lg uppercase tracking-wide group"
+                                className="w-full flex items-center justify-center gap-2 bg-buddas-teal hover:bg-buddas-teal-dark text-white font-bold py-4 rounded-lg shadow-lg shadow-buddas-teal/30 transition-all duration-300 transform active:scale-95 text-lg uppercase tracking-wide group"
                             >
                                 <span className="group-hover:translate-x-1 transition-transform">Order Now</span>
                                 <span className="sr-only">Order {item.name}</span>

@@ -8,12 +8,12 @@ export const revalidate = 60;
 
 export default async function MenuPage() {
     const data = await client.fetch(MENU_PAGE_QUERY);
-    const { categories = [] } = data || {};
+    const { categories = [], featuredItems = [], page } = data || {};
 
     return (
         <div className="min-h-screen flex flex-col bg-white font-body text-zinc-900">
             {/* Main Content handled by Client Component */}
-            <MenuClient categories={categories} />
+            <MenuClient categories={categories} featuredItems={featuredItems} pageSettings={page} />
 
             <Footer />
         </div>

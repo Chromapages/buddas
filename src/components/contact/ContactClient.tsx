@@ -64,7 +64,7 @@ export function ContactClient({ primaryLocation, pageData }: ContactClientProps)
                     <div className="absolute inset-0 bg-buddas-brown/50"></div>
                 </div>
 
-                <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white space-y-4 mt-10">
+                <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white space-y-4 mt-10">
                     <h1 className="text-5xl md:text-7xl font-semibold tracking-tight leading-tight font-poppins drop-shadow-md">
                         {pageData?.heroTitle ? (
                             pageData.heroTitle
@@ -83,7 +83,7 @@ export function ContactClient({ primaryLocation, pageData }: ContactClientProps)
 
             {/* Main Content Card */}
             <main className="relative z-20 -mt-24 px-4 pb-20">
-                <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-2xl shadow-zinc-900/5 border border-zinc-100 overflow-hidden">
+                <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto bg-white rounded-2xl shadow-2xl shadow-zinc-900/5 border border-zinc-100 overflow-hidden">
                     <div className="flex flex-col lg:flex-row">
 
                         <div className="w-full lg:w-3/5 p-8 md:p-12 lg:p-16">
@@ -101,12 +101,12 @@ export function ContactClient({ primaryLocation, pageData }: ContactClientProps)
                                     {/* First Name */}
                                     <div className="space-y-2">
                                         <label className="text-xs font-semibold uppercase tracking-wider text-buddas-brown/70 ml-1">First Name</label>
-                                        <input type="text" placeholder="Jane" className="w-full px-4 py-3.5 rounded-lg bg-buddas-cream/50 border border-buddas-brown/20 shadow-inner text-buddas-brown placeholder:text-buddas-brown/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all" />
+                                        <input type="text" placeholder="Jane" className="w-full px-4 py-3.5 rounded-lg bg-white border border-buddas-brown/20 shadow-inner text-buddas-brown placeholder:text-buddas-brown/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all" />
                                     </div>
                                     {/* Last Name */}
                                     <div className="space-y-2">
                                         <label className="text-xs font-semibold uppercase tracking-wider text-buddas-brown/70 ml-1">Last Name</label>
-                                        <input type="text" placeholder="Doe" className="w-full px-4 py-3.5 rounded-lg bg-buddas-cream/50 border border-buddas-brown/20 shadow-inner text-buddas-brown placeholder:text-buddas-brown/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all" />
+                                        <input type="text" placeholder="Doe" className="w-full px-4 py-3.5 rounded-lg bg-white border border-buddas-brown/20 shadow-inner text-buddas-brown placeholder:text-buddas-brown/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all" />
                                     </div>
                                 </div>
 
@@ -115,7 +115,7 @@ export function ContactClient({ primaryLocation, pageData }: ContactClientProps)
                                     <label className="text-xs font-semibold uppercase tracking-wider text-buddas-brown/70 ml-1">Email Address</label>
                                     <div className="relative">
                                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-buddas-brown/40 w-5 h-5" />
-                                        <input type="email" placeholder="jane@example.com" className="w-full pl-11 pr-4 py-3.5 rounded-lg bg-buddas-cream/50 border border-buddas-brown/20 shadow-inner text-buddas-brown placeholder:text-buddas-brown/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all" />
+                                        <input type="email" placeholder="jane@example.com" className="w-full pl-11 pr-4 py-3.5 rounded-lg bg-white border border-buddas-brown/20 shadow-inner text-buddas-brown placeholder:text-buddas-brown/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all" />
                                     </div>
                                 </div>
 
@@ -179,7 +179,7 @@ export function ContactClient({ primaryLocation, pageData }: ContactClientProps)
                                 {/* Message */}
                                 <div className="space-y-2">
                                     <label className="text-xs font-semibold uppercase tracking-wider text-buddas-brown/70 ml-1">Message</label>
-                                    <textarea rows={4} placeholder="Tell us about your dietary requirements, theme ideas..." className="w-full px-4 py-3.5 rounded-lg bg-buddas-cream/50 border border-buddas-brown/20 shadow-inner text-buddas-brown placeholder:text-buddas-brown/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all resize-none"></textarea>
+                                    <textarea rows={4} placeholder="Tell us about your dietary requirements, theme ideas..." className="w-full px-4 py-3.5 rounded-lg bg-white border border-buddas-brown/20 shadow-inner text-buddas-brown placeholder:text-buddas-brown/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all resize-none"></textarea>
                                 </div>
 
                                 {/* Custom Toggle / Checkbox */}
@@ -230,7 +230,7 @@ export function ContactClient({ primaryLocation, pageData }: ContactClientProps)
                                             className="absolute inset-0"
                                             title="Budda's Hawaiian Location"
                                         ></iframe>
-                                        <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur px-3 py-1.5 rounded-lg text-xs font-semibold text-buddas-brown shadow-sm flex items-center gap-1 pointer-events-none">
+                                        <div className="absolute bottom-3 left-3 bg-white px-3 py-1.5 rounded-lg text-xs font-semibold text-buddas-brown shadow-sm flex items-center gap-1 pointer-events-none">
                                             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                                             Open Now
                                         </div>
@@ -300,7 +300,7 @@ export function ContactClient({ primaryLocation, pageData }: ContactClientProps)
             </main>
 
             <div>
-                <section className="py-20 px-6 max-w-6xl mx-auto w-full">
+                <section className="py-20 px-6 max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto 2xl:px-16 w-full">
                     <div className="text-center mb-12">
                         <span className="text-buddas-orange font-bold tracking-widest uppercase text-xs mb-3 block">Support</span>
                         <h2 className="text-3xl font-semibold text-buddas-brown tracking-tight font-poppins">Frequently Asked Questions</h2>

@@ -99,7 +99,7 @@ export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
                         {/* Content */}
                         <div className="relative z-10 w-full text-white">
                             {/* Badge */}
-                            <div className={`inline-flex items-center gap-2 px-3 py-1.5 backdrop-blur-md border rounded-lg text-xs font-bold mb-4 shadow-sm uppercase tracking-wider transform transition-transform duration-300 group-hover:scale-105 origin-left ${card.theme.badge}`}>
+                            <div className={`inline-flex items-center gap-2 px-3 py-1.5 border rounded-lg text-xs font-bold mb-4 shadow-sm uppercase tracking-wider transform transition-transform duration-300 group-hover:scale-105 origin-left ${card.theme.badge}`}>
                                 <card.theme.icon className="w-3.5 h-3.5" />
                                 {card.badge}
                             </div>

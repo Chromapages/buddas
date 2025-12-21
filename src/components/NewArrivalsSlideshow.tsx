@@ -4,7 +4,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { formatPrice } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, Sparkles, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { MICROCOPY } from "@/lib/microcopy";
 
 interface NewArrivalsSlideshowProps {
@@ -46,7 +46,7 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
     // --- Animation Variants ---
 
     // Staggers the text elements
-    const contentContainerVariants = {
+    const contentContainerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
@@ -62,7 +62,7 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
     };
 
     // "Fade in, slide in, blur in" effect
-    const textItemVariants = {
+    const textItemVariants: Variants = {
         hidden: {
             opacity: 0,
             y: 20,
@@ -79,7 +79,7 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
         }
     };
 
-    const imageVariants = {
+    const imageVariants: Variants = {
         initial: { scale: 1.1, opacity: 0 },
         animate: {
             scale: 1,

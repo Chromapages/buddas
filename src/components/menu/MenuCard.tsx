@@ -30,7 +30,7 @@ export function MenuCard({ item, onClick }: MenuCardProps) {
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-4 shrink-0 bg-buddas-cream">
                 {/* Badges */}
                 {isPopular && (
-                    <span className="absolute top-3 left-3 bg-buddas-cream/90 backdrop-blur text-buddas-teal-dark text-[10px] font-bold px-3 py-1.5 rounded-full z-10 uppercase tracking-wide flex items-center gap-1 shadow-sm border border-buddas-teal/10">
+                    <span className="absolute top-3 left-3 bg-buddas-gold text-buddas-brown text-[10px] font-bold px-3 py-1.5 rounded-full z-10 uppercase tracking-wide flex items-center gap-1 shadow-sm">
                         <Flame className="w-3 h-3 fill-buddas-teal" /> Popular
                     </span>
                 )}
@@ -40,8 +40,8 @@ export function MenuCard({ item, onClick }: MenuCardProps) {
                     </span>
                 )}
                 {isVegetarian && !isPopular && !isNew && (
-                    <span className="absolute top-3 left-3 bg-buddas-green/20 text-buddas-green text-[10px] font-bold px-3 py-1.5 rounded-full z-10 uppercase tracking-wide flex items-center gap-1 backdrop-blur-sm border border-buddas-green/30">
-                        <Leaf className="w-3 h-3 fill-buddas-green" /> Veggie
+                    <span className="absolute top-3 left-3 bg-buddas-teal/10 text-buddas-teal text-[10px] font-bold px-3 py-1.5 rounded-full z-10 uppercase tracking-wide flex items-center gap-1 border border-buddas-teal/30">
+                        <Leaf className="w-3 h-3 fill-buddas-teal" /> Veggie
                     </span>
                 )}
 
@@ -61,7 +61,7 @@ export function MenuCard({ item, onClick }: MenuCardProps) {
 
             <div className="px-1 flex-col flex flex-1">
                 <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-lg font-poppins font-semibold text-buddas-brown leading-tight group-hover:text-buddas-teal transition-colors duration-300">{item.name}</h3>
+                    <h3 className="text-lg font-poppins font-semibold text-buddas-brown leading-tight group-hover:text-buddas-teal-dark transition-colors duration-300">{item.name}</h3>
                 </div>
                 <p className="text-sm text-buddas-brown/70 font-dm-sans line-clamp-2 mb-4 leading-relaxed">{item.description}</p>
 

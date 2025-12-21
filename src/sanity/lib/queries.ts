@@ -210,6 +210,27 @@ export const SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings"] | order(_upda
 }`;
 
 export const MENU_PAGE_QUERY = groq`{
+  "page": *[_type == "menuPage"][0] {
+    heroImage,
+    heroTitle,
+    heroSubtitle,
+    heroCta,
+    featuredItemsTitle,
+    closingCta,
+    allergenStatement
+  },
+  "featuredItems": *[_type == "menuItem" && isFeatured == true] | order(name asc) [0...6] {
+    _id,
+    name,
+    description,
+    price,
+    "image": image,
+    tags,
+    isSignature,
+    "slug": slug.current,
+    calories,
+    prepTime
+  },
   "categories": *[_type == "menuCategory" && (!defined(visible) || visible == true)] | order(displayOrder asc) {
     _id,
     title,
@@ -351,22 +372,46 @@ export const CATERING_PAGE_QUERY = groq`*[_type == "cateringPage"] | order(_upda
   heroImage,
   heroCtaLabel,
   heroCtaLink,
+  "menuPdfUrl": menuPdf.asset->url,
   introduction,
+  valueProposition[] {
+    title,
+    description,
+    icon
+  },
   testimonial {
     quote,
     authorName,
     authorTitle,
     authorImage,
-    backgroundImage
+    backgroundImage,
+    eventType
+  },
+  testimonials[] {
+    quote,
+    authorName,
+    authorTitle,
+    authorImage,
+    eventType
   },
   serviceTypes,
   menuHighlights[] {
     ...,
     guestCount,
-    features
+    features,
+    isBestseller,
+    dietaryTags
   },
   howItWorks,
   faq,
+  gallery[] {
+    "url": asset->url,
+    alt,
+    caption
+  },
+  pricingSection,
+  closingCta,
+  quoteFormConfig,
   statsSection,
   seo,
   trustedBy {

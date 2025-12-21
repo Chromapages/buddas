@@ -56,7 +56,7 @@ export function AboutClient({ data }: AboutClientProps) {
                 </div>
 
                 <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white space-y-6 mt-16">
-                    <span className="text-buddas-orange font-semibold tracking-widest uppercase text-sm bg-buddas-brown/80 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 shadow-sm">Est. 2015</span>
+                    <span className="text-buddas-brown font-semibold tracking-widest uppercase text-sm bg-buddas-gold px-4 py-1.5 rounded-full shadow-sm">Est. 2015</span>
                     <h1 className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.1] font-poppins drop-shadow-lg">
                         {heroTitle || <>Where Hawaiian Tradition <br /><span className="text-buddas-orange font-serif italic drop-shadow-md">Meets Family Love</span></>}
                     </h1>
@@ -68,11 +68,11 @@ export function AboutClient({ data }: AboutClientProps) {
 
 
             <section className="py-24 relative z-10 bg-buddas-cream">
-                <div className="max-w-7xl mx-auto px-6">
+                <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div className="space-y-8">
                             <h2 className="text-4xl md:text-5xl font-semibold text-buddas-brown tracking-tight font-poppins">{storyTitle || "Bringing Aloha to the Table"}</h2>
-                            <div className="space-y-6 text-lg text-buddas-brown/80 leading-relaxed font-light">
+                            <div className="space-y-6 text-lg text-buddas-brown/80 leading-relaxed">
                                 {storyContent ? (
                                     <PortableText value={storyContent} />
                                 ) : (
@@ -133,10 +133,11 @@ export function AboutClient({ data }: AboutClientProps) {
                         fill
                         className="object-cover"
                     />
-                    <div className="absolute inset-0 bg-buddas-brown/80 backdrop-blur-[1px]"></div>
+                    {/* Mobile/Tablet Overlay - Darker for readability */}
+                    <div className="absolute inset-0 bg-buddas-brown/90 lg:bg-buddas-brown/80"></div>
                 </div>
 
-                <div className="relative z-10 max-w-7xl mx-auto px-6 text-center text-white">
+                <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white">
                     <Leaf className="text-buddas-teal w-16 h-16 mb-6 mx-auto" />
                     <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-8 font-poppins">
                         {heritage?.title || "Rooted in Tradition"}
@@ -157,8 +158,8 @@ export function AboutClient({ data }: AboutClientProps) {
             {/* Values Section */}
 
             <section className="py-24 bg-buddas-cream relative z-10">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-16 max-w-3xl mx-auto">
+                <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16">
+                    <div className="text-center mb-16 max-w-4xl mx-auto">
                         <span className="text-buddas-orange font-bold tracking-widest uppercase text-xs mb-3 block">Our Promise</span>
                         <h2 className="text-3xl md:text-4xl font-semibold text-buddas-brown tracking-tight font-poppins">The Buddas Way</h2>
                     </div>
@@ -169,8 +170,8 @@ export function AboutClient({ data }: AboutClientProps) {
                                 const icons = [Leaf, Star, Users];
                                 const Icon = icons[idx % icons.length];
                                 return (
-                                    <div key={idx} className="group p-8 rounded-xl bg-white hover:bg-orange-50 transition-all border border-buddas-brown/5 shadow-sm hover:-translate-y-2">
-                                        <div className="w-14 h-14 bg-buddas-cream text-buddas-teal rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-inner border border-buddas-brown/5">
+                                    <div key={idx} className="group p-8 rounded-xl bg-white hover:bg-buddas-teal/5 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] border border-buddas-brown/5 shadow-sm hover:-translate-y-2">
+                                        <div className="w-14 h-14 bg-buddas-teal/10 text-buddas-teal rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] shadow-inner border border-buddas-brown/5">
                                             {value.icon?.asset ? (
                                                 <Image src={urlFor(value.icon).url()} width={32} height={32} alt="" />
                                             ) : (
@@ -187,8 +188,8 @@ export function AboutClient({ data }: AboutClientProps) {
                         ) : (
                             // Brand Pillar Fallbacks
                             <>
-                                <div className="group p-8 rounded-xl bg-white hover:bg-orange-50 transition-all border border-buddas-brown/5 shadow-sm hover:-translate-y-2">
-                                    <div className="w-14 h-14 bg-buddas-cream text-buddas-teal rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-inner border border-buddas-brown/5">
+                                <div className="group p-8 rounded-xl bg-white hover:bg-buddas-teal/5 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] border border-buddas-brown/5 shadow-sm hover:-translate-y-2">
+                                    <div className="w-14 h-14 bg-buddas-teal/10 text-buddas-teal rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] shadow-inner border border-buddas-brown/5">
                                         <Heart className="w-8 h-8" />
                                     </div>
                                     <h3 className="text-xl font-semibold text-buddas-brown mb-3 font-poppins">Flavor & Freshness</h3>
@@ -196,8 +197,8 @@ export function AboutClient({ data }: AboutClientProps) {
                                         "The Crave." Real food, cooked fresh. Not sitting under a heat lamp. The Katsu is crisp, and the rice is always hot.
                                     </p>
                                 </div>
-                                <div className="group p-8 rounded-xl bg-white hover:bg-orange-50 transition-all border border-buddas-brown/5 shadow-sm hover:-translate-y-2">
-                                    <div className="w-14 h-14 bg-buddas-cream text-buddas-teal rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-inner border border-buddas-brown/5">
+                                <div className="group p-8 rounded-xl bg-white hover:bg-buddas-teal/5 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] border border-buddas-brown/5 shadow-sm hover:-translate-y-2">
+                                    <div className="w-14 h-14 bg-buddas-teal/10 text-buddas-teal rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] shadow-inner border border-buddas-brown/5">
                                         <Clock className="w-8 h-8" />
                                     </div>
                                     <h3 className="text-xl font-semibold text-buddas-brown mb-3 font-poppins">Convenience & Speed</h3>
@@ -205,8 +206,8 @@ export function AboutClient({ data }: AboutClientProps) {
                                         "The Modern." We respect your time. High-tech ordering, high-touch service. Dinner solved in 3 taps.
                                     </p>
                                 </div>
-                                <div className="group p-8 rounded-xl bg-white hover:bg-orange-50 transition-all border border-buddas-brown/5 shadow-sm hover:-translate-y-2">
-                                    <div className="w-14 h-14 bg-buddas-cream text-buddas-teal rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-inner border border-buddas-brown/5">
+                                <div className="group p-8 rounded-xl bg-white hover:bg-buddas-teal/5 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] border border-buddas-brown/5 shadow-sm hover:-translate-y-2">
+                                    <div className="w-14 h-14 bg-buddas-teal/10 text-buddas-teal rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] shadow-inner border border-buddas-brown/5">
                                         <Users className="w-8 h-8" />
                                     </div>
                                     <h3 className="text-xl font-semibold text-buddas-brown mb-3 font-poppins">Generosity & Value</h3>
@@ -227,16 +228,17 @@ export function AboutClient({ data }: AboutClientProps) {
                         fill
                         className="object-cover"
                     />
-                    <div className="absolute inset-0 bg-buddas-brown/80 backdrop-blur-[2px]"></div>
+                    {/* Content Overlay */}
+                    <div className="absolute inset-0 bg-buddas-brown/90"></div>
                 </div>
 
-                <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+                <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
                     <Quote className="text-white/30 w-16 h-16 mb-8 mx-auto" />
                     <h2 className="text-2xl md:text-4xl font-serif italic text-white leading-relaxed mb-8">
                         "I have never seen a team so dedicated to the craft. Buddas didn't just cater our charity gala; they created an atmosphere of warmth that our guests are still talking about."
                     </h2>
                     <div className="flex flex-col items-center gap-2">
-                        <span className="text-white font-bold tracking-wide uppercase font-poppins">Jonathan Doe</span>
+                        <span className="text-white font-semibold tracking-wide uppercase font-poppins">Jonathan Doe</span>
                         <span className="text-white/60 text-sm">Director, Global Arts Foundation</span>
                     </div>
                 </div>
@@ -246,7 +248,7 @@ export function AboutClient({ data }: AboutClientProps) {
             {/* Closing CTA Section */}
             <section className="py-24 relative bg-buddas-teal overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pattern-dots"></div>
-                <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white">
+                <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white">
                     <h2 className="text-4xl md:text-5xl font-semibold mb-6 font-poppins">
                         {closingCta?.title || "Join Our Ohana"}
                     </h2>
@@ -256,7 +258,7 @@ export function AboutClient({ data }: AboutClientProps) {
                     <Button
                         asChild
                         size="lg"
-                        className="bg-buddas-cream text-buddas-brown hover:bg-white hover:text-buddas-teal transition-colors font-semibold uppercase tracking-wide rounded-lg px-8 py-6 h-auto text-lg"
+                        className="bg-buddas-cream text-buddas-brown hover:bg-white hover:text-buddas-teal font-dm-sans font-medium uppercase tracking-wide rounded-lg px-8 py-6 h-auto text-lg shadow-lg shadow-buddas-cream/20 hover:shadow-xl hover:translate-y-[-2px] active:translate-y-[0px] transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
                     >
                         <Link href={closingCta?.buttonLink || "/menu"}>
                             {closingCta?.buttonLabel || "Order Now"}

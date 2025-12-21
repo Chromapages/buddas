@@ -107,41 +107,43 @@ export function NewNavbar({ logoUrl, orderUrl, ctaStyle, navigation }: NewNavbar
                     </div>
 
                     {/* Desktop Nav */}
+                    {/* Desktop Navigation */}
                     <div className="hidden md:flex flex-1 justify-end items-center gap-6">
-                        <nav className="flex items-center gap-2 p-1 bg-black/5 dark:bg-white/5 rounded-2xl backdrop-blur-sm border border-white/20 dark:border-white/5 shadow-inner">
-                            {navLinks.map((link) => {
-                                const active = isActive(link.href);
-                                return (
-                                    <Link
-                                        key={link.href}
-                                        href={link.href}
-                                        className={`relative px-5 py-2.5 rounded-xl text-base font-poppins font-semibold tracking-wide uppercase transition-all duration-200 group
+                        <AnimatePresence>
+                            <nav className="flex items-center gap-2 p-1 bg-white rounded-2xl shadow-md border border-buddas-brown/10">
+                                {navigation?.map((item: any) => {
+                                    const active = isActive(item.url);
+                                    return (
+                                        <Link
+                                            key={item.url}
+                                            href={item.url}
+                                            className={`relative px-5 py-2.5 rounded-xl text-base font-poppins font-semibold tracking-wide uppercase transition-all duration-200 group
                                             ${active
-                                                ? "text-buddas-teal-dark bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.1),inset_0_1px_0_0_rgba(255,255,255,1)] ring-1 ring-black/5"
-                                                : "text-buddas-brown hover:text-buddas-teal-dark hover:bg-white/60 hover:shadow-sm"
-                                            }
+                                                    ? "text-buddas-teal-dark bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.1),inset_0_1px_0_0_rgba(255,255,255,1)] ring-1 ring-black/5"
+                                                    : "text-buddas-brown hover:text-buddas-teal-dark hover:bg-white/60 hover:shadow-sm"
+                                                }
                                         `}
-                                    >
-                                        <span className="relative z-10 flex items-center gap-2">
-                                            {link.label}
-                                            {active && (
-                                                <motion.div
-                                                    layoutId="active-dot"
-                                                    className="w-1.5 h-1.5 rounded-full bg-buddas-teal"
-                                                    transition={{
-                                                        type: "spring",
-                                                        stiffness: 500,
-                                                        damping: 30,
-                                                        ease: alohaEase as any
-                                                    }}
-                                                />
-                                            )}
-                                        </span>
-                                    </Link>
-                                );
-                            })}
-                        </nav>
-
+                                        >
+                                            <span className="relative z-10 flex items-center gap-2">
+                                                {item.label}
+                                                {active && (
+                                                    <motion.div
+                                                        layoutId="active-dot"
+                                                        className="w-1.5 h-1.5 rounded-full bg-buddas-teal"
+                                                        transition={{
+                                                            type: "spring",
+                                                            stiffness: 500,
+                                                            damping: 30,
+                                                            ease: alohaEase as any
+                                                        }}
+                                                    />
+                                                )}
+                                            </span>
+                                        </Link>
+                                    );
+                                })}
+                            </nav>
+                        </AnimatePresence>
                         <div className="h-8 w-px bg-stone-300 dark:bg-stone-700 mx-2" />
 
                         <Button

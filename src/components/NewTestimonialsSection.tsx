@@ -189,7 +189,7 @@ export function NewTestimonialsSection({ testimonials = [] }: NewTestimonialsSec
 
             {/* Write Review Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-buddas-brown/60 backdrop-blur-sm animate-in fade-in duration-200 font-dm-sans">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-buddas-brown/90 animate-in fade-in duration-200 font-dm-sans">
                     <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
                         <div className="flex items-center justify-between p-6 border-b border-zinc-100">
                             <h3 className="text-xl font-semibold text-buddas-brown font-poppins">Write a Review</h3>
@@ -343,7 +343,7 @@ function TestimonialCard({ item }: { item: Testimonial }) {
 
             {/* Read More Modal */}
             {isReadMoreOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-buddas-brown/60 backdrop-blur-sm animate-in fade-in duration-200 font-dm-sans">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-buddas-brown/90 animate-in fade-in duration-200 font-dm-sans">
                     <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200 relative">
                         <button
                             onClick={() => setIsReadMoreOpen(false)}

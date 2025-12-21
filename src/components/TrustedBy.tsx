@@ -23,9 +23,9 @@ export function TrustedBy({ trustedByData }: TrustedByProps) {
     ];
 
     return (
-        <section className="pt-8 pb-8 md:pb-10 bg-buddas-cream border-b border-buddas-brown/5">
+        <section className="py-8 md:py-10 lg:py-12 xl:py-16 bg-buddas-cream border-b border-buddas-brown/5">
             <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 lg:px-8 xl:px-12 2xl:px-16 text-center">
-                <h2 className="text-buddas-brown font-[family-name:var(--font-poppins)] font-semibold mb-12 text-2xl tracking-[-0.01em] drop-shadow-sm">
+                <h2 className="text-buddas-brown font-poppins font-semibold mb-12 text-2xl lg:text-3xl tracking-[-0.01em] drop-shadow-sm">
                     {title}
                 </h2>
                 <div className="flex flex-wrap justify-center items-center gap-12 lg:gap-24">
