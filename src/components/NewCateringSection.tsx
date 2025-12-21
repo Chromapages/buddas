@@ -81,9 +81,9 @@ export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
 
     return (
         <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-16 2xl:py-24" id="catering-events">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 2xl:gap-8">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 -mx-4 px-4 lg:grid lg:grid-cols-3 lg:gap-6 2xl:gap-8 lg:pb-0 lg:mx-0 lg:px-0 no-scrollbar">
                 {cards.map((card) => (
-                    <div key={card.key} className={`group relative overflow-hidden rounded-3xl min-h-[420px] flex items-end p-8 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 ${card.theme.bg}`}>
+                    <div key={card.key} className={`flex-shrink-0 w-[85vw] lg:w-auto snap-center group relative overflow-hidden rounded-3xl min-h-[420px] flex items-end p-8 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 ${card.theme.bg}`}>
 
                         {/* Background Image with Gradient Overlay */}
                         <div className="absolute inset-0 z-0">

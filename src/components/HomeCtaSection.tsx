@@ -95,7 +95,7 @@ export const HomeCtaSection = ({
                 tabIndex={0}
                 aria-label={card.title}
                 className={cn(
-                  "group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-4 shadow-sm backdrop-blur-sm transition hover:-translate-y-[3px] hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-buddas-gold md:p-5",
+                  "group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-4 shadow-sm transition hover:-translate-y-[3px] hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-buddas-gold md:p-5",
                   {
                     "ring-2 ring-buddas-gold": isHighlighted,
                   }

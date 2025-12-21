@@ -113,7 +113,7 @@ export function NewContactSection({ location }: NewContactSectionProps) {
                         <Link
                             href={mapUrl}
                             target="_blank"
-                            className="bg-white/90 backdrop-blur text-zinc-900 px-6 py-2 rounded-full text-sm font-medium shadow-lg hover:scale-105 transition-transform"
+                            className="bg-white text-zinc-900 px-6 py-2 rounded-full text-sm font-medium shadow-lg hover:scale-105 transition-transform border border-zinc-100"
                         >
                             Get Directions
                         </Link>

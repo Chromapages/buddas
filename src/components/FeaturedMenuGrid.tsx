@@ -70,7 +70,7 @@ export function FeaturedMenuGrid({ items }: FeaturedMenuGridProps) {
                 <div className="hidden md:flex gap-3">
                     <button
                         onClick={() => scroll('left')}
-                        className="group/btn relative size-14 rounded-full bg-white/50 backdrop-blur-md border border-zinc-200 flex items-center justify-center hover:bg-zinc-900 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-zinc-200/50"
+                        className="group/btn relative size-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center hover:bg-zinc-50 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-zinc-200/50"
                         aria-label="Scroll left"
                     >
                         <ArrowLeft className="w-6 h-6 text-zinc-700 group-hover/btn:text-white transition-colors" />

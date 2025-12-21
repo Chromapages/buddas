@@ -33,6 +33,31 @@ export function NewTestimonialsSection({ testimonials = [] }: NewTestimonialsSec
     // Carousel State
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const [touchStart, setTouchStart] = useState<number | null>(null);
+    const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+    // Swipe handlers
+    const minSwipeDistance = 50;
+
+    const onTouchStart = (e: React.TouchEvent) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX);
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        // Pause auto-rotation on user interaction
+        setIsPaused(true);
+
+        if (isLeftSwipe) nextSlide();
+        if (isRightSwipe) prevSlide();
+    };
 
     // If no testimonials, use fallbacks matching the design for preview
     const displayTestimonials = testimonials.length > 0 ? testimonials.slice(0, 3) : [
@@ -132,6 +157,9 @@ export function NewTestimonialsSection({ testimonials = [] }: NewTestimonialsSec
             <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
             >
 
                 {/* Section Header */}
@@ -180,9 +208,24 @@ export function NewTestimonialsSection({ testimonials = [] }: NewTestimonialsSec
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 2xl:gap-10">
                     {visibleItems.map((item, idx) => (
                         // Add index to key to handle duplicate items in infinite loop cleanly
-                        <div key={`${item._id}-${idx}`} className="animate-in fade-in slide-in-from-right-4 duration-500">
+                        <div
+                            key={`${item._id}-${idx}`}
+                            className={`animate-in fade-in slide-in-from-right-4 duration-500 ${idx !== 0 ? 'hidden md:block' : 'block'}`}
+                        >
                             <TestimonialCard item={item} />
                         </div>
+                    ))}
+                </div>
+
+                {/* Mobile Pagination Dots */}
+                <div className="flex md:hidden justify-center gap-2 mt-8">
+                    {displayTestimonials.map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setCurrentIndex(idx)}
+                            className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'w-8 bg-buddas-teal' : 'w-2 bg-buddas-brown/20'}`}
+                            aria-label={`Go to testimonial ${idx + 1}`}
+                        />
                     ))}
                 </div>
             </div>
@@ -216,7 +259,7 @@ export function NewTestimonialsSection({ testimonials = [] }: NewTestimonialsSec
                                     <input
                                         type="text"
                                         required
-                                        className="w-full px-4 py-2 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all text-buddas-brown"
+                                        className="w-full px-4 py-3 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all text-buddas-brown"
                                         value={formData.name}
                                         onChange={e => setFormData({ ...formData, name: e.target.value })}
                                         placeholder="John Doe"
@@ -226,7 +269,7 @@ export function NewTestimonialsSection({ testimonials = [] }: NewTestimonialsSec
                                     <label className="block text-sm font-medium text-buddas-brown mb-1">Role or Location (Optional)</label>
                                     <input
                                         type="text"
-                                        className="w-full px-4 py-2 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all text-buddas-brown"
+                                        className="w-full px-4 py-3 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all text-buddas-brown"
                                         value={formData.location}
                                         onChange={e => setFormData({ ...formData, location: e.target.value })}
                                         placeholder="e.g. Local Guide"
@@ -240,7 +283,7 @@ export function NewTestimonialsSection({ testimonials = [] }: NewTestimonialsSec
                                                 type="button"
                                                 key={star}
                                                 onClick={() => setFormData({ ...formData, rating: star })}
-                                                className="focus:outline-none transition-transform hover:scale-110 active:scale-95"
+                                                className="focus:outline-none transition-transform hover:scale-110 active:scale-95 p-1"
                                             >
                                                 <Star
                                                     className={`w-8 h-8 ${formData.rating >= star ? 'fill-buddas-gold text-buddas-gold' : 'text-zinc-300'}`}
@@ -254,7 +297,7 @@ export function NewTestimonialsSection({ testimonials = [] }: NewTestimonialsSec
                                     <textarea
                                         required
                                         rows={4}
-                                        className="w-full px-4 py-2 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all resize-none text-buddas-brown"
+                                        className="w-full px-4 py-3 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-buddas-teal/20 focus:border-buddas-teal transition-all resize-none text-buddas-brown"
                                         value={formData.quote}
                                         onChange={e => setFormData({ ...formData, quote: e.target.value })}
                                         placeholder="Tell us about your experience..."
@@ -347,7 +390,7 @@ function TestimonialCard({ item }: { item: Testimonial }) {
                     <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200 relative">
                         <button
                             onClick={() => setIsReadMoreOpen(false)}
-                            className="absolute top-4 right-4 text-zinc-400 hover:text-buddas-brown transition-colors p-2 bg-zinc-50 hover:bg-zinc-100 rounded-full"
+                            className="absolute top-4 right-4 text-zinc-400 hover:text-buddas-brown transition-colors p-3 bg-zinc-50 hover:bg-zinc-100 rounded-full"
                         >
                             <X className="w-5 h-5" />
                         </button>

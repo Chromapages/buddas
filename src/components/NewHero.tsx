@@ -64,14 +64,14 @@ export function NewHero({ heroSlides }: NewHeroProps) {
                 <div className="space-y-8 max-w-2xl 2xl:max-w-3xl">
                     {/* Badge (Brand Guidelines: Display above headline) */}
                     {heroBadge && (
-                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-buddas-gold text-buddas-brown text-sm font-bold shadow-sm uppercase tracking-wider animate-in fade-in duration-300 delay-100">
+                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-buddas-gold text-buddas-brown text-xs font-bold shadow-sm uppercase tracking-wide animate-in fade-in duration-300 delay-100">
                             {heroBadge}
                         </span>
                     )}
-                    <h1 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-semibold text-white tracking-[-0.02em] leading-[1.1] drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] font-[family-name:var(--font-poppins)] animate-in slide-in-from-bottom-8 fade-in duration-300 delay-200">
+                    <h1 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-semibold text-buddas-cream tracking-[-0.02em] leading-tight drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] font-poppins animate-in slide-in-from-bottom-8 fade-in duration-300 delay-200">
                         {heroTitle}
                     </h1>
-                    <p className="text-xl md:text-2xl 2xl:text-3xl text-white/90 font-medium leading-relaxed max-w-lg 2xl:max-w-2xl opacity-95 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] animate-in slide-in-from-bottom-6 fade-in duration-300 delay-300">
+                    <p className="text-xl md:text-2xl 2xl:text-3xl text-buddas-cream/80 font-dm-sans font-medium leading-relaxed max-w-xl lg:max-w-2xl opacity-95 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] animate-in slide-in-from-bottom-6 fade-in duration-300 delay-300">
                         {heroSubtitle}
                     </p>
 
@@ -80,7 +80,7 @@ export function NewHero({ heroSlides }: NewHeroProps) {
                             asChild
                             variant="default" // Teal Primary
                             size="xl"
-                            className="rounded-lg shadow-lg hover:shadow-teal-500/20 hover:bg-buddas-teal-dark"
+                            className="rounded-lg shadow-md hover:shadow-lg hover:shadow-teal-500/20 hover:bg-buddas-teal-dark focus:ring-2 focus:ring-buddas-teal"
                         >
                             <Link href={primaryCtaLink}>
                                 <span>{primaryCtaLabel || MICROCOPY.orderNow}</span>
@@ -96,7 +96,7 @@ export function NewHero({ heroSlides }: NewHeroProps) {
                             asChild
                             variant="outline" // Outline style (Exception for Hero contrast)
                             size="xl"
-                            className="rounded-lg border-2 border-white/50 text-white bg-transparent hover:bg-white hover:text-buddas-brown shadow-lg transition-all"
+                            className="rounded-lg border-2 border-white/50 text-white bg-transparent hover:bg-white hover:text-buddas-brown shadow-lg transition-all focus:ring-2 focus:ring-white"
                         >
                             <Link href={secondaryCtaLink}>
                                 <span>{secondaryCtaLabel || MICROCOPY.viewMenu}</span>

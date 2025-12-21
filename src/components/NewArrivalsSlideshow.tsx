@@ -2,7 +2,7 @@
 
 import { urlFor } from "@/sanity/lib/image";
 import { formatPrice } from "@/lib/utils";
-import { ChevronLeft, ChevronRight, Sparkles, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sparkles, ArrowRight, Play, Pause } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { MICROCOPY } from "@/lib/microcopy";
@@ -14,6 +14,28 @@ interface NewArrivalsSlideshowProps {
 export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const [touchStart, setTouchStart] = useState<number | null>(null);
+    const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+    // Minimum swipe distance (in px) 
+    const minSwipeDistance = 50;
+
+    const onTouchStart = (e: React.TouchEvent) => {
+        setTouchEnd(null); // Reset
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX);
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe) handleNext();
+        if (isRightSwipe) handlePrev();
+    };
 
     // Limit to 3 items
     const slides = items.slice(0, 3);
@@ -91,9 +113,15 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
 
     return (
         <section
-            className="relative w-full min-h-[700px] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="New menu arrivals"
+            className="relative w-full h-[85svh] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
         >
             {/* Background Elements (Subtle Pattern) */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none z-10 mix-blend-overlay"></div>
@@ -101,8 +129,8 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
             <AnimatePresence mode="wait">
                 <div key={currentIndex} className="w-full h-full flex flex-col md:flex-row relative z-0">
 
-                    {/* LEFT: IMAGE SECTION (50%) */}
-                    <div className="w-full md:w-1/2 h-[50vh] md:h-full relative overflow-hidden">
+                    {/* LEFT: IMAGE SECTION (40% Mobile / 50% Desktop) */}
+                    <div className="w-full md:w-1/2 h-[40%] md:h-full relative overflow-hidden">
                         <motion.div
                             className="absolute inset-0 bg-cover bg-center"
                             style={{ backgroundImage: `url(${imageUrl})` }}
@@ -118,16 +146,23 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
                         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent md:hidden"></div>
                     </div>
 
-                    {/* RIGHT: CONTENT SECTION (50%) */}
-                    <div className="w-full md:w-1/2 h-full flex flex-col justify-center px-6 md:px-20 lg:px-24 py-12 bg-buddas-teal-dark relative">
+                    {/* RIGHT: CONTENT SECTION (60% Mobile / 50% Desktop) */}
+                    <div className="w-full md:w-1/2 h-[60%] md:h-full flex flex-col justify-center px-6 md:px-20 lg:px-24 py-8 md:py-12 bg-buddas-teal-dark relative">
 
                         {/* Floating Nav Arrows (Desktop) */}
                         <div className="absolute top-1/2 -translate-y-1/2 right-8 hidden 2xl:flex flex-col gap-4 z-30">
-                            <button onClick={handlePrev} className="p-4 rounded-full border border-white/10 text-white/50 hover:bg-white hover:text-buddas-teal-dark transition-all hover:scale-110 active:scale-95">
+                            <button onClick={handlePrev} aria-label="Previous slide" className="p-4 rounded-full border border-white/10 text-white/50 hover:bg-white hover:text-buddas-teal-dark transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50">
                                 <ChevronLeft className="w-6 h-6" />
                             </button>
-                            <button onClick={handleNext} className="p-4 rounded-full border border-white/10 text-white/50 hover:bg-white hover:text-buddas-teal-dark transition-all hover:scale-110 active:scale-95">
+                            <button onClick={handleNext} aria-label="Next slide" className="p-4 rounded-full border border-white/10 text-white/50 hover:bg-white hover:text-buddas-teal-dark transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50">
                                 <ChevronRight className="w-6 h-6" />
+                            </button>
+                            <button
+                                onClick={() => setIsPaused(!isPaused)}
+                                aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
+                                className="p-3 rounded-full border border-white/20 text-white/60 hover:bg-white hover:text-buddas-teal-dark transition-all focus:outline-none focus:ring-2 focus:ring-white/50 mt-2"
+                            >
+                                {isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
                             </button>
                         </div>
 
@@ -142,20 +177,20 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
                             className="max-w-xl"
                         >
                             {/* Kicker Badge */}
-                            <motion.div variants={textItemVariants} className="mb-8">
-                                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-buddas-gold/10 text-buddas-gold border border-buddas-gold/20 text-xs font-bold uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(233,197,89,0.15)]">
+                            <motion.div variants={textItemVariants} className="mb-4 md:mb-8">
+                                <span className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-buddas-gold/10 text-buddas-gold border border-buddas-gold/20 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(233,197,89,0.15)]">
                                     <Sparkles className="w-3 h-3" />
                                     {MICROCOPY.newArrival}
                                 </span>
                             </motion.div>
 
                             {/* Title */}
-                            <motion.h2 variants={textItemVariants} className="text-4xl md:text-6xl lg:text-7xl font-semibold font-poppins leading-[1.1] mb-6 text-white tracking-tight">
+                            <motion.h2 variants={textItemVariants} className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-semibold font-poppins leading-[1.1] mb-4 md:mb-6 text-white tracking-tight">
                                 {currentSlide.name}
                             </motion.h2>
 
                             {/* Description */}
-                            <motion.p variants={textItemVariants} className="text-lg md:text-xl text-buddas-cream/80 leading-relaxed mb-12 max-w-lg font-dm-sans">
+                            <motion.p variants={textItemVariants} className="text-base md:text-lg lg:text-xl text-buddas-cream/80 leading-relaxed mb-8 md:mb-12 max-w-lg font-dm-sans line-clamp-3 md:line-clamp-none">
                                 {currentSlide.description || "Experience the bold flavors of Hawaii with our newest kitchen creation. Fresh, fiery, and full of aloha."}
                             </motion.p>
 
@@ -168,7 +203,7 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
                                     </span>
                                 </div>
                                 <div className="h-12 w-px bg-white/10 hidden sm:block"></div>
-                                <button className="group relative px-10 py-5 bg-buddas-gold text-buddas-brown rounded-lg font-bold text-sm uppercase tracking-widest overflow-hidden hover:scale-105 active:scale-95 transition-transform duration-300 shadow-sm hover:shadow-md">
+                                <button className="group relative w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-buddas-gold text-buddas-brown rounded-lg font-bold text-xs md:text-sm uppercase tracking-widest overflow-hidden hover:scale-105 active:scale-95 transition-transform duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-buddas-gold focus:ring-offset-2 focus:ring-offset-buddas-teal-dark">
                                     <span className="relative z-10 flex items-center gap-3">
                                         {MICROCOPY.tasteItFirst} <ArrowRight className="w-4 h-4" />
                                     </span>
@@ -179,13 +214,14 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
                         </motion.div>
 
                         {/* Mobile Navigation Dots */}
-                        <div className="flex 2xl:hidden gap-3 mt-16">
+                        <div className="flex 2xl:hidden gap-3 mt-auto md:mt-16 pb-6 md:pb-0">
                             {slides.map((_, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setCurrentIndex(idx)}
-                                    className={`h-1.5 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-12 bg-buddas-gold' : 'w-2 bg-zinc-800'}`}
+                                    className={`h-1.5 rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-white/50 ${idx === currentIndex ? 'w-12 bg-buddas-gold' : 'w-2 bg-zinc-800'}`}
                                     aria-label={`Go to slide ${idx + 1}`}
+                                    aria-current={idx === currentIndex ? "true" : "false"}
                                 ></button>
                             ))}
                         </div>

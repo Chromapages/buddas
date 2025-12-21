@@ -60,7 +60,7 @@ export function MenuItemCard({
                                     key={tag}
                                     variant="secondary"
                                     className={cn(
-                                        "bg-white/95 backdrop-blur-sm text-buddas-brown shadow-sm border-0 text-[10px] font-bold px-2 py-0.5 uppercase tracking-wide font-dm-sans",
+                                        "bg-white text-buddas-brown shadow-sm border-0 text-[10px] font-bold px-2 py-0.5 uppercase tracking-wide font-dm-sans",
                                         tag.toLowerCase() === "spicy" && "text-buddas-orange"
                                     )}
                                 >

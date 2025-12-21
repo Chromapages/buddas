@@ -43,7 +43,7 @@ export function CategoryNav() {
 
     return (
         <nav className={cn(
-            "sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300",
+            "sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm transition-all duration-300",
             isSticky ? "shadow-md" : ""
         )}>
             <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 lg:px-8 xl:px-12 2xl:px-16">

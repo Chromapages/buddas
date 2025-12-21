@@ -1,39 +1,30 @@
+"use client";
 
+import { useRouter } from "next/navigation";
 
-
-import { ValuePropositionSection } from "@/components/ValuePropositionSection";
-import { TrustedBy } from "./TrustedBy";
 import { NewArrivalsSlideshow } from "./NewArrivalsSlideshow";
-import { FeaturedItemsGrid } from "@/components/FeaturedItemsGrid";
+import { FeaturedSection } from "./menu/FeaturedSection";
 
 interface MenuOffersSectionProps {
     featuredItems: any[];
-    popularItems: any[];
     newItems: any[];
-    promotions?: any[];
-    trustedByData?: any;
 }
 
-export function MenuOffersSection({ featuredItems, popularItems, newItems, promotions, trustedByData }: MenuOffersSectionProps) {
+export function MenuOffersSection({ featuredItems, newItems }: MenuOffersSectionProps) {
+    const router = useRouter();
+
     return (
         <div className="bg-white pb-24" id="menu-offers">
-
-            {/* Trusted By Section (New) */}
-            <TrustedBy trustedByData={trustedByData} />
-
-            {/* Featured Items Grid (New) */}
-            <FeaturedItemsGrid items={featuredItems} />
-
-            {/* Part A: Values Section (Swapped) */}
-            <ValuePropositionSection />
-
-
-
-
-
             {/* New Arrivals Slideshow (Full Width) */}
             <NewArrivalsSlideshow items={newItems} />
 
+
+
+            {/* Featured Items Section (Switched to FeaturedSection and Swapped Order) */}
+            <FeaturedSection
+                items={featuredItems}
+                onItemClick={() => router.push('/menu')}
+            />
         </div>
     );
 }

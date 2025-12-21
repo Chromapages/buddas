@@ -3,7 +3,7 @@
 import { urlFor } from "@/sanity/lib/image";
 import { ArrowRight, Tag, Sparkles, MapPin, ExternalLink, Copy, Check, MousePointerClick } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface Promotion {
     _id: string;
@@ -24,13 +24,57 @@ interface PromoBannerProps {
 }
 
 export function PromoBanner({ promotions = [] }: PromoBannerProps) {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    // Track scroll position to update dots
+    const handleScroll = () => {
+        if (!scrollContainerRef.current) return;
+
+        const container = scrollContainerRef.current;
+        const scrollPosition = container.scrollLeft;
+        const itemWidth = container.offsetWidth * 0.85; // Approximately card width (85vw) or close to it
+        // Simple approximation for snap index
+        const index = Math.round(scrollPosition / (container.firstElementChild?.clientWidth || itemWidth));
+
+        // Clamp index
+        const clampedIndex = Math.min(Math.max(index, 0), Math.min(promotions.length - 1, 2));
+        if (clampedIndex !== currentIndex) {
+            setCurrentIndex(clampedIndex);
+        }
+    };
+
     if (!promotions || promotions.length === 0) return null;
 
     return (
-        <div className="max-w-[1920px] mx-auto px-6 md:px-10 lg:px-12 xl:px-16 py-16 md:py-24">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 md:px-10 lg:px-12 xl:px-16 py-12 md:py-24">
+
+            {/* Section Header */}
+            <div className="mb-8 md:mb-12 px-2">
+                <span className="text-xs font-bold uppercase tracking-widest text-buddas-teal mb-2 block">Don't Miss Out</span>
+                <h2 className="text-3xl md:text-4xl font-poppins font-semibold text-buddas-brown">Current Happenings</h2>
+            </div>
+
+            <div
+                ref={scrollContainerRef}
+                onScroll={handleScroll}
+                className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-6 px-6 md:grid md:grid-cols-3 md:gap-6 lg:gap-8 md:pb-0 md:mx-0 md:px-0 no-scrollbar"
+            >
                 {promotions.slice(0, 3).map((promo, idx) => (
-                    <PromoCard key={promo._id || idx} promo={promo} />
+                    <div key={promo._id || idx} className="flex-shrink-0 w-[80vw] md:w-auto snap-center h-full">
+                        <PromoCard promo={promo} />
+                    </div>
+                ))}
+            </div>
+
+            {/* Mobile Pagination Dots */}
+            <div className="flex md:hidden justify-center gap-2 mt-2">
+                {promotions.slice(0, 3).map((_, idx) => (
+                    <div
+                        key={idx}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'w-6 bg-buddas-teal' : 'w-1.5 bg-buddas-brown/20'
+                            }`}
+                    />
                 ))}
             </div>
         </div>
@@ -120,10 +164,10 @@ function PromoCard({ promo }: { promo: Promotion }) {
     const layout = layoutStyles[promo.campaignType || 'conversion'];
 
     return (
-        <div className={`group flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-[2px] overflow-hidden border border-stone-200 relative ${theme.bg} ${layout.container}`}>
+        <div className={`group flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:-translate-y-[2px] overflow-hidden border border-buddas-brown/5 relative ${layout.container}`}>
 
             {/* Image Section */}
-            <div className={`relative w-full overflow-hidden bg-zinc-100 shrink-0 ${layout.imageHeight}`}>
+            <div className={`relative w-full overflow-hidden bg-buddas-cream shrink-0 ${layout.imageHeight}`}>
                 {imageUrl ? (
                     <div
                         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
@@ -136,9 +180,9 @@ function PromoCard({ promo }: { promo: Promotion }) {
                 )}
 
                 {/* Floating Badge */}
-                <div className="absolute top-4 left-4 z-10">
+                <div className="absolute top-3 left-3 z-10">
                     <span
-                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm border ${theme.badge}`}
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/90 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm border ${theme.badge}`}
                     >
                         <Tag className="w-3 h-3" />
                         {promo.badge || (ctaType === 'coupon' ? 'Exclusive Code' : 'Limited Time')}
@@ -148,11 +192,11 @@ function PromoCard({ promo }: { promo: Promotion }) {
 
             {/* Content Section */}
             <div className={`${layout.contentPadding} flex flex-col flex-1 relative`}>
-                <h3 className={`${layout.headlineSize} font-semibold text-buddas-brown font-[family-name:var(--font-poppins)] mb-3 leading-tight transition-colors tracking-tight`}>
+                <h3 className={`${layout.headlineSize} font-semibold text-buddas-brown font-poppins mb-3 leading-tight transition-colors tracking-tight`}>
                     {promo.title}
                 </h3>
 
-                <p className="text-buddas-brown/80 font-[family-name:var(--font-dm-sans)] text-sm md:text-base leading-relaxed mb-8 line-clamp-3">
+                <p className="text-buddas-brown/80 font-dm-sans text-sm md:text-base leading-relaxed mb-8 line-clamp-3">
                     {promo.description}
                 </p>
 
@@ -163,7 +207,7 @@ function PromoCard({ promo }: { promo: Promotion }) {
                             <div className="text-xs font-bold text-buddas-brown/40 uppercase tracking-wider pl-1 font-[family-name:var(--font-poppins)]">Use Code at Checkout</div>
                             <button
                                 onClick={handleCopy}
-                                className={`w-full flex items-center justify-between border px-5 py-4 rounded-lg font-mono font-bold transition-all duration-200 group/btn relative overflow-hidden active:scale-95 ${theme.badge} bg-white/50 hover:bg-white`}
+                                className={`w-full flex items-center justify-between border px-5 py-4 rounded-lg font-mono font-bold transition-all duration-200 group/btn relative overflow-hidden active:scale-95 ${theme.badge} bg-white/50 hover:bg-white focus:outline-none focus:ring-2 focus:ring-buddas-teal focus:ring-offset-2`}
                             >
                                 <span className="text-lg tracking-widest relative z-10">{promo.couponCode}</span>
                                 <div className="flex items-center gap-2 relative z-10">
@@ -185,7 +229,7 @@ function PromoCard({ promo }: { promo: Promotion }) {
                         <Link
                             href={promo.link || "#"}
                             target="_blank"
-                            className={`w-full flex items-center justify-center gap-3 px-5 py-4 rounded-lg font-bold shadow-lg transition-all duration-300 active:scale-95 group/btn ${theme.button}`}
+                            className={`w-full flex items-center justify-center gap-3 px-5 py-4 rounded-lg font-bold shadow-lg transition-all duration-300 active:scale-95 group/btn ${theme.button} focus:outline-none focus:ring-2 focus:ring-buddas-teal focus:ring-offset-2`}
                         >
                             <span className="text-sm uppercase tracking-wide">
                                 {promo.buttonText || "Order on SpotOn"}
@@ -198,7 +242,7 @@ function PromoCard({ promo }: { promo: Promotion }) {
                     {ctaType === 'link' && (
                         <Link
                             href={promo.link || "/menu"}
-                            className={`w-full flex items-center justify-between px-5 py-4 rounded-lg font-bold transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 group/btn ${theme.button}`}
+                            className={`w-full flex items-center justify-between px-5 py-4 rounded-lg font-bold transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 group/btn ${theme.button} focus:outline-none focus:ring-2 focus:ring-buddas-teal focus:ring-offset-2`}
                         >
                             <span className="text-sm uppercase tracking-wide">
                                 {promo.buttonText || "View Details"}
@@ -211,7 +255,7 @@ function PromoCard({ promo }: { promo: Promotion }) {
                     {!ctaType && !promo.link && !promo.couponCode && (
                         <Link
                             href="/contact"
-                            className="w-full flex items-center justify-between bg-white/50 hover:bg-white text-buddas-brown px-5 py-4 rounded-lg font-bold transition-all duration-300 active:scale-95 group/btn border border-buddas-brown/10"
+                            className="w-full flex items-center justify-between bg-white/50 hover:bg-white text-buddas-brown px-5 py-4 rounded-lg font-bold transition-all duration-300 active:scale-95 group/btn border border-buddas-brown/10 focus:outline-none focus:ring-2 focus:ring-buddas-teal focus:ring-offset-2"
                         >
                             <span className="text-sm uppercase tracking-wide">
                                 Visit Location

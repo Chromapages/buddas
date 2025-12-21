@@ -308,7 +308,7 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
 
             {/* View Testimonial Modal */}
             <Dialog open={!!selectedTestimonial} onOpenChange={(open) => !open && setSelectedTestimonial(null)}>
-                <DialogContent className="sm:max-w-[600px] bg-white/95 backdrop-blur-xl border-none shadow-2xl rounded-3xl p-0 overflow-hidden">
+                <DialogContent className="sm:max-w-[600px] bg-white border-none shadow-2xl rounded-3xl p-0 overflow-hidden">
                     {selectedTestimonial && (
                         <div className={cn(
                             BRAND_COLORS[testimonials.findIndex(t => t._id === selectedTestimonial._id) % BRAND_COLORS.length],
@@ -330,7 +330,7 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                                         </p>
                                     )}
                                 </div>
-                                <div className="bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full">
+                                <div className="bg-white px-4 py-2 rounded-full border border-buddas-brown/5">
                                     <StarRating rating={selectedTestimonial.rating || 5} />
                                 </div>
                             </div>

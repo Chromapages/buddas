@@ -112,7 +112,7 @@ export function Footer({
                             <ul className="space-y-3 text-sm text-buddas-cream/80">
                                 {displayNav.map((link, idx) => (
                                     <li key={idx}>
-                                        <Link href={link.url} className="hover:text-buddas-gold transition-colors">
+                                        <Link href={link.url} className="hover:text-buddas-gold transition-colors py-1.5 block">
                                             {link.label}
                                         </Link>
                                     </li>
@@ -124,9 +124,9 @@ export function Footer({
                         <div className="space-y-4">
                             <h4 className="text-white font-poppins font-semibold tracking-wide">Support</h4>
                             <ul className="space-y-3 text-sm text-buddas-cream/80">
-                                <li><Link href="/contact" className="hover:text-buddas-gold transition-colors">Contact Us</Link></li>
-                                <li><Link href="/faq" className="hover:text-buddas-gold transition-colors">FAQ</Link></li>
-                                <li><Link href="/careers" className="hover:text-buddas-gold transition-colors">Careers</Link></li>
+                                <li><Link href="/contact" className="hover:text-buddas-gold transition-colors py-1.5 block">Contact Us</Link></li>
+                                <li><Link href="/faq" className="hover:text-buddas-gold transition-colors py-1.5 block">FAQ</Link></li>
+                                <li><Link href="/careers" className="hover:text-buddas-gold transition-colors py-1.5 block">Careers</Link></li>
                             </ul>
                         </div>
 
@@ -134,8 +134,8 @@ export function Footer({
                         <div className="space-y-4">
                             <h4 className="text-white font-poppins font-semibold tracking-wide">Legal</h4>
                             <ul className="space-y-3 text-sm text-buddas-cream/80">
-                                <li><Link href="/privacy" className="hover:text-buddas-gold transition-colors">Privacy Policy</Link></li>
-                                <li><Link href="/terms" className="hover:text-buddas-gold transition-colors">Terms of Service</Link></li>
+                                <li><Link href="/privacy" className="hover:text-buddas-gold transition-colors py-1.5 block">Privacy Policy</Link></li>
+                                <li><Link href="/terms" className="hover:text-buddas-gold transition-colors py-1.5 block">Terms of Service</Link></li>
                             </ul>
                         </div>
                     </div>
@@ -153,7 +153,7 @@ export function Footer({
                                             href={social.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-10 h-10 rounded-full bg-white/5 hover:bg-buddas-teal hover:text-white flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-transparent text-buddas-cream/80"
+                                            className="w-12 h-12 rounded-full bg-white/5 hover:bg-buddas-teal hover:text-white flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-transparent text-buddas-cream/80"
                                             aria-label={`Follow us on ${social.platform}`}
                                         >
                                             {getSocialIcon(social.platform)}

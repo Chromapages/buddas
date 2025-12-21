@@ -25,24 +25,33 @@ export function KeyInfoStrip({ primaryPhone, locations = [] }: KeyInfoStripProps
     };
 
     return (
-        <div className="bg-buddas-brown text-white py-3 lg:py-4 px-4 shadow-md relative z-20">
-            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 text-sm lg:text-base font-dm-sans font-medium tracking-wide">
+        <div className="bg-buddas-brown text-white py-2 sm:py-3 lg:py-4 px-4 shadow-md relative z-20">
+            <div className="max-w-7xl mx-auto flex sm:flex-row justify-center items-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 text-sm sm:text-base font-dm-sans font-medium tracking-wide">
 
-                <div className="flex items-center gap-2">
+                {/* Hours - Icon only mobile, text desktop */}
+                <div className="flex items-center gap-2" title={getTodayHours()}>
                     <Clock className="w-4 h-4 text-buddas-gold" />
-                    <span>{getTodayHours()}</span>
+                    <span className="hidden sm:inline">{getTodayHours()}</span>
+                    <span className="sm:hidden text-xs text-white/80">Open Daily</span>
                 </div>
 
-                <Link href="#locations" className="flex items-center gap-2 hover:text-buddas-icon-gold transition-colors group">
+                {/* Location */}
+                <Link href="#locations" className="flex items-center gap-2 hover:text-buddas-icon-gold transition-colors group min-h-[44px] sm:min-h-0">
                     <MapPin className="w-4 h-4 text-buddas-gold group-hover:text-white transition-colors" />
-                    <span className="border-b border-white/20 group-hover:border-white transition-colors">Find a Location</span>
+                    <span className="border-b border-white/20 group-hover:border-white transition-colors">Find Us</span>
                 </Link>
 
+                {/* Phone - CTA Button on Mobile */}
                 {primaryPhone && (
-                    <div className="flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-buddas-gold" />
-                        <a href={`tel:${primaryPhone}`} className="hover:text-buddas-gold transition-colors">
-                            {primaryPhone}
+                    <div className="flex items-center">
+                        <a
+                            href={`tel:${primaryPhone}`}
+                            className="flex items-center gap-2 sm:hover:text-buddas-gold transition-colors bg-buddas-gold/15 sm:bg-transparent px-3 py-1.5 sm:p-0 rounded-full sm:rounded-none border border-buddas-gold/30 sm:border-0"
+                            aria-label={`Call us at ${primaryPhone}`}
+                        >
+                            <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-buddas-gold" />
+                            <span className="sm:hidden font-bold text-xs text-buddas-gold">Call</span>
+                            <span className="hidden sm:inline">{primaryPhone}</span>
                         </a>
                     </div>
                 )}

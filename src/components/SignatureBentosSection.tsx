@@ -89,7 +89,7 @@ export function SignatureBentosSection({ items }: SignatureBentosSectionProps) {
                                                 <Badge
                                                     key={tag}
                                                     variant="secondary"
-                                                    className="bg-white/20 backdrop-blur-md text-white border-0 hover:bg-white/30 text-[10px] px-2 py-0.5"
+                                                    className="bg-white/90 text-buddas-brown border-0 hover:bg-white text-[10px] px-2 py-0.5"
                                                 >
                                                     {tag}
                                                 </Badge>
@@ -103,7 +103,7 @@ export function SignatureBentosSection({ items }: SignatureBentosSectionProps) {
 
                                         <Button
                                             size="icon"
-                                            className="h-8 w-8 rounded-full bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-[#3A2F2B] border-0 transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                                            className="h-8 w-8 rounded-full bg-white text-buddas-brown hover:bg-buddas-cream border-0 transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
                                         >
                                             <ArrowUpRight className="w-4 h-4" />
                                         </Button>
@@ -145,7 +145,7 @@ export function SignatureBentosSection({ items }: SignatureBentosSectionProps) {
                                                 </Button>
                                                 <Button
                                                     variant="secondary"
-                                                    className="bg-white/20 backdrop-blur-md text-white hover:bg-white hover:text-[#3A2F2B] font-bold rounded-full h-10 w-10 p-0"
+                                                    className="bg-white text-buddas-brown hover:bg-buddas-cream font-bold rounded-full h-10 w-10 p-0 shadow-sm"
                                                     onClick={(e) => {
                                                         e.stopPropagation();
                                                         setSelectedItem(item);
@@ -179,7 +179,7 @@ export function SignatureBentosSection({ items }: SignatureBentosSectionProps) {
                                 )}
                                 <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                                     {selectedItem.tags?.map((tag: string) => (
-                                        <Badge key={tag} className="bg-white/90 text-[#3A2F2B] backdrop-blur-sm">
+                                        <Badge key={tag} className="bg-white/90 text-[#3A2F2B] border border-buddas-brown/10">
                                             {tag}
                                         </Badge>
                                     ))}

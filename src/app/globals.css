@@ -106,7 +106,7 @@
 }
 
 @utility glass-panel {
-  @apply backdrop-blur-xl bg-white/20 border border-white/30;
+  @apply bg-white border border-black/5 shadow-xl;
 }
 
 /* Typography Letter Spacing Utilities (Per Brand Guide) */

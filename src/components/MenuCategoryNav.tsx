@@ -50,7 +50,7 @@ export function MenuCategoryNav({ categories }: MenuCategoryNavProps) {
     if (!categories || categories.length === 0) return null;
 
     return (
-        <div className="sticky top-[136px] z-40 bg-buddas-cream/95 backdrop-blur border-b border-buddas-brown/10 py-4 overflow-x-auto no-scrollbar">
+        <div className="sticky top-[136px] z-40 bg-buddas-cream border-b border-buddas-brown/10 py-4 overflow-x-auto no-scrollbar">
             <div className="container mx-auto px-4">
                 <div className="flex gap-2 min-w-max mx-auto justify-center py-2">
                     {categories.map((category) => (

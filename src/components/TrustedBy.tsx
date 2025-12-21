@@ -25,20 +25,20 @@ export function TrustedBy({ trustedByData }: TrustedByProps) {
     return (
         <section className="py-8 md:py-10 lg:py-12 xl:py-16 bg-buddas-cream border-b border-buddas-brown/5">
             <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 lg:px-8 xl:px-12 2xl:px-16 text-center">
-                <h2 className="text-buddas-brown font-poppins font-semibold mb-12 text-2xl lg:text-3xl tracking-[-0.01em] drop-shadow-sm">
+                <h2 className="text-buddas-brown font-poppins font-semibold mb-8 md:mb-12 text-2xl md:text-3xl lg:text-4xl tracking-[-0.01em] drop-shadow-sm">
                     {title}
                 </h2>
-                <div className="flex flex-wrap justify-center items-center gap-12 lg:gap-24">
+                <div className="flex overflow-x-auto gap-8 pb-4 -mx-6 px-6 sm:flex-wrap sm:justify-center sm:gap-12 sm:mx-0 sm:px-0 no-scrollbar justify-start sm:items-center">
                     {platforms.map((platform, index) => (
                         <Link
                             key={index}
                             href={platform.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:scale-105 group"
+                            className="transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:scale-105 group focus:outline-none focus:ring-2 focus:ring-buddas-teal focus:ring-offset-2 rounded-lg min-h-[48px] flex items-center flex-shrink-0"
                         >
                             {platform.logo ? (
-                                <div className="relative h-16 w-auto min-w-[160px]">
+                                <div className="relative h-10 lg:h-12 w-auto min-w-[100px] sm:min-w-[120px] lg:min-w-[160px]">
                                     <Image
                                         src={platform.logo}
                                         alt={platform.name || "Platform logo"}
@@ -47,7 +47,7 @@ export function TrustedBy({ trustedByData }: TrustedByProps) {
                                     />
                                 </div>
                             ) : (
-                                <span className="text-4xl font-black tracking-tight text-buddas-brown/40 hover:text-buddas-teal transition-colors duration-300">
+                                <span className="text-xl sm:text-2xl lg:text-3xl font-poppins font-semibold tracking-tight text-buddas-brown/40 hover:text-buddas-teal transition-colors duration-300 whitespace-nowrap">
                                     {platform.name}
                                 </span>
                             )}

@@ -19,7 +19,7 @@ export function StickyLocationBar({ location }: StickyLocationBarProps) {
 
     return (
         <div className="fixed bottom-0 left-0 right-0 z-50 p-2 sm:p-4 font-display">
-            <div className="mx-auto flex w-fit max-w-fit items-center justify-center gap-4 rounded-full bg-buddas-dark p-2 text-white shadow-2xl transition-all duration-300 ease-in-out dark:bg-white/10 dark:backdrop-blur-md">
+            <div className="mx-auto flex w-fit max-w-fit items-center justify-center gap-4 rounded-full bg-buddas-dark p-2 text-white shadow-2xl transition-all duration-300 ease-in-out dark:bg-white dark:text-buddas-brown">
                 <div className="flex shrink-0 items-center gap-3 pl-4">
                     <p className="hidden text-base font-bold leading-normal text-white sm:block">
                         Buddas Bakery & Grill

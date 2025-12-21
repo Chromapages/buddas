@@ -1,6 +1,6 @@
 "use client";
 
-import { Flame } from "lucide-react";
+
 import { MenuCard } from "./MenuCard";
 
 interface FeaturedSectionProps {
@@ -20,9 +20,7 @@ export function FeaturedSection({ items, onItemClick, title = "Customer Favorite
             <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 md:px-10 xl:px-12 2xl:px-16 relative z-10">
                 <div className="w-full">
                     <div className="flex items-center gap-3 mb-10 justify-center md:justify-start">
-                        <div className="bg-buddas-gold/10 p-3 rounded-xl border border-buddas-gold/20 text-buddas-brown shadow-sm">
-                            <Flame className="w-6 h-6 fill-buddas-gold text-buddas-orange" />
-                        </div>
+
                         <div>
                             <h2 className="text-3xl md:text-4xl font-poppins font-semibold text-buddas-brown tracking-tight">
                                 {title}
@@ -33,13 +31,14 @@ export function FeaturedSection({ items, onItemClick, title = "Customer Favorite
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-6 px-6 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-8 sm:pb-0 sm:mx-0 sm:px-0 no-scrollbar">
                         {items.map((item) => (
-                            <MenuCard
-                                key={item._id}
-                                item={item}
-                                onClick={() => onItemClick(item)}
-                            />
+                            <div key={item._id} className="flex-shrink-0 w-[85vw] sm:w-auto snap-center">
+                                <MenuCard
+                                    item={item}
+                                    onClick={() => onItemClick(item)}
+                                />
+                            </div>
                         ))}
                     </div>
                 </div>

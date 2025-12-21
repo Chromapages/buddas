@@ -50,7 +50,7 @@ export function NewMenuGrid({ items }: NewMenuGridProps) {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-8 flex flex-col justify-end">
                                 <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
                                     {largeItem.isBestSeller && (
-                                        <span className="inline-block px-2 py-1 bg-white/20 backdrop-blur-md text-white text-xs font-medium rounded mb-3 border border-white/10">Bestseller</span>
+                                        <span className="inline-block px-2 py-1 bg-white/90 text-buddas-brown text-xs font-medium rounded mb-3 border border-white/10">Bestseller</span>
                                     )}
                                     <h3 className="text-2xl font-semibold text-white tracking-tight">{largeItem.name}</h3>
                                     <p className="text-zinc-300 mt-2 line-clamp-2">{largeItem.description}</p>
@@ -91,7 +91,7 @@ export function NewMenuGrid({ items }: NewMenuGridProps) {
                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 sizes="(max-width: 768px) 100vw, 33vw"
                             />
-                            <div className="absolute top-4 right-4 bg-white/90 backdrop-blur shadow-sm px-3 py-1 rounded-full text-xs font-semibold text-zinc-900">${smallItem1.price}</div>
+                            <div className="absolute top-4 right-4 bg-white shadow-sm px-3 py-1 rounded-full text-xs font-semibold text-zinc-900 border border-zinc-100">${smallItem1.price}</div>
                             <div className="absolute bottom-0 p-6 w-full bg-gradient-to-t from-black/60 to-transparent">
                                 <h3 className="text-lg font-semibold text-white">{smallItem1.name}</h3>
                             </div>

@@ -88,7 +88,7 @@ export default async function RootLayout({
         suppressHydrationWarning
       >
         <div className="sticky top-0 z-50 w-full transition-all duration-300">
-          <ConditionalAnnouncement data={siteSettings?.announcement} />
+          {/* <ConditionalAnnouncement data={siteSettings?.announcement} /> */}
           <ConditionalHeader
             logoUrl={logoUrl}
             orderUrl={orderUrl}

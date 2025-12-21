@@ -4,6 +4,7 @@ import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
 import { Footer } from "@/components/Footer";
 import { NewNavbar } from "@/components/NewNavbar";
 import { NewHero } from "@/components/NewHero";
+import { TrustedBy } from "@/components/TrustedBy";
 import { PromoBanner } from "@/components/PromoBanner";
 import { KeyInfoStrip } from "@/components/KeyInfoStrip";
 
@@ -121,28 +122,9 @@ export default async function Home() {
     : undefined;
   const orderUrl = data?.siteSettings?.defaultOrderingUrl;
 
-  // Helper to safely get image URL - use direct asset.url since query expands asset->
-  const getImageUrl = (image: any): string | undefined => {
-    // Direct URL from expanded asset
-    if (image?.asset?.url) {
-      return image.asset.url;
-    }
-    return undefined;
-  };
-
-  // Map helper for consistent item structure
-  const mapMenuItem = (item: any) => ({
-    id: item._id,
-    name: item.name,
-    description: item.description,
-    price: item.price,
-    image: getImageUrl(item.image),
-    isBestSeller: item.isSignature,
-  });
-
-  const bentoItems = (data?.featuredMenuItems || []).map(mapMenuItem);
-  const popularItems = (data?.popularItems || []).map(mapMenuItem);
-  const newItems = (data?.newItems || []).map(mapMenuItem);
+  const bentoItems = data?.featuredMenuItems || [];
+  const popularItems = data?.popularItems || [];
+  const newItems = data?.newItems || [];
 
   return (
     <div className="min-h-screen bg-buddas-cream text-buddas-brown font-sans selection:bg-teal-500 selection:text-white">
@@ -154,21 +136,21 @@ export default async function Home() {
         />
         <NewHero heroSlides={heroSlides} />
 
+        <TrustedBy trustedByData={data?.trustedByData} />
+
         <PromoBanner promotions={data?.promotions} />
 
         <MenuOffersSection
           featuredItems={bentoItems}
-          popularItems={popularItems}
           newItems={newItems}
-          promotions={data?.promotions}
-          trustedByData={data?.trustedByData}
         />
 
         <NewCateringSection cateringData={data?.cateringData} />
 
         <NewAboutSection aboutData={data?.aboutData} />
 
-        <LocationsSection locations={locationsSafe} />
+        {/* LocationsSection hidden per user request */}
+        {/* <LocationsSection locations={locationsSafe} /> */}
 
         <NewTestimonialsSection testimonials={data?.testimonials} />
 
