@@ -71,6 +71,7 @@ export default async function RootLayout({
   const ctaStyle = siteSettings?.headerCtaStyle || undefined;
   const navigation = siteSettings?.mainNavigation || undefined;
   const socialLinks = siteSettings?.socialLinks || undefined;
+  const locations = siteSettings?.locations || undefined;
   const contactInfo = {
     phone: siteSettings?.primaryPhone || undefined,
     email: siteSettings?.primaryEmail || undefined
@@ -96,6 +97,7 @@ export default async function RootLayout({
             navigation={navigation}
             socialLinks={socialLinks}
             contactInfo={contactInfo}
+            locations={locations}
           />
         </div>
         {children}

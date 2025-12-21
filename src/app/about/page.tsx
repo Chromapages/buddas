@@ -1,7 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { ABOUT_PAGE_QUERY } from "@/sanity/lib/queries";
 import { Footer } from "@/components/Footer";
-import { StickyMobileCtaBar } from "@/components/StickyMobileCtaBar";
 import { AboutClient } from "@/components/about/AboutClient";
 
 export const revalidate = 60;
@@ -29,7 +28,6 @@ export default async function AboutPage() {
                 <AboutClient data={pageData} />
             </main>
             <Footer />
-            <StickyMobileCtaBar />
         </div>
     );
 }

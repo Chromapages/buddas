@@ -1,7 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { BENEFIT_NIGHTS_PAGE_QUERY } from "@/sanity/lib/queries";
 import { Footer } from "@/components/Footer";
-import { StickyMobileCtaBar } from "@/components/StickyMobileCtaBar";
 import { EventsClient } from "@/components/events/EventsClient";
 
 export const revalidate = 60;
@@ -29,7 +28,6 @@ export default async function BenefitNightsPage() {
                 <EventsClient data={pageData} />
             </main>
             <Footer />
-            <StickyMobileCtaBar />
         </div>
     );
 }

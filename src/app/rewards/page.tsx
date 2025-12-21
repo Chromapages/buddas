@@ -1,7 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { REWARDS_PAGE_QUERY } from "@/sanity/lib/queries";
 import { Footer } from "@/components/Footer";
-import { StickyMobileCtaBar } from "@/components/StickyMobileCtaBar";
 import { Masthead } from "@/components/Masthead";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -152,7 +151,6 @@ export default async function RewardsPage() {
             </main>
 
             <Footer />
-            <StickyMobileCtaBar />
         </div>
     );
 }

@@ -4,7 +4,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { formatPrice } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, Sparkles, ArrowRight, Play, Pause } from "lucide-react";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion, AnimatePresence, Variants, PanInfo } from "framer-motion";
 import { MICROCOPY } from "@/lib/microcopy";
 
 interface NewArrivalsSlideshowProps {
@@ -14,35 +14,17 @@ interface NewArrivalsSlideshowProps {
 export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
-    const [touchStart, setTouchStart] = useState<number | null>(null);
-    const [touchEnd, setTouchEnd] = useState<number | null>(null);
-
-    // Minimum swipe distance (in px) 
-    const minSwipeDistance = 50;
-
-    const onTouchStart = (e: React.TouchEvent) => {
-        setTouchEnd(null); // Reset
-        setTouchStart(e.targetTouches[0].clientX);
-    };
-
-    const onTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX);
-
-    const onTouchEnd = () => {
-        if (!touchStart || !touchEnd) return;
-        const distance = touchStart - touchEnd;
-        const isLeftSwipe = distance > minSwipeDistance;
-        const isRightSwipe = distance < -minSwipeDistance;
-
-        if (isLeftSwipe) handleNext();
-        if (isRightSwipe) handlePrev();
-    };
 
     // Limit to 3 items
     const slides = items.slice(0, 3);
 
-    // Auto-advance
+    // Auto-advance (Desktop Only)
     useEffect(() => {
-        if (isPaused || slides.length <= 1) return;
+        // Check if window exists (client-side) and is desktop width (> 768px)
+        const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 768;
+
+        if (isPaused || slides.length <= 1 || !isDesktop) return;
+
         const interval = setInterval(() => {
             handleNext();
         }, 6000);
@@ -55,6 +37,16 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
 
     const handlePrev = () => {
         setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
+    };
+
+    // Elastic Drag Logic
+    const onDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+        const threshold = 50;
+        if (info.offset.x < -threshold) {
+            handleNext();
+        } else if (info.offset.x > threshold) {
+            handlePrev();
+        }
     };
 
     if (!slides.length) return null;
@@ -111,6 +103,24 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
         exit: { opacity: 0 }
     };
 
+    // Container variants for the slide entry/exit
+    const slideVariants: Variants = {
+        enter: (direction: number) => ({
+            x: direction > 0 ? 1000 : -1000,
+            opacity: 0
+        }),
+        center: {
+            zIndex: 1,
+            x: 0,
+            opacity: 1
+        },
+        exit: (direction: number) => ({
+            zIndex: 0,
+            x: direction < 0 ? 1000 : -1000,
+            opacity: 0
+        })
+    };
+
     return (
         <section
             role="region"
@@ -119,18 +129,27 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
             className="relative w-full h-[85svh] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
         >
             {/* Background Elements (Subtle Pattern) */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none z-10 mix-blend-overlay"></div>
 
-            <AnimatePresence mode="wait">
-                <div key={currentIndex} className="w-full h-full flex flex-col md:flex-row relative z-0">
+            <AnimatePresence mode="popLayout" initial={false}>
+                <motion.div
+                    key={currentIndex}
+                    className="w-full h-full flex flex-col md:flex-row relative z-0"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.2}
+                    onDragEnd={onDragEnd}
+                    whileTap={{ cursor: "grabbing" }}
+                >
 
                     {/* LEFT: IMAGE SECTION (40% Mobile / 50% Desktop) */}
-                    <div className="w-full md:w-1/2 h-[40%] md:h-full relative overflow-hidden">
+                    <div className="w-full md:w-1/2 h-[40%] md:h-full relative overflow-hidden pointer-events-none select-none">
                         <motion.div
                             className="absolute inset-0 bg-cover bg-center"
                             style={{ backgroundImage: `url(${imageUrl})` }}
@@ -147,10 +166,10 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
                     </div>
 
                     {/* RIGHT: CONTENT SECTION (60% Mobile / 50% Desktop) */}
-                    <div className="w-full md:w-1/2 h-[60%] md:h-full flex flex-col justify-center px-6 md:px-20 lg:px-24 py-8 md:py-12 bg-buddas-teal-dark relative">
+                    <div className="w-full md:w-1/2 h-[60%] md:h-full flex flex-col justify-center px-6 md:px-20 lg:px-24 py-8 md:py-12 bg-buddas-teal-dark relative pointer-events-none select-none">
 
-                        {/* Floating Nav Arrows (Desktop) */}
-                        <div className="absolute top-1/2 -translate-y-1/2 right-8 hidden 2xl:flex flex-col gap-4 z-30">
+                        {/* Floating Nav Arrows (Desktop - Enable Pointer Events) */}
+                        <div className="absolute top-1/2 -translate-y-1/2 right-8 hidden 2xl:flex flex-col gap-4 z-30 pointer-events-auto">
                             <button onClick={handlePrev} aria-label="Previous slide" className="p-4 rounded-full border border-white/10 text-white/50 hover:bg-white hover:text-buddas-teal-dark transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50">
                                 <ChevronLeft className="w-6 h-6" />
                             </button>
@@ -194,11 +213,11 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
                                 {currentSlide.description || "Experience the bold flavors of Hawaii with our newest kitchen creation. Fresh, fiery, and full of aloha."}
                             </motion.p>
 
-                            {/* Price & CTA Block */}
-                            <motion.div variants={textItemVariants} className="flex flex-col sm:flex-row items-start sm:items-center gap-8">
+                            {/* Price & CTA Block (Enable Pointer Events for Button) */}
+                            <motion.div variants={textItemVariants} className="flex flex-col sm:flex-row items-start sm:items-center gap-8 pointer-events-auto">
                                 <div className="flex flex-col">
                                     <span className="text-xs text-buddas-cream/60 font-bold uppercase tracking-widest mb-2">Price</span>
-                                    <span className="text-5xl font-medium text-buddas-gold font-poppins tracking-tight">
+                                    <span className="text-4xl md:text-5xl font-medium text-buddas-gold font-poppins tracking-tight">
                                         {formatPrice(currentSlide.price)}
                                     </span>
                                 </div>
@@ -213,22 +232,31 @@ export function NewArrivalsSlideshow({ items }: NewArrivalsSlideshowProps) {
 
                         </motion.div>
 
-                        {/* Mobile Navigation Dots */}
-                        <div className="flex 2xl:hidden gap-3 mt-auto md:mt-16 pb-6 md:pb-0">
-                            {slides.map((_, idx) => (
-                                <button
-                                    key={idx}
-                                    onClick={() => setCurrentIndex(idx)}
-                                    className={`h-1.5 rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-white/50 ${idx === currentIndex ? 'w-12 bg-buddas-gold' : 'w-2 bg-zinc-800'}`}
-                                    aria-label={`Go to slide ${idx + 1}`}
-                                    aria-current={idx === currentIndex ? "true" : "false"}
-                                ></button>
-                            ))}
+                        {/* Mobile Editorial Pagination (Pointer Events Auto to allow clicks if really needed, but mostly visual) */}
+                        <div className="flex 2xl:hidden items-end gap-4 mt-auto md:mt-16 pb-6 md:pb-0 justify-between md:justify-start w-full pointer-events-auto">
+                            {/* Custom Number Pagination */}
+                            <div className="flex items-baseline gap-2 font-poppins font-medium text-buddas-gold/80">
+                                <span className="text-2xl">0{currentIndex + 1}</span>
+                                <span className="text-sm opacity-40">/</span>
+                                <span className="text-sm opacity-40">0{slides.length}</span>
+                            </div>
+
+                            {/* Progress Line */}
+                            <div className="h-[2px] w-24 bg-white/10 rounded-full overflow-hidden">
+                                <motion.div
+                                    className="h-full bg-buddas-gold"
+                                    initial={{ width: "0%" }}
+                                    animate={{ width: "100%" }}
+                                    transition={{ duration: 6, ease: "linear" }} // Sync with auto-play if desktop, or just visual filler
+                                    key={currentIndex}
+                                />
+                            </div>
                         </div>
 
                     </div>
-                </div>
+                </motion.div>
             </AnimatePresence>
         </section>
     );
 }
+

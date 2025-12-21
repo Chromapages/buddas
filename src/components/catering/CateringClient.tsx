@@ -84,8 +84,8 @@ export function CateringClient({ data }: CateringClientProps) {
 
     return (
         <div className="bg-buddas-cream min-h-screen font-sans text-buddas-brown">
-            {/* Parallax Hero */}
-            <header className="relative min-h-[65vh] flex items-center justify-center overflow-hidden bg-buddas-brown">
+            {/* Parallax Hero - Hidden on mobile */}
+            <header className="relative hidden md:flex min-h-[65vh] items-center justify-center overflow-hidden bg-buddas-brown">
                 {/* Background Image with Parallax Effect */}
                 <div className="absolute inset-0 z-0 opacity-40 select-none">
                     <Image
@@ -150,14 +150,14 @@ export function CateringClient({ data }: CateringClientProps) {
                         <p className="text-center text-sm font-medium text-buddas-brown/60 mb-8 uppercase tracking-wider font-poppins">
                             {trustedBy.title || "Trusted by Leading Companies"}
                         </p>
-                        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+                        <div className="flex md:flex-wrap items-center justify-start md:justify-center gap-8 md:gap-12 overflow-x-auto pb-6 md:pb-0 scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
                             {trustedBy.partners.map((partner: any, idx: number) => (
                                 <a
                                     key={partner._key || idx}
                                     href={partner.url || "#"}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="opacity-60 hover:opacity-100 transition-opacity duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+                                    className="opacity-100 md:opacity-60 md:hover:opacity-100 transition-opacity duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] shrink-0"
                                     aria-label={partner.name}
                                 >
                                     {partner.logo?.asset ? (
@@ -166,10 +166,10 @@ export function CateringClient({ data }: CateringClientProps) {
                                             alt={partner.name}
                                             width={120}
                                             height={40}
-                                            className="h-8 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                                            className="h-8 md:h-8 w-auto object-contain md:grayscale md:hover:grayscale-0 transition-all duration-300"
                                         />
                                     ) : (
-                                        <span className="text-buddas-brown/70 font-semibold font-poppins text-lg">
+                                        <span className="text-buddas-brown/70 font-semibold font-poppins text-lg text-nowrap">
                                             {partner.name}
                                         </span>
                                     )}
@@ -301,13 +301,13 @@ export function CateringClient({ data }: CateringClientProps) {
                             </Link>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto pb-6 md:pb-0 snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide">
                             {menuHighlights?.map((item: any, idx: number) => {
                                 const bgImage = item.image?.asset ? urlFor(item.image).width(800).url() : `https://images.unsplash.com/photo-1555244162-803834f70033?idx=${idx}`;
 
                                 return (
-                                    <div key={item._key || idx} className="bg-white rounded-xl overflow-hidden shadow-md border border-buddas-brown/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] group flex flex-col h-full">
-                                        <div className="h-64 relative overflow-hidden shrink-0">
+                                    <div key={item._key || idx} className="bg-white rounded-xl overflow-hidden shadow-md border border-buddas-brown/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] group flex flex-col h-full min-w-[300px] md:min-w-0 snap-center">
+                                        <div className="h-48 md:h-64 relative overflow-hidden shrink-0">
                                             <Image
                                                 src={bgImage}
                                                 alt={item.name}
@@ -315,12 +315,12 @@ export function CateringClient({ data }: CateringClientProps) {
                                                 className="object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-buddas-brown/80 to-transparent"></div>
-                                            <div className="absolute bottom-6 left-6 text-white right-6">
-                                                {item.isBestseller && <span className="bg-buddas-gold text-buddas-brown text-xs font-bold px-2 py-1 rounded mb-2 inline-block shadow-sm">Bestseller</span>}
-                                                <h3 className="text-2xl font-semibold leading-tight font-poppins drop-shadow-md">{item.name}</h3>
+                                            <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6 text-white">
+                                                {item.isBestseller && <span className="bg-buddas-gold text-buddas-brown text-[10px] md:text-xs font-bold px-2 py-1 rounded mb-2 inline-block shadow-sm">Bestseller</span>}
+                                                <h3 className="text-xl md:text-2xl font-semibold leading-tight font-poppins drop-shadow-md">{item.name}</h3>
                                             </div>
                                         </div>
-                                        <div className="p-8 flex flex-col flex-1">
+                                        <div className="p-6 md:p-8 flex flex-col flex-1">
                                             <div className="flex items-center gap-4 mb-4 text-sm text-buddas-brown/60 font-medium font-dm-sans">
                                                 <span className="flex items-center gap-1.5"><Users className="w-4 h-4 text-buddas-teal" /> {item.guestCount || "10-20 ppl"}</span>
                                                 <span className="flex items-center gap-1.5 text-buddas-gold-dark font-bold"><DollarSign className="w-4 h-4 text-buddas-teal" /> {item.price || 'Contact for Pricing'}</span>
@@ -338,7 +338,7 @@ export function CateringClient({ data }: CateringClientProps) {
                                             )}
 
                                             <div className="mb-8 flex-1">
-                                                <p className="text-buddas-brown/80 text-sm leading-relaxed mb-4 font-dm-sans">{item.description}</p>
+                                                <p className="text-buddas-brown/80 text-sm leading-relaxed mb-4 font-dm-sans line-clamp-3 md:line-clamp-none">{item.description}</p>
                                                 {item.features && item.features.length > 0 && (
                                                     <ul className="space-y-3">
                                                         {item.features.map((feature: string, fIdx: number) => (
@@ -352,7 +352,7 @@ export function CateringClient({ data }: CateringClientProps) {
                                             </div>
                                             <button
                                                 onClick={() => document.getElementById('quote-form')?.scrollIntoView({ behavior: 'smooth' })}
-                                                className="w-full py-4 rounded-lg font-bold transition-all flex items-center justify-center gap-2 mt-auto bg-white border-2 border-buddas-brown/10 text-buddas-brown hover:border-buddas-teal hover:text-buddas-teal hover:bg-buddas-teal/5 active:scale-95 ease-[cubic-bezier(0.25,0.1,0.25,1)] uppercase tracking-wider text-xs"
+                                                className="w-full py-3 md:py-4 rounded-lg font-bold transition-all flex items-center justify-center gap-2 mt-auto bg-white border-2 border-buddas-brown/10 text-buddas-brown hover:border-buddas-teal hover:text-buddas-teal hover:bg-buddas-teal/5 active:scale-95 ease-[cubic-bezier(0.25,0.1,0.25,1)] uppercase tracking-wider text-xs"
                                             >
                                                 Request Quote
                                             </button>
@@ -374,7 +374,7 @@ export function CateringClient({ data }: CateringClientProps) {
                             <h2 className="text-4xl md:text-5xl font-semibold text-buddas-brown font-poppins drop-shadow-sm">How It Works</h2>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                        <div className="flex md:grid md:grid-cols-4 gap-4 md:gap-8 relative overflow-x-auto pb-6 md:pb-0 snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide">
                             {/* Connecting Line (Desktop) */}
                             <div className="hidden md:block absolute top-[2.5rem] left-0 w-full h-0.5 bg-buddas-brown/10 -z-10 bg-gradient-to-r from-transparent via-buddas-brown/20 to-transparent"></div>
 
@@ -383,12 +383,12 @@ export function CateringClient({ data }: CateringClientProps) {
                                 const Icon = getIcon(step.icon, icons[idx % icons.length]);
 
                                 return (
-                                    <div key={step._key || idx} className="text-center md:bg-transparent pt-4 relative group">
-                                        <div className="w-20 h-20 mx-auto bg-white border border-buddas-brown/10 rounded-full flex items-center justify-center text-buddas-teal shadow-lg shadow-buddas-brown/5 mb-8 relative z-10 group-hover:scale-110 group-hover:border-buddas-teal/30 group-hover:shadow-buddas-teal/10 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
-                                            <Icon className="w-9 h-9" />
+                                    <div key={step._key || idx} className="text-center md:bg-transparent pt-4 relative group min-w-[200px] md:min-w-0 snap-center">
+                                        <div className="w-16 h-16 md:w-20 md:h-20 mx-auto bg-white border border-buddas-brown/10 rounded-full flex items-center justify-center text-buddas-teal shadow-lg shadow-buddas-brown/5 mb-4 md:mb-8 relative z-10 group-hover:scale-110 group-hover:border-buddas-teal/30 group-hover:shadow-buddas-teal/10 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
+                                            <Icon className="w-7 h-7 md:w-9 md:h-9" />
                                         </div>
-                                        <h3 className="font-semibold text-xl mb-3 text-buddas-brown font-poppins">{step.title}</h3>
-                                        <p className="text-sm text-buddas-brown/70 leading-relaxed px-4 font-dm-sans">{step.description}</p>
+                                        <h3 className="font-semibold text-lg md:text-xl mb-2 md:mb-3 text-buddas-brown font-poppins">{step.title}</h3>
+                                        <p className="text-xs md:text-sm text-buddas-brown/70 leading-relaxed px-4 font-dm-sans">{step.description}</p>
                                     </div>
                                 );
                             })}
@@ -540,7 +540,7 @@ export function CateringClient({ data }: CateringClientProps) {
                 <section className="py-24 bg-white relative z-10 border-t border-buddas-brown/10 scroll-mt-20">
                     <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 2xl:px-16">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-                            <div>
+                            <div className="hidden lg:block">
                                 <span className="text-buddas-teal font-bold tracking-widest uppercase text-xs mb-3 block font-poppins">Get a Quote</span>
                                 <h2 className="text-4xl md:text-5xl font-semibold text-buddas-brown mb-6 font-poppins leading-tight">
                                     Let's Plan Your Event

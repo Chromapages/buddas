@@ -203,6 +203,25 @@ export function CateringQuoteForm() {
                     <label htmlFor="eventType" className="block text-sm font-medium text-buddas-brown uppercase tracking-wide font-dm-sans">
                         Event Type <span className="text-buddas-orange">*</span>
                     </label>
+                    <div className="flex flex-wrap gap-2 mb-3">
+                        {["Corporate Lunch", "Wedding", "Private Party", "Community"].map((type) => (
+                            <button
+                                key={type}
+                                type="button"
+                                onClick={() => {
+                                    const select = document.getElementById('eventType') as HTMLSelectElement;
+                                    if (select) {
+                                        select.value = type === "Wedding" ? "Wedding / Rehearsal" : type === "Community" ? "Community Event" : type;
+                                        handleBlur("eventType");
+                                        // Trigger change event if needed for other listeners, strictly not needed here as we use native form submission
+                                    }
+                                }}
+                                className="px-3 py-1.5 text-xs font-bold uppercase tracking-wide rounded-full border border-buddas-brown/10 bg-buddas-brown/5 text-buddas-brown/60 hover:bg-buddas-teal/10 hover:text-buddas-teal hover:border-buddas-teal/30 transition-all"
+                            >
+                                {type}
+                            </button>
+                        ))}
+                    </div>
                     <div className="relative">
                         <select
                             id="eventType"

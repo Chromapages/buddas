@@ -1,5 +1,9 @@
+"use client";
+
 import { ArrowRight, CalendarDays, Utensils, HeartHandshake } from "lucide-react";
 import Link from "next/link";
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 
 interface CateringData {
     // Homepage Teaser Fields (from cateringPage schema)
@@ -31,6 +35,14 @@ interface NewCateringSectionProps {
 }
 
 export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
+    const scrollContainerRef = useRef(null);
+    const { scrollXProgress } = useScroll({ container: scrollContainerRef });
+    const scaleX = useSpring(scrollXProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+
     const cards = [
         {
             key: 'catering',
@@ -81,9 +93,27 @@ export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
 
     return (
         <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-16 2xl:py-24" id="catering-events">
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 -mx-4 px-4 lg:grid lg:grid-cols-3 lg:gap-6 2xl:gap-8 lg:pb-0 lg:mx-0 lg:px-0 no-scrollbar">
+
+            {/* Section Header */}
+            <div className="flex items-center justify-between mb-8 md:mb-12 px-2 md:px-0">
+                <div>
+                    <h2 className="text-3xl md:text-4xl font-poppins font-semibold text-buddas-brown tracking-tight">
+                        Beyond the Menu
+                    </h2>
+                    <p className="text-buddas-brown/60 font-dm-sans mt-1">
+                        Catering, events, and community partnerships.
+                    </p>
+                </div>
+
+
+            </div>
+
+            <div
+                ref={scrollContainerRef}
+                className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-8 -mx-4 px-4 lg:grid lg:grid-cols-3 lg:gap-6 2xl:gap-8 lg:pb-0 lg:mx-0 lg:px-0 no-scrollbar relative"
+            >
                 {cards.map((card) => (
-                    <div key={card.key} className={`flex-shrink-0 w-[85vw] lg:w-auto snap-center group relative overflow-hidden rounded-3xl min-h-[420px] flex items-end p-8 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 ${card.theme.bg}`}>
+                    <div key={card.key} className={`flex-shrink-0 w-[80vw] lg:w-auto snap-center group relative overflow-hidden rounded-3xl min-h-[420px] flex items-end p-8 shadow-sm hover:shadow-xl transition-all duration-300 active:scale-[0.98] hover:-translate-y-1 ${card.theme.bg}`}>
 
                         {/* Background Image with Gradient Overlay */}
                         <div className="absolute inset-0 z-0">
@@ -97,7 +127,7 @@ export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
                         </div>
 
                         {/* Content */}
-                        <div className="relative z-10 w-full text-white">
+                        <div className="relative z-10 w-full text-white pointer-events-none">
                             {/* Badge */}
                             <div className={`inline-flex items-center gap-2 px-3 py-1.5 border rounded-lg text-xs font-bold mb-4 shadow-sm uppercase tracking-wider transform transition-transform duration-300 group-hover:scale-105 origin-left ${card.theme.badge}`}>
                                 <card.theme.icon className="w-3.5 h-3.5" />
@@ -114,7 +144,7 @@ export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
 
                             <Link
                                 href={card.link}
-                                className={`w-full h-12 px-6 rounded-lg font-bold transition-all shadow-sm hover:shadow-lg flex items-center justify-center gap-2 text-sm uppercase tracking-wide ${card.theme.button}`}
+                                className={`w-full h-12 px-6 rounded-lg font-bold transition-all shadow-sm hover:shadow-lg flex items-center justify-center gap-2 text-sm uppercase tracking-wide pointer-events-auto active:scale-95 ${card.theme.button}`}
                             >
                                 {card.cta}
                                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -122,6 +152,14 @@ export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            {/* Mobile Live Progress Bar */}
+            <div className="lg:hidden h-1 w-full bg-buddas-brown/5 rounded-full -mt-2 mb-4 overflow-hidden max-w-[200px] mx-auto">
+                <motion.div
+                    className="h-full bg-buddas-brown/40"
+                    style={{ scaleX, transformOrigin: 'left' }}
+                />
             </div>
         </section>
     );

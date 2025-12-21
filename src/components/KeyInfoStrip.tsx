@@ -2,6 +2,7 @@
 
 import { Clock, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 interface KeyInfoStripProps {
     primaryPhone?: string;
@@ -9,29 +10,40 @@ interface KeyInfoStripProps {
 }
 
 export function KeyInfoStrip({ primaryPhone, locations = [] }: KeyInfoStripProps) {
-    // Helper to format today's hours for primary location
-    const getTodayHours = () => {
-        if (!locations || locations.length === 0) return "Open Today: 10am - 9pm"; // Fallback
+    // State to hold the display string for hours
+    const [hoursText, setHoursText] = useState("Open Daily");
+
+    useEffect(() => {
+        if (!locations || locations.length === 0) {
+            setHoursText("Open Today: 10am - 9pm");
+            return;
+        }
 
         const primaryLoc = locations.find((l: any) => l.isPrimaryLocation) || locations[0];
-        if (!primaryLoc || !primaryLoc.hours) return "Open Daily";
+        if (!primaryLoc || !primaryLoc.hours) {
+            setHoursText("Open Daily");
+            return;
+        }
 
         const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
         const today = days[new Date().getDay()];
         const todaySchedule = primaryLoc.hours.find((h: any) => h.dayOfWeek === today);
 
-        if (!todaySchedule || todaySchedule.isClosed) return "Closed Today";
-        return `Today: ${todaySchedule.openTime} - ${todaySchedule.closeTime}`;
-    };
+        if (!todaySchedule || todaySchedule.isClosed) {
+            setHoursText("Closed Today");
+        } else {
+            setHoursText(`Today: ${todaySchedule.openTime} - ${todaySchedule.closeTime}`);
+        }
+    }, [locations]);
 
     return (
-        <div className="bg-buddas-brown text-white py-2 sm:py-3 lg:py-4 px-4 shadow-md relative z-20">
+        <div className="hidden md:block bg-buddas-brown text-white py-2 sm:py-3 lg:py-4 px-4 shadow-md relative z-20">
             <div className="max-w-7xl mx-auto flex sm:flex-row justify-center items-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 text-sm sm:text-base font-dm-sans font-medium tracking-wide">
 
                 {/* Hours - Icon only mobile, text desktop */}
-                <div className="flex items-center gap-2" title={getTodayHours()}>
+                <div className="flex items-center gap-2" title={hoursText}>
                     <Clock className="w-4 h-4 text-buddas-gold" />
-                    <span className="hidden sm:inline">{getTodayHours()}</span>
+                    <span className="hidden sm:inline">{hoursText}</span>
                     <span className="sm:hidden text-xs text-white/80">Open Daily</span>
                 </div>
 

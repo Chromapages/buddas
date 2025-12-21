@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MenuCard } from "./MenuCard";
 import { MenuModal } from "./MenuModal";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 import {
     ChefHat,
     Sandwich,
@@ -127,7 +128,7 @@ export function MenuClient({ categories, featuredItems = [], pageSettings }: Men
         setActiveCategory(id); // Optimistic update
         const element = document.getElementById(id);
         if (element) {
-            const offset = 210; // Account for sticky header
+            const offset = 180; // Adjusted offset for new sticky header layout
             const bodyRect = document.body.getBoundingClientRect().top;
             const elementRect = element.getBoundingClientRect().top;
             const elementPosition = elementRect - bodyRect;
@@ -140,6 +141,23 @@ export function MenuClient({ categories, featuredItems = [], pageSettings }: Men
         }
     };
 
+    // Scroll Detection for Collapsible Header
+    const { scrollY } = useScroll();
+    const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+    const lastScrollY = useRef(0);
+
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        const direction = latest - lastScrollY.current;
+        if (Math.abs(direction) < 50) return; // Debounce small scrolls
+
+        if (direction > 0 && latest > 200) {
+            setIsHeaderVisible(false); // Hide on scroll down
+        } else {
+            setIsHeaderVisible(true); // Show on scroll up
+        }
+        lastScrollY.current = latest;
+    });
+
     return (
         <div className="bg-buddas-cream min-h-screen">
             {/* Modal */}
@@ -149,8 +167,8 @@ export function MenuClient({ categories, featuredItems = [], pageSettings }: Men
                 onClose={() => setSelectedItem(null)}
             />
 
-            {/* Hero Section */}
-            <header className="relative min-h-[65vh] flex items-center justify-center overflow-hidden bg-buddas-brown">
+            {/* Hero Section - Hidden on mobile */}
+            <header className="relative hidden md:flex min-h-[65vh] items-center justify-center overflow-hidden bg-buddas-brown">
                 {/* Parallax Background Image */}
                 <div className="absolute inset-0 z-0 opacity-40 select-none">
                     <Image
@@ -166,10 +184,10 @@ export function MenuClient({ categories, featuredItems = [], pageSettings }: Men
                     <span className="inline-block py-1.5 px-4 rounded-full bg-buddas-gold text-buddas-brown text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
                         Island Favorites
                     </span>
-                    <h1 className="text-5xl md:text-7xl font-semibold text-buddas-cream tracking-tight font-poppins drop-shadow-md leading-tight mb-4">
+                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-buddas-cream tracking-tight font-poppins drop-shadow-md leading-tight mb-4">
                         {pageSettings?.heroTitle || "The Buddas Menu"}
                     </h1>
-                    <p className="text-xl text-buddas-cream/80 max-w-2xl mx-auto font-dm-sans leading-relaxed">
+                    <p className="text-lg md:text-xl text-buddas-cream/80 max-w-2xl mx-auto font-dm-sans leading-relaxed">
                         {pageSettings?.heroSubtitle || "Steaming rice. Crisp Katsu. Real Aloha. Explore our plates."}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 mt-8">
@@ -187,26 +205,27 @@ export function MenuClient({ categories, featuredItems = [], pageSettings }: Men
             </header>
 
             {/* Sticky Navigation & Search */}
-            <div className="sticky top-[70px] md:top-[80px] lg:top-[90px] z-40 bg-white border-b border-buddas-brown/5 shadow-md transition-all duration-300">
+            <div className="sticky top-[70px] md:top-[80px] lg:top-[90px] z-40 bg-white border-b border-buddas-brown/5 shadow-md">
                 <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-16 py-4 flex flex-col gap-4">
-                    {/* Search & Filters Row */}
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4 w-full">
-                        <div className="w-full md:w-auto md:flex-1 md:max-w-lg xl:max-w-xl">
+
+                    {/* Search & Filters Row - Always Visible */}
+                    <div className="flex flex-row items-center justify-between gap-3 w-full">
+                        <div className="flex-1 md:max-w-lg xl:max-w-xl">
                             <MenuSearch onSearch={setSearchQuery} />
                         </div>
-                        <div className="w-full md:w-auto overflow-hidden">
+                        <div className="shrink-0">
                             <MenuFilters activeFilters={activeFilters} onToggleFilter={toggleFilter} />
                         </div>
                     </div>
 
                     {/* Category Pills Row */}
-                    <div className="flex items-center gap-3 lg:gap-4 overflow-x-auto no-scrollbar pb-2 mask-fade-right">
+                    <div className="flex items-center gap-3 lg:gap-4 overflow-x-auto no-scrollbar mask-fade-right pb-1">
                         <button
                             onClick={() => {
                                 setIsAllItemsView(true);
                                 window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
-                            className={`flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all duration-300 whitespace-nowrap group shrink-0 ${isAllItemsView && !searchQuery
+                            className={`flex items-center gap-2 px-6 py-3 rounded-full border transition-all duration-300 whitespace-nowrap group shrink-0 ${isAllItemsView && !searchQuery
                                 ? "bg-buddas-teal text-white border-buddas-teal shadow-lg shadow-buddas-teal/20"
                                 : "bg-white text-buddas-brown hover:border-buddas-teal-dark hover:text-buddas-teal-dark border-buddas-brown/10"
                                 }`}
@@ -225,7 +244,7 @@ export function MenuClient({ categories, featuredItems = [], pageSettings }: Men
                                 <button
                                     key={category._id}
                                     onClick={() => scrollToSection(category.slug?.current || category.title)}
-                                    className={`flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all duration-300 whitespace-nowrap group shrink-0 ${isActive
+                                    className={`flex items-center gap-2 px-6 py-3 rounded-full border transition-all duration-300 whitespace-nowrap group shrink-0 ${isActive
                                         ? "bg-buddas-teal text-white border-buddas-teal shadow-md"
                                         : "bg-white text-buddas-brown border-buddas-brown/10 hover:border-buddas-teal-dark hover:text-buddas-teal-dark"
                                         }`}
@@ -242,7 +261,7 @@ export function MenuClient({ categories, featuredItems = [], pageSettings }: Men
             </div>
 
             {/* Featured Items Section */}
-            {(!searchQuery && !activeFilters.length && !isAllItemsView) && (
+            {(!searchQuery && !activeFilters.length && !isAllItemsView && featuredItems.length > 0) && (
                 <FeaturedSection
                     items={featuredItems}
                     onItemClick={setSelectedItem}
@@ -285,7 +304,7 @@ export function MenuClient({ categories, featuredItems = [], pageSettings }: Men
 
                                         {/* Items Grid */}
                                         {category.items && category.items.length > 0 ? (
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                                            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6">
                                                 {category.items.map((item: any) => (
                                                     <MenuCard
                                                         key={item._id}

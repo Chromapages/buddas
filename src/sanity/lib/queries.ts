@@ -184,6 +184,14 @@ export const SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings"] | order(_upda
     link,
     colorTheme
   },
+  "locations": *[_type == "location"] | order(isPrimaryLocation desc) [0...3] {
+    name,
+    addressLine1,
+    phone,
+    hours,
+    isPrimaryLocation,
+    mapUrl
+  },
   logo {
     asset->{
       _id,

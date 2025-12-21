@@ -3,6 +3,8 @@
 import { ShoppingBag, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { urlFor } from "@/sanity/lib/image";
 import { Button } from "@/components/ui/button";
 import { MICROCOPY } from "@/lib/microcopy";
@@ -16,9 +18,33 @@ export function NewHero({ heroSlides }: NewHeroProps) {
     const slide = heroSlides && heroSlides.length > 0 ? heroSlides[0] : null;
 
     // Sanity Data Mapping with Explicit Fallbacks only if slide is null
+    // Sanity Data Mapping with Explicit Fallbacks only if slide is null
     const heroTitle = slide?.title ?? "Island-Fresh Comfort. Served with Aloha.";
     const heroSubtitle = slide?.subtitle ?? "We Prepare Delicious Food For You We Are Always here to serve you the best healthy meals.";
     const heroBadge = slide?.badge ?? "Authentic Hawaiian";
+
+    // Dynamic Greeting Logic (Mobile Only)
+    const [greeting, setGreeting] = useState(heroBadge);
+
+    useEffect(() => {
+        // Only override if it's the default/static badge, or if we want to enforce time-based greetings
+        // consistently. Here we'll append time context if badge is generic.
+        const hour = new Date().getHours();
+        let timeGreeting = "Aloha!";
+        if (hour < 11) timeGreeting = "Good Morning!";
+        else if (hour < 14) timeGreeting = "Lunch is Served!"; // 11am-2pm
+        else if (hour < 17) timeGreeting = "Afternoon Snack?"; // 2pm-5pm
+        else timeGreeting = "Dinner Ready!"; // 5pm+
+
+        // If no custom badge from Sanity, or it's the default, use dynamic greeting
+        if (!slide?.badge || slide?.badge === "Authentic Hawaiian") {
+            setGreeting(timeGreeting);
+        }
+    }, [slide?.badge]);
+
+    // Parallax Background Logic
+    const { scrollY } = useScroll();
+    const y = useTransform(scrollY, [0, 1000], [0, 300]); // Move background slower than scroll
 
     // Buttons
     const primaryCtaLabel = slide?.primaryCtaLabel ?? "Explore Now";
@@ -43,35 +69,39 @@ export function NewHero({ heroSlides }: NewHeroProps) {
     const secondaryCtaLink = slide?.secondaryCtaLink ?? "/menu";
 
     return (
-        <section className="relative w-full overflow-hidden min-h-[650px] lg:min-h-[800px] 2xl:min-h-[900px] flex items-center bg-zinc-900">
+        <section className="relative w-full overflow-hidden min-h-[85svh] lg:min-h-[800px] 2xl:min-h-[900px] flex items-center bg-zinc-900">
             {/* Background Image with Overlay */}
-            <div className="absolute inset-0 z-0 select-none">
+            {/* Parallax Background Image with Overlay */}
+            <motion.div style={{ y }} className="absolute inset-0 z-0 select-none">
                 <Image
                     src={mainImageSrc}
                     alt={slide?.image?.alt || "Buddas Hawaiian hero background - island comfort food"}
                     fill
+                    sizes="100vw"
                     className="object-cover opacity-90"
                     priority
                 />
                 {/* Dark Gradient Overlay for Readability */}
                 <div className="absolute inset-0 bg-gradient-to-r from-buddas-brown/85 via-buddas-brown/50 to-transparent" />
-            </div>
+            </motion.div>
 
             {/* Main Content */}
-            <div className="relative z-10 w-full max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-36 pb-32 md:pb-48 md:pt-44 lg:pt-48 grid lg:grid-cols-2 gap-12 2xl:gap-16 items-center">
+            <div className="relative z-10 w-full max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-24 pb-16 md:pb-48 md:pt-44 lg:pt-48 grid lg:grid-cols-2 gap-12 2xl:gap-16 items-center">
 
-                {/* Left Column: Text */}
-                <div className="space-y-8 max-w-2xl 2xl:max-w-3xl">
-                    {/* Badge (Brand Guidelines: Display above headline) */}
-                    {heroBadge && (
-                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-buddas-gold text-buddas-brown text-xs font-bold shadow-sm uppercase tracking-wide animate-in fade-in duration-300 delay-100">
-                            {heroBadge}
-                        </span>
-                    )}
-                    <h1 className="text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-semibold text-buddas-cream tracking-[-0.02em] leading-tight drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] font-poppins animate-in slide-in-from-bottom-8 fade-in duration-300 delay-200">
+                {/* Left Column: Text (Frosted Glass Container - Mobile Only) */}
+                <div className="space-y-8 max-w-2xl 2xl:max-w-3xl backdrop-blur-sm bg-black/10 sm:backdrop-blur-none sm:bg-transparent p-6 sm:p-0 rounded-2xl sm:rounded-none border border-white/5 sm:border-none">
+
+                    {/* Badge: Dynamic on Mobile, Static on Desktop */}
+                    <span className="sm:hidden inline-flex items-center px-4 py-1.5 rounded-full bg-buddas-gold text-buddas-brown text-xs font-bold shadow-sm uppercase tracking-wide animate-in fade-in duration-300 delay-100">
+                        {greeting}
+                    </span>
+                    <span className="hidden sm:inline-flex items-center px-4 py-1.5 rounded-full bg-buddas-gold text-buddas-brown text-xs font-bold shadow-sm uppercase tracking-wide animate-in fade-in duration-300 delay-100">
+                        {heroBadge}
+                    </span>
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-semibold text-buddas-cream tracking-[-0.02em] leading-tight drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] font-poppins animate-in slide-in-from-bottom-8 fade-in duration-300 delay-200">
                         {heroTitle}
                     </h1>
-                    <p className="text-xl md:text-2xl 2xl:text-3xl text-buddas-cream/80 font-dm-sans font-medium leading-relaxed max-w-xl lg:max-w-2xl opacity-95 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] animate-in slide-in-from-bottom-6 fade-in duration-300 delay-300">
+                    <p className="text-xl md:text-2xl 2xl:text-3xl text-buddas-cream/80 font-dm-sans font-medium leading-relaxed max-w-sm sm:max-w-xl lg:max-w-2xl opacity-95 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] animate-in slide-in-from-bottom-6 fade-in duration-300 delay-300">
                         {heroSubtitle}
                     </p>
 
@@ -80,7 +110,7 @@ export function NewHero({ heroSlides }: NewHeroProps) {
                             asChild
                             variant="default" // Teal Primary
                             size="xl"
-                            className="rounded-lg shadow-md hover:shadow-lg hover:shadow-teal-500/20 hover:bg-buddas-teal-dark focus:ring-2 focus:ring-buddas-teal"
+                            className="w-full sm:w-auto rounded-lg shadow-md hover:shadow-lg hover:shadow-teal-500/20 hover:bg-buddas-teal-dark focus:ring-2 focus:ring-buddas-teal"
                         >
                             <Link href={primaryCtaLink}>
                                 <span>{primaryCtaLabel || MICROCOPY.orderNow}</span>
@@ -96,7 +126,7 @@ export function NewHero({ heroSlides }: NewHeroProps) {
                             asChild
                             variant="outline" // Outline style (Exception for Hero contrast)
                             size="xl"
-                            className="rounded-lg border-2 border-white/50 text-white bg-transparent hover:bg-white hover:text-buddas-brown shadow-lg transition-all focus:ring-2 focus:ring-white"
+                            className="w-full sm:w-auto rounded-lg border-2 border-white/50 text-white bg-transparent hover:bg-white hover:text-buddas-brown shadow-lg transition-all focus:ring-2 focus:ring-white"
                         >
                             <Link href={secondaryCtaLink}>
                                 <span>{secondaryCtaLabel || MICROCOPY.viewMenu}</span>

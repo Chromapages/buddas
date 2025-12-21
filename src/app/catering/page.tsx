@@ -1,7 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { CATERING_PAGE_QUERY } from "@/sanity/lib/queries";
 import { Footer } from "@/components/Footer";
-import { StickyMobileCtaBar } from "@/components/StickyMobileCtaBar";
 import { CateringClient } from "@/components/catering/CateringClient";
 
 export const revalidate = 60;
@@ -29,7 +28,6 @@ export default async function CateringPage() {
                 <CateringClient data={pageData} />
             </main>
             <Footer />
-            <StickyMobileCtaBar />
         </div>
     );
 }

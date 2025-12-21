@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, Home, Utensils, ShoppingBag, MapPin } from "lucide-react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 interface NewNavbarProps {
@@ -14,12 +14,8 @@ interface NewNavbarProps {
     navigation?: any[];
 }
 
-// Remove MotionLink creation as we use standard components or motion.div
-const MotionLink = motion.create(Link);
-
 export function NewNavbar({ logoUrl, orderUrl, ctaStyle, navigation }: NewNavbarProps) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const prefersReducedMotion = useReducedMotion();
     const pathname = usePathname();
     const defaultOrderUrl = "https://order.toasttab.com/online/buddas-hawaiian-bbq-pleasant-grove-pg-123-state-st";
 
@@ -202,11 +198,11 @@ export function NewNavbar({ logoUrl, orderUrl, ctaStyle, navigation }: NewNavbar
                             initial="closed"
                             animate="open"
                             exit="closed"
-                            variants={prefersReducedMotion ? {} : menuVariants}
+                            variants={menuVariants}
                         >
                             <nav className="flex flex-col gap-3">
                                 {navLinks.map((link) => (
-                                    <MotionLink
+                                    <Link
                                         key={link.href}
                                         href={link.href}
                                         className={`text-lg font-dm-sans font-medium tracking-wide transition-all py-4 px-6 rounded-xl block border flex items-center justify-between group focus:outline-none focus:ring-2 focus:ring-buddas-teal
@@ -215,16 +211,14 @@ export function NewNavbar({ logoUrl, orderUrl, ctaStyle, navigation }: NewNavbar
                                                 : "border-transparent bg-white/40 text-buddas-brown hover:bg-white/80 hover:shadow-sm hover:translate-x-1 font-medium"}
                                         `}
                                         onClick={() => setIsMobileMenuOpen(false)}
-                                        variants={prefersReducedMotion ? {} : itemVariants}
-                                        whileTap={{ scale: 0.98 }}
                                     >
                                         {link.label}
                                         {isActive(link.href) && (
                                             <div className="w-2 h-2 rounded-full bg-buddas-teal-dark" />
                                         )}
-                                    </MotionLink>
+                                    </Link>
                                 ))}
-                                <motion.div className="pt-6 pb-4" variants={prefersReducedMotion ? {} : itemVariants}>
+                                <motion.div className="pt-6 pb-4" variants={itemVariants}>
                                     <Button
                                         asChild
                                         variant="default"
@@ -237,7 +231,7 @@ export function NewNavbar({ logoUrl, orderUrl, ctaStyle, navigation }: NewNavbar
                                 </motion.div>
 
                                 {/* Quick Contact Info */}
-                                <motion.div variants={prefersReducedMotion ? {} : itemVariants} className="mt-auto pt-6 border-t border-buddas-brown/10">
+                                <motion.div variants={itemVariants} className="mt-auto pt-6 border-t border-buddas-brown/10">
                                     <a href="tel:801-555-1234" className="flex items-center justify-center gap-3 text-buddas-brown/70 hover:text-buddas-teal transition-colors py-2">
                                         <Phone className="w-5 h-5" />
                                         <span className="font-medium">Call Us</span>

@@ -6,11 +6,10 @@ import { NewNavbar } from "@/components/NewNavbar";
 import { NewHero } from "@/components/NewHero";
 import { TrustedBy } from "@/components/TrustedBy";
 import { PromoBanner } from "@/components/PromoBanner";
-import { KeyInfoStrip } from "@/components/KeyInfoStrip";
 
 import { MenuOffersSection } from "@/components/MenuOffersSection";
 import { NewCateringSection } from "@/components/NewCateringSection";
-import { NewAboutSection } from "@/components/NewAboutSection";
+
 import { AppDownloadCTA } from "@/components/AppDownloadCTA";
 import { NewTestimonialsSection } from "@/components/NewTestimonialsSection";
 import { LocationsSection } from "@/components/LocationsSection";
@@ -130,10 +129,6 @@ export default async function Home() {
     <div className="min-h-screen bg-buddas-cream text-buddas-brown font-sans selection:bg-teal-500 selection:text-white">
 
       <main>
-        <KeyInfoStrip
-          primaryPhone={data?.siteSettings?.primaryPhone}
-          locations={locationsSafe}
-        />
         <NewHero heroSlides={heroSlides} />
 
         <TrustedBy trustedByData={data?.trustedByData} />
@@ -147,7 +142,7 @@ export default async function Home() {
 
         <NewCateringSection cateringData={data?.cateringData} />
 
-        <NewAboutSection aboutData={data?.aboutData} />
+
 
         {/* LocationsSection hidden per user request */}
         {/* <LocationsSection locations={locationsSafe} /> */}

@@ -25,6 +25,7 @@ interface PromoBannerProps {
 
 export function PromoBanner({ promotions = [] }: PromoBannerProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [scrollProgress, setScrollProgress] = useState(0);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     // Track scroll position to update dots
@@ -41,6 +42,13 @@ export function PromoBanner({ promotions = [] }: PromoBannerProps) {
         const clampedIndex = Math.min(Math.max(index, 0), Math.min(promotions.length - 1, 2));
         if (clampedIndex !== currentIndex) {
             setCurrentIndex(clampedIndex);
+        }
+
+        // Calculate smooth progress percentage
+        if (container.scrollWidth > container.clientWidth) {
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            const progress = (scrollPosition / maxScroll) * 100;
+            setScrollProgress(Math.min(Math.max(progress, 0), 100));
         }
     };
 
@@ -67,15 +75,21 @@ export function PromoBanner({ promotions = [] }: PromoBannerProps) {
                 ))}
             </div>
 
-            {/* Mobile Pagination Dots */}
-            <div className="flex md:hidden justify-center gap-2 mt-2">
-                {promotions.slice(0, 3).map((_, idx) => (
+            {/* Mobile Scroll Progress Bar & Hint */}
+            <div className="flex md:hidden flex-col gap-2 mt-6 px-2">
+                <div className="w-full h-1 bg-buddas-brown/10 rounded-full overflow-hidden">
                     <div
-                        key={idx}
-                        className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'w-6 bg-buddas-teal' : 'w-1.5 bg-buddas-brown/20'
-                            }`}
+                        className="h-full bg-buddas-teal transition-all duration-100 ease-out rounded-full"
+                        style={{ width: `${scrollProgress}%` }}
                     />
-                ))}
+                </div>
+
+                {currentIndex === 0 && (
+                    <div className="flex justify-end items-center gap-1 text-[10px] font-bold text-buddas-teal/60 animate-pulse uppercase tracking-wider">
+                        <span>Swipe for more</span>
+                        <ArrowRight className="w-3 h-3" />
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -142,21 +156,21 @@ function PromoCard({ promo }: { promo: Promotion }) {
     // Layout Logic (Campaign Type Ratios)
     const layoutStyles = {
         crave: {
-            imageHeight: "h-[320px]", // 60% approx, Food impact
-            contentPadding: "p-6",
-            headlineSize: "text-xl",
+            imageHeight: "h-[200px] md:h-[320px]", // Reduced for mobile
+            contentPadding: "p-5 md:p-6",
+            headlineSize: "text-lg md:text-xl",
             container: "h-full"
         },
         conversion: {
-            imageHeight: "h-[180px]", // Smaller image
-            contentPadding: "p-8", // More whitespace
-            headlineSize: "text-2xl md:text-3xl", // Big impact
+            imageHeight: "h-[160px] md:h-[180px]", // Reduced for mobile
+            contentPadding: "p-6 md:p-8",
+            headlineSize: "text-xl md:text-2xl lg:text-3xl",
             container: "h-full"
         },
         community: {
-            imageHeight: "h-[240px]", // Balanced 50/50
-            contentPadding: "p-6 md:p-8",
-            headlineSize: "text-xl md:text-2xl",
+            imageHeight: "h-[180px] md:h-[240px]", // Balanced
+            contentPadding: "p-5 md:p-6 lg:p-8",
+            headlineSize: "text-lg md:text-xl lg:text-2xl",
             container: "h-full"
         }
     };
@@ -164,7 +178,7 @@ function PromoCard({ promo }: { promo: Promotion }) {
     const layout = layoutStyles[promo.campaignType || 'conversion'];
 
     return (
-        <div className={`group flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:-translate-y-[2px] overflow-hidden border border-buddas-brown/5 relative ${layout.container}`}>
+        <div className={`group flex flex-col bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] md:shadow-sm hover:shadow-lg transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:-translate-y-[2px] active:scale-[0.98] md:active:scale-100 overflow-hidden border border-buddas-brown/5 relative ${layout.container}`}>
 
             {/* Image Section */}
             <div className={`relative w-full overflow-hidden bg-buddas-cream shrink-0 ${layout.imageHeight}`}>

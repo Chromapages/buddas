@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { NewNavbar } from "@/components/NewNavbar";
+import { KeyInfoStrip } from "@/components/KeyInfoStrip";
 
 interface ConditionalHeaderProps {
     logoUrl?: string;
@@ -13,9 +14,10 @@ interface ConditionalHeaderProps {
         phone?: string;
         email?: string;
     };
+    locations?: any[];
 }
 
-export function ConditionalHeader({ logoUrl, orderUrl, ctaStyle, navigation, socialLinks, contactInfo }: ConditionalHeaderProps) {
+export function ConditionalHeader({ logoUrl, orderUrl, ctaStyle, navigation, socialLinks, contactInfo, locations }: ConditionalHeaderProps) {
     const pathname = usePathname();
 
     // Don't render header on Sanity Studio pages
@@ -24,7 +26,11 @@ export function ConditionalHeader({ logoUrl, orderUrl, ctaStyle, navigation, soc
     }
 
     return (
-        <>
+        <div className="flex flex-col w-full">
+            <KeyInfoStrip
+                primaryPhone={contactInfo?.phone}
+                locations={locations}
+            />
             <NewNavbar
                 logoUrl={logoUrl}
                 orderUrl={orderUrl}
@@ -32,6 +38,6 @@ export function ConditionalHeader({ logoUrl, orderUrl, ctaStyle, navigation, soc
                 navigation={navigation}
             />
             {/* Footer should be here if we want it to be conditional too */}
-        </>
+        </div>
     );
 }
