@@ -11,8 +11,6 @@ interface NewNavbarProps {
     logoUrl?: string;
     orderUrl?: string;
     ctaStyle?: string;
-    orderUrl?: string;
-    ctaStyle?: string;
     navigation?: any[];
 }
 
