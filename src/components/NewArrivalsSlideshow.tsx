@@ -14,45 +14,65 @@ interface NewArrivalsSlideshowProps {
 
 function NewArrivalsSlideshowSkeleton() {
     return (
-        <section className="relative w-full h-[85svh] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white motion-safe:animate-pulse">
+        <section className="relative w-full h-[55svh] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white motion-safe:animate-pulse">
             <div className="w-full h-full flex flex-col md:flex-row">
                 {/* Left Image Section Skeleton */}
-                <div className="w-full md:w-1/2 h-[40%] md:h-full relative bg-buddas-teal-dark/80">
+                <div className="w-full md:w-1/2 h-[45%] md:h-full relative bg-buddas-teal-dark/80">
                     <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-zinc-950 hidden md:block" />
                     <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent md:hidden" />
                 </div>
 
                 {/* Right Content Section Skeleton */}
-                <div className="w-full md:w-1/2 h-[60%] md:h-full flex flex-col justify-center px-6 md:px-20 lg:px-24 py-8 md:py-12 bg-buddas-teal-dark">
-                    <div className="max-w-xl space-y-6 md:space-y-8">
+                <div className="w-full md:w-1/2 h-[55%] md:h-full flex flex-col justify-start pt-6 px-5 md:justify-center md:pt-12 md:px-20 lg:px-24 bg-buddas-teal-dark">
+                    <div className="max-w-xl w-full">
                         {/* Badge Skeleton */}
-                        <div className="w-32 h-8 bg-buddas-gold/10 rounded-full" />
+                        <div className="w-24 h-6 mb-3 md:mb-8 bg-buddas-gold/10 rounded-full" />
 
                         {/* Title Skeleton */}
-                        <div className="space-y-3">
-                            <div className="w-3/4 h-12 md:h-16 bg-white/10 rounded-lg" />
-                            <div className="w-1/2 h-12 md:h-16 bg-white/10 rounded-lg" />
+                        <div className="space-y-2 mb-2 md:mb-6">
+                            <div className="w-3/4 h-8 md:h-16 bg-white/10 rounded-lg" />
+                            <div className="w-1/2 h-8 md:h-16 bg-white/10 rounded-lg" />
                         </div>
 
                         {/* Description Skeleton */}
-                        <div className="space-y-2">
-                            <div className="w-full h-5 bg-white/5 rounded" />
-                            <div className="w-2/3 h-5 bg-white/5 rounded" />
+                        <div className="space-y-2 mb-4 md:mb-12">
+                            <div className="w-full h-4 md:h-5 bg-white/5 rounded" />
+                            <div className="w-2/3 h-4 md:h-5 bg-white/5 rounded" />
                         </div>
 
-                        {/* Price & CTA Skeleton */}
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8 pt-4">
-                            <div className="space-y-2">
+                        {/* Price Skeleton (Mobile Stacked) */}
+                        <div className="mb-4 md:hidden">
+                            <div className="w-20 h-8 bg-buddas-gold/20 rounded" />
+                        </div>
+
+                        {/* Price & CTA Skeleton (Desktop: Row / Mobile: Stacked) */}
+                        <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
+                            {/* Desktop Price */}
+                            <div className="hidden md:block space-y-2">
                                 <div className="w-12 h-3 bg-buddas-cream/20 rounded" />
                                 <div className="w-24 h-12 bg-buddas-gold/20 rounded" />
                             </div>
-                            <div className="h-12 w-px bg-white/10 hidden sm:block" />
-                            <div className="w-full sm:w-40 h-14 bg-buddas-gold/20 rounded-lg" />
+                            <div className="h-12 w-px bg-white/10 hidden md:block" />
+                            {/* CTA Button Skeleton */}
+                            <div className="w-full md:w-40 h-12 md:h-14 bg-buddas-gold/20 rounded-lg" />
                         </div>
                     </div>
 
-                    {/* Pagination Skeleton */}
-                    <div className="flex items-end gap-4 mt-auto md:mt-16 pb-6 md:pb-0 justify-between md:justify-start w-full">
+                    {/* Pagination Skeleton (Dots) */}
+                    <div className="flex justify-center items-center gap-1 mt-4 md:hidden">
+                        <div className="w-2 h-2 rounded-full p-2 box-content bg-transparent">
+                            <div className="w-full h-full bg-buddas-gold/50 rounded-full" />
+                        </div>
+                        <div className="w-2 h-2 rounded-full p-2 box-content bg-transparent">
+                            <div className="w-full h-full bg-white/10 rounded-full" />
+                        </div>
+                        <div className="w-2 h-2 rounded-full p-2 box-content bg-transparent">
+                            <div className="w-full h-full bg-white/10 rounded-full" />
+                        </div>
+                    </div>
+
+                    {/* Desktop Pagination Skeleton */}
+                    <div className="hidden md:flex items-end gap-4 mt-auto md:mt-16 pb-6 md:pb-0 justify-between md:justify-start w-full">
                         <div className="flex items-baseline gap-2">
                             <div className="w-8 h-8 bg-buddas-gold/20 rounded" />
                             <div className="w-12 h-4 bg-white/10 rounded" />
@@ -68,15 +88,18 @@ function NewArrivalsSlideshowSkeleton() {
 export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const [hasMounted, setHasMounted] = useState(false);
+
+    useEffect(() => {
+        setHasMounted(true);
+    }, []);
 
     // Limit to 3 items
     const slides = items?.slice(0, 3) || [];
 
     // Auto-advance (Desktop Only)
     useEffect(() => {
-        // Check if window exists (client-side) and is desktop width (> 768px)
         const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 768;
-
         if (isPaused || slides.length <= 1 || !isDesktop) return;
 
         const interval = setInterval(() => {
@@ -93,7 +116,6 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
         setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
     };
 
-    // Elastic Drag Logic
     const onDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
         const threshold = 50;
         if (info.offset.x < -threshold) {
@@ -103,22 +125,19 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
         }
     };
 
-    // Show skeleton if explicitly loading
-    if (isLoading) {
+    if (isLoading || !hasMounted) {
         return <NewArrivalsSlideshowSkeleton />;
     }
 
     if (!slides.length) return null;
     const currentSlide = slides[currentIndex];
 
-    // High-res image for full split
+    // High-res image
     const imageUrl = currentSlide.image
         ? urlFor(currentSlide.image).width(1600).height(1600).fit("crop").url()
         : null;
 
-    // --- Animation Variants (Simplified) ---
-
-    // Staggers the text elements - reduced delays
+    // Animation Variants
     const contentContainerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -134,19 +153,12 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
         }
     };
 
-    // Simple fade/slide - removed blur filter (heavy on GPU)
     const textItemVariants: Variants = {
-        hidden: {
-            opacity: 0,
-            y: 15
-        },
+        hidden: { opacity: 0, y: 15 },
         visible: {
             opacity: 1,
             y: 0,
-            transition: {
-                duration: 0.4,
-                ease: "easeOut"
-            }
+            transition: { duration: 0.4, ease: "easeOut" }
         }
     };
 
@@ -159,34 +171,15 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
         exit: { opacity: 0 }
     };
 
-    // Container variants for the slide entry/exit
-    const slideVariants: Variants = {
-        enter: (direction: number) => ({
-            x: direction > 0 ? 1000 : -1000,
-            opacity: 0
-        }),
-        center: {
-            zIndex: 1,
-            x: 0,
-            opacity: 1
-        },
-        exit: (direction: number) => ({
-            zIndex: 0,
-            x: direction < 0 ? 1000 : -1000,
-            opacity: 0
-        })
-    };
-
     return (
         <section
             role="region"
             aria-roledescription="carousel"
             aria-label="New menu arrivals"
-            className="relative w-full h-[85svh] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white"
+            className="relative w-full h-[55svh] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
         >
-            {/* Background Elements (Subtle Pattern) */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none z-10 mix-blend-overlay"></div>
 
             <AnimatePresence mode="popLayout" initial={false}>
@@ -203,9 +196,8 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
                     onDragEnd={onDragEnd}
                     whileTap={{ cursor: "grabbing" }}
                 >
-
-                    {/* LEFT: IMAGE SECTION (40% Mobile / 50% Desktop) */}
-                    <div className="w-full md:w-1/2 h-[40%] md:h-full relative overflow-hidden pointer-events-none select-none">
+                    {/* LEFT: IMAGE SECTION */}
+                    <div className="w-full md:w-1/2 h-[45%] md:h-full relative overflow-hidden pointer-events-none select-none">
                         <motion.div
                             className="absolute inset-0 bg-cover bg-center"
                             style={{ backgroundImage: `url(${imageUrl})` }}
@@ -214,17 +206,14 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
                             exit="exit"
                             variants={imageVariants}
                         />
-                        {/* Gradient Overlays for Seamless Blending */}
-                        {/* Desktop: Fade to Black on Right edge */}
                         <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-zinc-950 hidden md:block"></div>
-                        {/* Mobile: Fade to Black on Bottom edge */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent md:hidden"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent md:hidden"></div>
                     </div>
 
-                    {/* RIGHT: CONTENT SECTION (60% Mobile / 50% Desktop) */}
-                    <div className="w-full md:w-1/2 h-[60%] md:h-full flex flex-col justify-center px-6 md:px-20 lg:px-24 py-8 md:py-12 bg-buddas-teal-dark relative pointer-events-none select-none">
+                    {/* RIGHT: CONTENT SECTION */}
+                    <div className="w-full md:w-1/2 h-[55%] md:h-full flex flex-col justify-start pt-6 px-5 md:justify-center md:pt-12 md:px-20 lg:px-24 bg-buddas-teal-dark relative pointer-events-none select-none">
 
-                        {/* Floating Nav Arrows (Desktop - Enable Pointer Events) */}
+                        {/* Desktop Nav */}
                         <div className="absolute top-1/2 -translate-y-1/2 right-8 hidden 2xl:flex flex-col gap-4 z-30 pointer-events-auto">
                             <button onClick={handlePrev} aria-label="Previous slide" className="p-4 rounded-full border border-white/10 text-white/50 hover:bg-white hover:text-buddas-teal-dark transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50">
                                 <ChevronLeft className="w-6 h-6" />
@@ -241,72 +230,63 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
                             </button>
                         </div>
 
-                        {/* Staggered Content */}
                         <motion.div
                             variants={contentContainerVariants}
                             initial="hidden"
-                            whileInView="visible" // Triggers animation when section enters viewport
+                            whileInView="visible"
                             viewport={{ once: true }}
-                            animate="visible" // Ensures it runs on slide change too (due to key change)
+                            animate="visible"
                             exit="exit"
-                            className="max-w-xl"
+                            className="max-w-xl flex flex-col h-full md:block justify-start md:justify-center"
                         >
                             {/* Kicker Badge */}
-                            <motion.div variants={textItemVariants} className="mb-4 md:mb-8">
-                                <span className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-buddas-gold/10 text-buddas-gold border border-buddas-gold/20 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(233,197,89,0.15)]">
+                            <motion.div variants={textItemVariants} className="mb-3 md:mb-8">
+                                <span className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-2 rounded-full bg-buddas-gold/10 text-buddas-gold border border-buddas-gold/20 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(233,197,89,0.15)]">
                                     <Sparkles className="w-3 h-3" />
                                     {MICROCOPY.newArrival}
                                 </span>
                             </motion.div>
 
                             {/* Title */}
-                            <motion.h2 variants={textItemVariants} className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-semibold font-poppins leading-[1.1] mb-4 md:mb-6 text-white tracking-tight">
+                            <motion.h2 variants={textItemVariants} className="text-xl sm:text-4xl md:text-6xl lg:text-7xl font-semibold font-poppins leading-tight md:leading-[1.1] mb-1 md:mb-6 text-white tracking-tight line-clamp-2 md:line-clamp-none">
                                 {currentSlide.name}
                             </motion.h2>
 
                             {/* Description */}
-                            <motion.p variants={textItemVariants} className="text-base md:text-lg lg:text-xl text-buddas-cream/80 leading-relaxed mb-8 md:mb-12 max-w-lg font-dm-sans line-clamp-3 md:line-clamp-none">
+                            <motion.p variants={textItemVariants} className="text-sm md:text-lg lg:text-xl text-buddas-cream/80 leading-relaxed mb-3 md:mb-12 max-w-lg font-dm-sans line-clamp-2 md:line-clamp-none">
                                 {currentSlide.description || "Experience the bold flavors of Hawaii with our newest kitchen creation. Fresh, fiery, and full of aloha."}
                             </motion.p>
 
-                            {/* Price & CTA Block (Enable Pointer Events for Button) */}
-                            <motion.div variants={textItemVariants} className="flex flex-col sm:flex-row items-start sm:items-center gap-8 pointer-events-auto">
+                            {/* Price & CTA Block */}
+                            <motion.div variants={textItemVariants} className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 pointer-events-auto">
                                 <div className="flex flex-col">
-                                    <span className="text-xs text-buddas-cream/60 font-bold uppercase tracking-widest mb-2">Price</span>
-                                    <span className="text-4xl md:text-5xl font-medium text-buddas-gold font-poppins tracking-tight">
+                                    <span className="text-[10px] md:text-xs text-buddas-cream/60 font-bold uppercase tracking-widest mb-1 md:mb-2 hidden md:block">Price</span>
+                                    <span className="text-3xl md:text-5xl font-medium text-buddas-gold font-poppins tracking-tight">
                                         {formatPrice(currentSlide.price)}
                                     </span>
                                 </div>
-                                <div className="h-12 w-px bg-white/10 hidden sm:block"></div>
-                                <button className="group relative w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-buddas-gold text-buddas-brown rounded-lg font-bold text-xs md:text-sm uppercase tracking-widest overflow-hidden hover:scale-105 active:scale-95 transition-transform duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-buddas-gold focus:ring-offset-2 focus:ring-offset-buddas-teal-dark">
-                                    <span className="relative z-10 flex items-center gap-3">
+                                <div className="h-8 md:h-12 w-px bg-white/10 hidden md:block"></div>
+                                <button className="group relative w-full md:w-auto px-6 py-4 md:px-10 md:py-5 bg-buddas-gold text-buddas-brown rounded-lg font-bold text-xs md:text-sm uppercase tracking-widest overflow-hidden hover:scale-105 active:scale-95 transition-transform duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-buddas-gold focus:ring-offset-2 focus:ring-offset-buddas-teal-dark flex justify-center items-center">
+                                    <span className="relative z-10 flex items-center justify-center gap-2 md:gap-3">
                                         {MICROCOPY.tasteItFirst} <ArrowRight className="w-4 h-4" />
                                     </span>
                                     <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out"></div>
                                 </button>
                             </motion.div>
-
                         </motion.div>
 
-                        {/* Mobile Editorial Pagination (Pointer Events Auto to allow clicks if really needed, but mostly visual) */}
-                        <div className="flex 2xl:hidden items-end gap-4 mt-auto md:mt-16 pb-6 md:pb-0 justify-between md:justify-start w-full pointer-events-auto">
-                            {/* Custom Number Pagination */}
-                            <div className="flex items-baseline gap-2 font-poppins font-medium text-buddas-gold/80">
-                                <span className="text-2xl">0{currentIndex + 1}</span>
-                                <span className="text-sm opacity-40">/</span>
-                                <span className="text-sm opacity-40">0{slides.length}</span>
-                            </div>
-
-                            {/* Progress Line */}
-                            <div className="h-[2px] w-24 bg-white/10 rounded-full overflow-hidden">
-                                <motion.div
-                                    className="h-full bg-buddas-gold"
-                                    initial={{ width: "0%" }}
-                                    animate={{ width: "100%" }}
-                                    transition={{ duration: 6, ease: "linear" }} // Sync with auto-play if desktop, or just visual filler
-                                    key={currentIndex}
-                                />
-                            </div>
+                        {/* Mobile Pagination (44px target) */}
+                        <div className="flex xl:hidden justify-center items-center gap-1 mt-4 pointer-events-auto">
+                            {slides.map((_, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setCurrentIndex(idx)}
+                                    className="p-2 box-content rounded-full group focus:outline-none"
+                                    aria-label={`Go to slide ${idx + 1}`}
+                                >
+                                    <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentIndex === idx ? "w-6 bg-buddas-gold" : "bg-white/20 group-hover:bg-white/40"}`} />
+                                </button>
+                            ))}
                         </div>
 
                     </div>
