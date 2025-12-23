@@ -14,16 +14,16 @@ interface NewArrivalsSlideshowProps {
 
 function NewArrivalsSlideshowSkeleton() {
     return (
-        <section className="relative w-full h-[55svh] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white motion-safe:animate-pulse">
+        <section className="relative w-full h-[75svh] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white motion-safe:animate-pulse">
             <div className="w-full h-full flex flex-col md:flex-row">
                 {/* Left Image Section Skeleton */}
-                <div className="w-full md:w-1/2 h-[45%] md:h-full relative bg-buddas-teal-dark/80">
+                <div className="w-full md:w-1/2 h-[40%] md:h-full relative bg-buddas-teal-dark/80">
                     <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-zinc-950 hidden md:block" />
                     <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent md:hidden" />
                 </div>
 
                 {/* Right Content Section Skeleton */}
-                <div className="w-full md:w-1/2 h-[55%] md:h-full flex flex-col justify-start pt-6 px-5 md:justify-center md:pt-12 md:px-20 lg:px-24 bg-buddas-teal-dark">
+                <div className="w-full md:w-1/2 h-[60%] md:h-full flex flex-col justify-start pt-5 px-5 pb-6 md:justify-center md:pt-12 md:px-20 lg:px-24 bg-buddas-teal-dark">
                     <div className="max-w-xl w-full">
                         {/* Badge Skeleton */}
                         <div className="w-24 h-6 mb-3 md:mb-8 bg-buddas-gold/10 rounded-full" />
@@ -176,7 +176,7 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
             role="region"
             aria-roledescription="carousel"
             aria-label="New menu arrivals"
-            className="relative w-full h-[55svh] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white"
+            className="relative w-full h-[75svh] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
         >
@@ -197,7 +197,7 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
                     whileTap={{ cursor: "grabbing" }}
                 >
                     {/* LEFT: IMAGE SECTION */}
-                    <div className="w-full md:w-1/2 h-[45%] md:h-full relative overflow-hidden pointer-events-none select-none">
+                    <div className="w-full md:w-1/2 h-[40%] md:h-full relative overflow-hidden pointer-events-none select-none">
                         <motion.div
                             className="absolute inset-0 bg-cover bg-center"
                             style={{ backgroundImage: `url(${imageUrl})` }}
@@ -207,11 +207,11 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
                             variants={imageVariants}
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-zinc-950 hidden md:block"></div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent md:hidden"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/40 via-transparent to-transparent md:hidden"></div>
                     </div>
 
                     {/* RIGHT: CONTENT SECTION */}
-                    <div className="w-full md:w-1/2 h-[55%] md:h-full flex flex-col justify-start pt-6 px-5 md:justify-center md:pt-12 md:px-20 lg:px-24 bg-buddas-teal-dark relative pointer-events-none select-none">
+                    <div className="w-full md:w-1/2 h-[60%] md:h-full flex flex-col justify-start pt-5 px-5 pb-6 md:justify-center md:pt-12 md:px-20 lg:px-24 bg-buddas-teal-dark relative pointer-events-none select-none">
 
                         {/* Desktop Nav */}
                         <div className="absolute top-1/2 -translate-y-1/2 right-8 hidden 2xl:flex flex-col gap-4 z-30 pointer-events-auto">
