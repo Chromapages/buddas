@@ -57,7 +57,7 @@ export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
             image: cateringData?.cateringImage || "https://lh3.googleusercontent.com/aida-public/AB6AXuDQYJaoiTwhP4q_kxm7Du0BZuLRFyXPm8njF-PV_45BPyM1b2fMYTKjGLNXNwQkARvnpfxi3rE4ptNL1mTbZOJkootLsYKEH_yPTWB-FLiWPeZXA53mkJzc5affMKozg3CMXQhxUnVnnx12Em8HjqIz6flXwKoiYbEBw-JGIBgP7mHq0rjCZ4ZCSiF8pJJIqbWSO9JQa14hzj1K53XxTxh4_pcw8_XoQmgXFiVWoBo9AsrMqVcl7_mEMdsuB2xG--fM7uRPJUwT7nxs",
             theme: {
                 bg: "bg-buddas-teal-dark",
-                badge: "bg-buddas-teal/90 text-white border-buddas-teal-light/20",
+                badge: "bg-buddas-gold text-buddas-brown border-buddas-gold/20",
                 button: "bg-buddas-teal text-white hover:bg-white hover:text-buddas-teal",
                 icon: Utensils
             }
@@ -72,7 +72,7 @@ export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
             image: cateringData?.eventsImage || "https://lh3.googleusercontent.com/aida-public/AB6AXuB-LhJKdKh1D38aStliQxZJylPplCRlVEScIIGYJD6yTH0xGNWDphmFcV9Vrj58n_vbjBLxtCG2b2C6iEMV80Sxg4Et4HPH-fVFRehpNB-udxFBtFCQfFTweRjYxnxWEXDd7-EcboKxTLUZJGr2W8DafFGBkMjkuP9RWc6q0o3Zn6a4Lla8HdsRV3B4GtbpeHshUjrAyp22xjiehOXhRVpR8CMx_UEBsswTelaCFcMGz9QzWEpOSXh6yhX7j5rcBXokOE-fF2ds3lXG",
             theme: {
                 bg: "bg-buddas-gold",
-                badge: "bg-white/90 text-buddas-brown border-white/20",
+                badge: "bg-buddas-gold text-buddas-brown border-buddas-gold/20",
                 button: "bg-buddas-brown text-white hover:bg-white hover:text-buddas-brown",
                 icon: CalendarDays
             }
@@ -87,7 +87,7 @@ export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
             image: cateringData?.communityImage || "https://cdn.sanity.io/images/07198816/production/4b5b7b9f5b6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b-1200x800.jpg",
             theme: {
                 bg: "bg-buddas-brown",
-                badge: "bg-buddas-cream/90 text-buddas-brown border-buddas-cream/20",
+                badge: "bg-buddas-gold text-buddas-brown border-buddas-gold/20",
                 button: "bg-buddas-gold text-buddas-brown hover:bg-white hover:text-buddas-brown",
                 icon: HeartHandshake
             }
@@ -138,7 +138,7 @@ export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
                                 {card.badge}
                             </div>
 
-                            <h3 className="text-2xl md:text-3xl font-semibold mb-3 text-white font-[family-name:var(--font-poppins)] tracking-tight leading-tight">
+                            <h3 className="text-2xl md:text-3xl font-semibold mb-3 text-white font-poppins tracking-tight leading-tight">
                                 {card.title}
                             </h3>
 

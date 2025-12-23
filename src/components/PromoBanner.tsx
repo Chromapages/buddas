@@ -288,7 +288,7 @@ function PromoCard({ promo }: { promo: Promotion }) {
 
             {/* Content Section */}
             <div className={`${layout.contentPadding} flex flex-col flex-1 relative z-10 bg-white/50`}>
-                <h3 className={`${layout.headlineSize} font-bold text-buddas-brown font-poppins mb-2 leading-tight tracking-tight group-hover:text-buddas-teal transition-colors`}>
+                <h3 className={`${layout.headlineSize} font-bold text-buddas-brown font-poppins mb-2 leading-tight tracking-tight group-hover:text-buddas-teal-dark transition-colors`}>
                     {promo.title}
                 </h3>
 
@@ -300,7 +300,6 @@ function PromoCard({ promo }: { promo: Promotion }) {
                     {/* CTA: Coupon Code */}
                     {ctaType === 'coupon' && promo.couponCode && (
                         <div className="flex flex-col gap-2">
-                            <div className="text-[10px] font-bold text-buddas-brown/40 uppercase tracking-widest pl-1">Use Code at Checkout</div>
                             <button
                                 onClick={handleCopy}
                                 className={`w-full relative flex items-center justify-between border px-6 py-4 rounded-full font-mono font-bold transition-all duration-200 overflow-hidden active:scale-95 group/btn ${isCopied ? "bg-green-50 border-green-200 text-green-700" : "bg-white/80 border-dashed border-buddas-brown/20 hover:border-buddas-teal hover:bg-buddas-teal/5 hover:shadow-md"}`}
