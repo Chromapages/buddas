@@ -114,7 +114,7 @@ export function PromoBanner({ promotions = [], isLoading }: PromoBannerProps) {
             : "md:grid-cols-3";
 
     return (
-        <section className="w-full max-w-[1920px] mx-auto px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-16 py-12 md:py-24 relative">
+        <section className="w-full max-w-[1920px] mx-auto px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-16 py-8 md:py-12 relative">
             <div>
                 {/* Section Header */}
                 <div
@@ -132,7 +132,7 @@ export function PromoBanner({ promotions = [], isLoading }: PromoBannerProps) {
                 <div
                     ref={scrollContainerRef}
                     onScroll={handleScroll}
-                    className={`flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-6 px-6 md:grid md:gap-6 lg:gap-8 md:pb-0 md:mx-0 md:px-0 no-scrollbar ${gridClass}`}
+                    className={`flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-6 px-6 md:grid md:gap-6 lg:gap-8 md:pb-10 md:mx-0 md:px-0 no-scrollbar ${gridClass}`}
                 >
                     {promotions.slice(0, 3).map((promo, idx) => (
                         <div

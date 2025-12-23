@@ -92,7 +92,7 @@ export function TrustedBy({ trustedByData, isLoading }: TrustedByProps) {
     );
 
     return (
-        <section className="py-6 md:py-10 lg:py-12 xl:py-16 bg-buddas-cream border-b border-buddas-brown/5 overflow-hidden">
+        <section className="py-6 md:py-10 xl:py-12 bg-buddas-cream overflow-hidden">
             <div className="max-w-[1280px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-0 md:px-6 lg:px-8 xl:px-12 2xl:px-16 text-center">
                 {/* Desktop Header: Hidden on Mobile */}
                 <h2 className="hidden md:block text-buddas-brown font-poppins font-semibold mb-6 md:mb-12 text-xl md:text-3xl lg:text-4xl tracking-[-0.01em] drop-shadow-sm px-6">

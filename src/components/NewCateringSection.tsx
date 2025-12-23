@@ -114,7 +114,7 @@ export function NewCateringSection({ cateringData }: NewCateringSectionProps) {
             <div
                 ref={scrollContainerRef}
                 onScroll={handleScroll}
-                className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-8 -mx-4 px-4 lg:grid lg:grid-cols-3 lg:gap-6 2xl:gap-8 lg:pb-0 lg:mx-0 lg:px-0 no-scrollbar relative"
+                className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-8 -mx-4 px-4 lg:grid lg:grid-cols-3 lg:gap-6 2xl:gap-8 lg:pb-10 lg:mx-0 lg:px-0 no-scrollbar relative"
             >
                 {cards.map((card) => (
                     <div key={card.key} className={`flex-shrink-0 w-[80vw] lg:w-auto snap-center group relative overflow-hidden rounded-3xl min-h-[420px] flex items-end p-8 shadow-sm hover:shadow-xl transition-all duration-300 active:scale-[0.98] hover:-translate-y-1 ${card.theme.bg}`}>
