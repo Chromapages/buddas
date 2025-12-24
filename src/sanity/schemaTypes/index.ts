@@ -1,3 +1,4 @@
+import homePage from './homePage'
 import aboutPage from './aboutPage'
 import benefitNightsPage from './benefitNightsPage'
 import buddalinksPage from './buddalinksPage'
@@ -22,6 +23,7 @@ import trustedBySection from './trustedBySection'
 export const schema = {
     types: [
         // Pages
+        homePage,
         aboutPage,
         benefitNightsPage,
         buddalinksPage,

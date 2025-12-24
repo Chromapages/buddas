@@ -47,7 +47,27 @@ textarea,
   /* Base Teal */
 }
 
-/* Force Brand Colors on Primary/Success Buttons (Publish Actions) */
+/* =================================================================
+   Global Button Styling ("Modern Aloha")
+   ================================================================= */
+
+/* 1. Base Button Shape & Feel */
+button[data-ui="Button"],
+a[data-ui="Button"] {
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Base Active Click Effect (Scale Down) */
+button[data-ui="Button"]:active,
+a[data-ui="Button"]:active {
+  transform: scale(0.97) !important;
+}
+
+/* 2. Primary / Positive Buttons (Publish, Create, Confirm) - TEAL */
 button[data-ui="Button"][data-tone="positive"],
 button[data-ui="Button"][data-tone="primary"],
 a[data-ui="Button"][data-tone="positive"],
@@ -55,18 +75,53 @@ a[data-ui="Button"][data-tone="primary"] {
   background-color: #54BFA5 !important;
   /* Base Teal */
   color: #FFFFFF !important;
-  /* Pure White Text */
-  border-radius: 8px !important;
-  /* Brand Radius */
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 6px -1px rgba(84, 191, 165, 0.3), 0 2px 4px -1px rgba(84, 191, 165, 0.06) !important;
 }
 
+/* Hover State - Primary */
 button[data-ui="Button"][data-tone="positive"]:hover,
 button[data-ui="Button"][data-tone="primary"]:hover,
 a[data-ui="Button"][data-tone="positive"]:hover,
 a[data-ui="Button"][data-tone="primary"]:hover {
   background-color: #2A6E63 !important;
-  /* Mid/Dark Teal on hover */
+  /* Darker Teal */
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(84, 191, 165, 0.4), 0 4px 6px -2px rgba(84, 191, 165, 0.1) !important;
+}
+
+/* 3. Secondary / Default Buttons (Cancel, Edit, Menu) - CREAM */
+button[data-ui="Button"][data-tone="default"],
+a[data-ui="Button"][data-tone="default"] {
+  background-color: #FFF8E8 !important;
+  /* Buddas Cream */
+  color: #5A3A1F !important;
+  /* Buddas Brown */
+  border: 1px solid rgba(90, 58, 31, 0.1) !important;
+}
+
+/* Hover State - Secondary */
+button[data-ui="Button"][data-tone="default"]:hover,
+a[data-ui="Button"][data-tone="default"]:hover {
+  background-color: #FFFFFF !important;
+  border-color: #54BFA5 !important;
+  color: #1C5F56 !important;
   transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(90, 58, 31, 0.1) !important;
+}
+
+/* 4. Critical / Danger Buttons (Delete, Remove) - ORANGE */
+button[data-ui="Button"][data-tone="critical"],
+a[data-ui="Button"][data-tone="critical"] {
+  background-color: #D36200 !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+button[data-ui="Button"][data-tone="critical"]:hover,
+a[data-ui="Button"][data-tone="critical"]:hover {
+  background-color: #B54900 !important;
+  box-shadow: 0 4px 12px rgba(211, 98, 0, 0.3) !important;
 }
 
 /* Fix Disabled State Visibility */
@@ -80,4 +135,88 @@ a[data-ui="Button"][data-disabled] {
   opacity: 0.7 !important;
   cursor: not-allowed !important;
   transform: none !important;
+}
+
+
+/* =================================================================
+   Mobile Optimization (Phones & Tablets)
+   ================================================================= */
+@media (max-width: 768px) {
+
+  /* 1. Touch Target Sizing (Min 44px) */
+  button,
+  [data-ui="Button"],
+  [data-ui="TextInput"],
+  input,
+  select,
+  textarea {
+    min-height: 48px !important;
+    /* Generous touch target */
+    font-size: 16px !important;
+    /* Prevent iOS auto-zoom */
+  }
+
+  /* Navigation Sidebar Items */
+  a[data-ui="TreeItem"],
+  button[data-ui="TreeItem"] {
+    min-height: 52px !important;
+    /* Easy to tap menu items */
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+  }
+
+  /* 2. Form Field Spacing & readability */
+  [data-ui="FormBuilderField"] {
+    margin-bottom: 24px !important;
+  }
+
+  [data-ui="Label"] {
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+    color: #5A3A1F !important;
+    /* Buddas Brown */
+  }
+
+  /* 3. Action Bar (Publish/Discard) */
+  /* Make the action bar stick and prominent */
+  [data-testid="pane-footer"] {
+    padding: 16px !important;
+    background: #FFF8E8 !important;
+    /* Buddas Cream */
+    border-top: 1px solid rgba(90, 58, 31, 0.1) !important;
+  }
+
+  /* 4. Inputs Text Area */
+  textarea[data-ui="TextArea"] {
+    min-height: 120px !important;
+    padding: 12px !important;
+  }
+
+  /* 5. Dialogs/Modals */
+  [data-ui="Dialog"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    height: 100% !important;
+    max-height: 100% !important;
+  }
+
+  [data-ui="Dialog"]>div {
+    border-radius: 0 !important;
+  }
+
+  /* 6. Tabs */
+  [data-ui="TabList"] button {
+    padding: 12px 16px !important;
+    flex: 1 !important;
+    /* Distribute tabs evenly */
+    text-align: center !important;
+  }
+
+  /* Hiding redundant desktop elements if any (optional) */
+  /* Example: hide complex tooltips on mobile if they block view */
+  [data-ui="Tooltip"] {
+    display: none !important;
+  }
 }

@@ -12,7 +12,8 @@ import {
     Link as LinkIcon,
     Megaphone,
     MessageSquareQuote,
-    Award
+    Award,
+    Home
 } from 'lucide-react'
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
@@ -20,6 +21,19 @@ export const structure: StructureResolver = (S) =>
     S.list()
         .title('Buddas Manager')
         .items([
+            // --- Top Level Singleton ---
+            S.listItem()
+                .title('Home Page')
+                .icon(Home)
+                .child(
+                    S.document()
+                        .schemaType('homePage')
+                        .documentId('homePage')
+                        .title('Home Page')
+                ),
+
+            S.divider(),
+
             // --- Global Configuration ---
             S.listItem()
                 .title('Site Settings')
@@ -134,6 +148,7 @@ export const structure: StructureResolver = (S) =>
                         'promotion',
                         'testimonial',
                         'program',
+                        'homePage',
                         'heroSlide', // If it's an object, it won't be here anyway, but good to check
                         'seo'
                     ].includes(listItem.getId() as string)

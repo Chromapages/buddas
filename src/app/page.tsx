@@ -21,12 +21,14 @@ interface HomePageData {
     title?: string;
     tagline?: string;
     logo?: any;
-    heroSlides?: any[];
     primaryPhone?: string;
     primaryEmail?: string;
     defaultOrderingUrl?: string;
     mainNavigation?: any[];
     socialLinks?: any[];
+  };
+  homePage?: {
+    heroSlides?: any[];
   };
   featuredMenuItems?: any[];
   popularItems?: any[];
@@ -35,23 +37,19 @@ interface HomePageData {
   locations?: any[];
   testimonials?: any[];
   cateringData?: {
-    // Homepage Teaser Fields ONLY
     teaserBadge?: string;
     eventsBadge?: string;
     communityBadge?: string;
-
     cateringTitle?: string;
     cateringDescription?: string;
     cateringImage?: string;
     cateringCtaLabel?: string;
     cateringCtaLink?: string;
-
     eventsTitle?: string;
     eventsDescription?: string;
     eventsImage?: string;
     eventsCtaLabel?: string;
     eventsCtaLink?: string;
-
     communityTitle?: string;
     communityDescription?: string;
     communityImage?: string;
@@ -113,7 +111,7 @@ export default async function Home() {
   // Use first location for contact info
   const primaryLocation = locationsSafe[0];
 
-  const heroSlides = data?.siteSettings?.heroSlides || [];
+  const heroSlides = data?.homePage?.heroSlides || [];
 
   // Generate logo URL from Sanity
   const logoUrl = data?.siteSettings?.logo

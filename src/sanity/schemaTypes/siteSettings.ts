@@ -7,17 +7,26 @@ const siteSettings = defineType({
     title: "Site Settings",
     icon: Settings,
     type: "document",
+    groups: [
+        { name: 'general', title: 'General', default: true },
+        { name: 'brand', title: 'Brand' },
+        { name: 'navigation', title: 'Navigation' },
+        { name: 'contact', title: 'Contact' },
+        { name: 'seo', title: 'SEO' },
+    ],
     fields: [
         defineField({
             name: "title",
             title: "Site Title",
             type: "string",
+            group: "general",
             validation: (Rule) => Rule.required(),
         }),
         defineField({
             name: "tagline",
             title: "Tagline",
             type: "string",
+            group: "general",
             validation: (Rule) => Rule.max(60).warning("Taglines should be punchy!"),
         }),
         // Announcement Bar
@@ -25,6 +34,7 @@ const siteSettings = defineType({
             name: "announcement",
             title: "Announcement Bar",
             type: "object",
+            group: "general",
             options: { collapsible: true, collapsed: false },
             fields: [
                 defineField({
@@ -66,6 +76,7 @@ const siteSettings = defineType({
             name: "favicon",
             title: "Favicon",
             type: "image",
+            group: "brand",
             description: "Icon used for browser tabs and bookmarks.",
             options: { hotspot: true },
             fields: [
@@ -81,6 +92,7 @@ const siteSettings = defineType({
             name: "logo",
             title: "Logo",
             type: "image",
+            group: "brand",
             description: "Logo image for the header/navbar.",
             options: { hotspot: true },
             fields: [
@@ -95,6 +107,7 @@ const siteSettings = defineType({
             name: "headerCtaStyle",
             title: "Header CTA Style",
             type: "string",
+            group: "brand",
             description: "Controls the color of the 'Order Online' button in the header. Colors from official Buddas Brand Guidelines.",
             options: {
                 list: [
@@ -110,16 +123,10 @@ const siteSettings = defineType({
             initialValue: "teal",
         }),
         defineField({
-            name: "heroSlides",
-            title: "Home Page Hero Slides",
-            type: "array",
-            of: [{ type: "heroSlide" }],
-            description: "Add one or more slides for the homepage hero section.",
-        }),
-        defineField({
             name: "mainNavigation",
             title: "Main Navigation",
             type: "array",
+            group: "navigation",
             description: "Links to show in the header navigation.",
             of: [
                 defineField({
@@ -154,21 +161,25 @@ const siteSettings = defineType({
             name: "primaryPhone",
             title: "Primary Phone",
             type: "string",
+            group: "contact",
         }),
         defineField({
             name: "primaryEmail",
             title: "Primary Email",
             type: "string",
+            group: "contact",
         }),
         defineField({
             name: "defaultOrderingUrl",
             title: "Default Ordering URL",
             type: "url",
+            group: "contact",
         }),
         defineField({
             name: "socialLinks",
             title: "Social Links",
             type: "array",
+            group: "navigation",
             of: [
                 defineField({
                     name: "socialLink",
@@ -209,6 +220,7 @@ const siteSettings = defineType({
             name: "seo",
             title: "Default SEO",
             type: "seo",
+            group: "seo",
         }),
     ],
 });

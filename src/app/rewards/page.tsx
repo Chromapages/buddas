@@ -1,7 +1,7 @@
 import { client } from "@/sanity/lib/client";
 import { REWARDS_PAGE_QUERY } from "@/sanity/lib/queries";
 import { Footer } from "@/components/Footer";
-import { Masthead } from "@/components/Masthead";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -38,13 +38,11 @@ export default async function RewardsPage() {
 
             <main className="flex-1">
                 {/* Hero Section */}
-                {/* Masthead */}
-                <Masthead
-                    title={pageData.heroTitle || pageData.title}
-                    subtitle={pageData.heroSubtitle}
-                    image={pageData.heroImage}
-                    breadcrumb="Rewards"
-                />
+                {/* Masthead Replacement */}
+                <div className="bg-buddas-dark py-20 px-4 text-center text-white">
+                    <h1 className="font-display text-5xl md:text-6xl mb-4">{pageData.heroTitle || pageData.title}</h1>
+                    <p className="text-xl opacity-90 max-w-2xl mx-auto">{pageData.heroSubtitle}</p>
+                </div>
 
                 {/* Benefits Section */}
                 {pageData.benefits && pageData.benefits.length > 0 && (

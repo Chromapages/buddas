@@ -5,6 +5,15 @@ export const HOME_PAGE_QUERY = groq`{
     title,
     tagline,
     logo,
+    mainNavigation[] {
+      label,
+      url
+    },
+    primaryPhone,
+    primaryEmail,
+    defaultOrderingUrl
+  },
+  "homePage": *[_type == "homePage"][0] {
     "heroSlides": heroSlides[] {
       badge,
       title,
@@ -22,14 +31,7 @@ export const HOME_PAGE_QUERY = groq`{
       secondaryCtaLabel,
       secondaryCtaLink,
       features
-    },
-    mainNavigation[] {
-      label,
-      url
-    },
-    primaryPhone,
-    primaryEmail,
-    defaultOrderingUrl
+    }
   },
   "featuredMenuItems": *[_type == "menuItem" && isSignature == true] | order(_createdAt desc) [0...8] {
     _id,

@@ -7,17 +7,25 @@ const menuItem = defineType({
     title: "Menu Item",
     icon: UtensilsCrossed,
     type: "document",
+    groups: [
+        { name: 'main', title: 'Main Info', default: true },
+        { name: 'pricing', title: 'Pricing' },
+        { name: 'details', title: 'Details' },
+        { name: 'media', title: 'Media' },
+    ],
     fields: [
         defineField({
             name: "name",
             title: "Name",
             type: "string",
+            group: "main",
             validation: (Rule) => Rule.required().max(60).warning("Keep titles concise for menu boards."),
         }),
         defineField({
             name: "isSignature",
             title: "Signature Item?",
             type: "boolean",
+            group: "main",
             description: "Mark as a signature/popular item for a 'Gold Badge'.",
             initialValue: false,
         }),
@@ -25,6 +33,7 @@ const menuItem = defineType({
             name: "isFeatured",
             title: "Featured Item?",
             type: "boolean",
+            group: "main",
             description: "Show in the Featured Items section at the top of the menu.",
             initialValue: false,
         }),
@@ -32,6 +41,7 @@ const menuItem = defineType({
             name: "slug",
             title: "Slug",
             type: "slug",
+            group: "main",
             options: {
                 source: "name",
                 maxLength: 96,
@@ -42,6 +52,7 @@ const menuItem = defineType({
             name: "category",
             title: "Category",
             type: "reference",
+            group: "main",
             to: [{ type: "menuCategory" }],
             validation: (Rule) => Rule.required(),
         }),
@@ -50,6 +61,7 @@ const menuItem = defineType({
             title: "Description",
             type: "text",
             rows: 3,
+            group: "main",
             description: "Use the 'Aloha Filter': Warm, Honest, Efficient. (e.g., 'Char-grilled' instead of 'Grilled').",
             validation: (Rule) => Rule.max(200).warning("Descriptions should be easily scannable."),
         }),
@@ -57,6 +69,7 @@ const menuItem = defineType({
             name: "price",
             title: "Price",
             type: "number",
+            group: "pricing",
             description: "Enter price as a number (e.g., 11.99).",
             validation: (Rule) => Rule.min(0),
         }),
@@ -64,23 +77,27 @@ const menuItem = defineType({
             name: "priceNote",
             title: "Price Note (Optional)",
             type: "string",
+            group: "pricing",
             description: 'For special cases like "Market price" or combo notes.',
         }),
         defineField({
             name: "comboPrice",
             title: "Combo Price (Optional)",
             type: "number",
+            group: "pricing",
             description: "Price for the combo option (e.g., 14.99).",
         }),
         defineField({
             name: "comboPriceNote",
             title: "Combo Price Note (Optional)",
             type: "string",
+            group: "pricing",
             description: 'Details about the combo (e.g., "Includes fries and drink").',
         }),
         defineField({
             name: "tags",
             title: "Tags",
+            group: "details",
             type: "array",
             of: [{ type: "string" }],
             options: {
@@ -100,6 +117,7 @@ const menuItem = defineType({
             name: "image",
             title: "Image",
             type: "image",
+            group: "media",
             description: "Must use 'Golden Hour' lighting. Generosity crop (fill the frame). No cold/blue tones.",
             options: { hotspot: true },
             fields: [
@@ -117,6 +135,7 @@ const menuItem = defineType({
             name: "prepTime",
             title: "Prep Time (Minutes)",
             type: "string",
+            group: "details",
             description: "Estimated prep time (e.g., '10-15', '20+').",
             initialValue: "15-20",
         }),
@@ -124,12 +143,14 @@ const menuItem = defineType({
             name: "calories",
             title: "Calories",
             type: "number",
+            group: "details",
             description: "Caloric content of the item.",
         }),
         defineField({
             name: "allergens",
             title: "Allergens",
             type: "array",
+            group: "details",
             of: [{ type: "string" }],
             options: {
                 list: [
@@ -150,9 +171,27 @@ const menuItem = defineType({
             title: "Ingredients",
             type: "text",
             rows: 3,
+            group: "details",
             description: "List of main ingredients.",
         }),
     ],
+    preview: {
+        select: {
+            title: "name",
+            subtitle: "price",
+            image: "image",
+            isSignature: "isSignature",
+        },
+        prepare({ title, subtitle, image, isSignature }) {
+            const price = subtitle ? `$${subtitle}` : "Market Price";
+            const emoji = isSignature ? "🌟 " : "";
+            return {
+                title: `${emoji}${title}`,
+                subtitle: price,
+                media: image || UtensilsCrossed,
+            };
+        },
+    },
 });
 
 export default menuItem;
