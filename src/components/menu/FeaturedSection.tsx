@@ -2,18 +2,28 @@
 
 import { MenuCard } from "./MenuCard";
 import { useRef, useState } from "react";
+import { MenuModal } from "./MenuModal";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 interface FeaturedSectionProps {
     items: any[];
-    onItemClick: (item: any) => void;
+    onItemClick?: (item: any) => void;
     title?: string;
 }
 
 export function FeaturedSection({ items, onItemClick, title = "Customer Favorites" }: FeaturedSectionProps) {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const [scrollProgress, setScrollProgress] = useState(0);
+    const [selectedItem, setSelectedItem] = useState<any>(null);
+
+    const handleItemClick = (item: any) => {
+        if (onItemClick) {
+            onItemClick(item);
+        } else {
+            setSelectedItem(item);
+        }
+    };
 
     const handleScroll = () => {
         if (!scrollContainerRef.current) return;
@@ -77,7 +87,7 @@ export function FeaturedSection({ items, onItemClick, title = "Customer Favorite
                                 >
                                     <MenuCard
                                         item={item}
-                                        onClick={() => onItemClick(item)}
+                                        onClick={() => handleItemClick(item)}
                                     />
                                 </div>
                             ))}
@@ -101,13 +111,20 @@ export function FeaturedSection({ items, onItemClick, title = "Customer Favorite
                             >
                                 <MenuCard
                                     item={item}
-                                    onClick={() => onItemClick(item)}
+                                    onClick={() => handleItemClick(item)}
                                 />
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
+
+            {/* Internal Modal for self-managed state */}
+            <MenuModal
+                item={selectedItem}
+                isOpen={!!selectedItem}
+                onClose={() => setSelectedItem(null)}
+            />
         </section>
     );
 }

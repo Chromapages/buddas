@@ -23,7 +23,6 @@ export function MenuOffersSection({ featuredItems, newItems }: MenuOffersSection
             {/* Featured Items Section (Switched to FeaturedSection and Swapped Order) */}
             <FeaturedSection
                 items={featuredItems}
-                onItemClick={() => router.push('/menu')}
             />
         </div>
     );

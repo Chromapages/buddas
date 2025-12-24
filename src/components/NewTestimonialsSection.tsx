@@ -475,7 +475,19 @@ function TestimonialCard({ item }: { item: Testimonial }) {
 
     return (
         <>
-            <div className="bg-white rounded-3xl p-8 border border-white shadow-lg shadow-buddas-brown/5 relative group hover:border-buddas-gold/20 hover:shadow-xl transition-all duration-300 flex flex-col h-full font-dm-sans min-h-[340px]">
+            <div
+                onClick={() => isLong && setIsReadMoreOpen(true)}
+                onKeyDown={(e) => {
+                    if (isLong && (e.key === 'Enter' || e.key === ' ')) {
+                        e.preventDefault();
+                        setIsReadMoreOpen(true);
+                    }
+                }}
+                role={isLong ? "button" : undefined}
+                tabIndex={isLong ? 0 : undefined}
+                aria-label={isLong ? `Read full review by ${item.name}` : `Review by ${item.name}`}
+                className={`bg-white rounded-3xl p-8 border border-white shadow-lg shadow-buddas-brown/5 relative group transition-all duration-300 flex flex-col h-full font-dm-sans min-h-[340px] ${isLong ? 'cursor-pointer hover:border-buddas-gold/20 hover:shadow-xl' : ''}`}
+            >
                 <div className="flex gap-1 text-buddas-gold mb-4">
                     {[...Array(5)].map((_, i) => (
                         <Star
@@ -489,12 +501,9 @@ function TestimonialCard({ item }: { item: Testimonial }) {
                         "{displayQuote}"
                     </p>
                     {isLong && (
-                        <button
-                            onClick={() => setIsReadMoreOpen(true)}
-                            className="mt-2 text-sm font-medium text-buddas-teal hover:text-buddas-teal-dark underline underline-offset-2 decoration-buddas-teal/30 hover:decoration-buddas-teal transition-all"
-                        >
+                        <span className="mt-2 text-sm font-medium text-buddas-teal hover:text-buddas-teal-dark underline underline-offset-2 decoration-buddas-teal/30 hover:decoration-buddas-teal transition-all">
                             Read full review
-                        </button>
+                        </span>
                     )}
                 </div>
 

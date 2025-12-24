@@ -14,7 +14,7 @@ interface NewArrivalsSlideshowProps {
 
 function NewArrivalsSlideshowSkeleton() {
     return (
-        <section className="relative w-full h-[75svh] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white motion-safe:animate-pulse">
+        <section className="relative w-full h-[75svh] md:h-[600px] bg-buddas-teal-dark overflow-hidden text-white motion-safe:animate-pulse">
             <div className="w-full h-full flex flex-col md:flex-row">
                 {/* Left Image Section Skeleton */}
                 <div className="w-full md:w-1/2 h-[40%] md:h-full relative bg-buddas-teal-dark/80">
@@ -176,7 +176,7 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
             role="region"
             aria-roledescription="carousel"
             aria-label="New menu arrivals"
-            className="relative w-full h-[75svh] md:h-[800px] bg-buddas-teal-dark overflow-hidden text-white"
+            className="relative w-full h-[75svh] md:h-[600px] bg-buddas-teal-dark overflow-hidden text-white"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
         >
@@ -213,22 +213,7 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
                     {/* RIGHT: CONTENT SECTION */}
                     <div className="w-full md:w-1/2 h-[60%] md:h-full flex flex-col justify-start pt-5 px-5 pb-6 md:justify-center md:pt-12 md:px-20 lg:px-24 bg-buddas-teal-dark relative pointer-events-none select-none">
 
-                        {/* Desktop Nav */}
-                        <div className="absolute top-1/2 -translate-y-1/2 right-8 hidden 2xl:flex flex-col gap-4 z-30 pointer-events-auto">
-                            <button onClick={handlePrev} aria-label="Previous slide" className="p-4 rounded-full border border-white/10 text-white/50 hover:bg-white hover:text-buddas-teal-dark transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50">
-                                <ChevronLeft className="w-6 h-6" />
-                            </button>
-                            <button onClick={handleNext} aria-label="Next slide" className="p-4 rounded-full border border-white/10 text-white/50 hover:bg-white hover:text-buddas-teal-dark transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50">
-                                <ChevronRight className="w-6 h-6" />
-                            </button>
-                            <button
-                                onClick={() => setIsPaused(!isPaused)}
-                                aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
-                                className="p-3 rounded-full border border-white/20 text-white/60 hover:bg-white hover:text-buddas-teal-dark transition-all focus:outline-none focus:ring-2 focus:ring-white/50 mt-2"
-                            >
-                                {isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
-                            </button>
-                        </div>
+
 
                         <motion.div
                             variants={contentContainerVariants}
@@ -248,12 +233,13 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
                             </motion.div>
 
                             {/* Title */}
-                            <motion.h2 variants={textItemVariants} className="text-xl sm:text-4xl md:text-6xl lg:text-7xl font-semibold font-poppins leading-tight md:leading-[1.1] mb-1 md:mb-6 text-white tracking-tight line-clamp-2 md:line-clamp-none">
+                            <motion.h2 variants={textItemVariants} className="text-xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold font-poppins leading-tight md:leading-[1.1] mb-1 md:mb-6 text-white tracking-tight line-clamp-2 md:line-clamp-none">
                                 {currentSlide.name}
                             </motion.h2>
 
                             {/* Description */}
-                            <motion.p variants={textItemVariants} className="text-sm md:text-lg lg:text-xl text-buddas-cream/80 leading-relaxed mb-3 md:mb-12 max-w-lg font-dm-sans line-clamp-2 md:line-clamp-none">
+                            {/* Description */}
+                            <motion.p variants={textItemVariants} className="text-sm md:text-lg text-buddas-cream/80 leading-relaxed mb-3 md:mb-8 max-w-lg font-dm-sans line-clamp-2 md:line-clamp-none">
                                 {currentSlide.description || "Experience the bold flavors of Hawaii with our newest kitchen creation. Fresh, fiery, and full of aloha."}
                             </motion.p>
 
@@ -273,6 +259,47 @@ export function NewArrivalsSlideshow({ items, isLoading }: NewArrivalsSlideshowP
                                     <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out"></div>
                                 </button>
                             </motion.div>
+
+                            {/* New Desktop Bottom Controls */}
+                            <div className="hidden md:flex items-center gap-6 mt-12 pointer-events-auto">
+                                {/* Page Indicator */}
+                                <div className="font-poppins font-medium text-white/40 tracking-widest text-sm">
+                                    <span className="text-white">0{currentIndex + 1}</span> / 0{slides.length}
+                                </div>
+
+                                {/* Divider */}
+                                <div className="w-px h-4 bg-white/10" />
+
+                                {/* Buttons */}
+                                <div className="flex items-center gap-2">
+                                    <button
+                                        onClick={handlePrev}
+                                        aria-label="Previous slide"
+                                        className="w-10 h-10 rounded-full border border-white/10 text-white/70 hover:bg-white hover:text-buddas-teal-dark hover:border-white transition-all flex items-center justify-center active:scale-95"
+                                    >
+                                        <ChevronLeft className="w-4 h-4" />
+                                    </button>
+
+                                    <button
+                                        onClick={() => setIsPaused(!isPaused)}
+                                        aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
+                                        className={`w-10 h-10 rounded-full border transition-all flex items-center justify-center active:scale-95 ${isPaused
+                                            ? "border-buddas-gold text-buddas-gold hover:bg-buddas-gold hover:text-buddas-brown"
+                                            : "border-white/10 text-white/70 hover:bg-white hover:text-buddas-teal-dark hover:border-white"
+                                            }`}
+                                    >
+                                        {isPaused ? <Play className="w-4 h-4 fill-current" /> : <Pause className="w-4 h-4 fill-current" />}
+                                    </button>
+
+                                    <button
+                                        onClick={handleNext}
+                                        aria-label="Next slide"
+                                        className="w-10 h-10 rounded-full border border-white/10 text-white/70 hover:bg-white hover:text-buddas-teal-dark hover:border-white transition-all flex items-center justify-center active:scale-95"
+                                    >
+                                        <ChevronRight className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            </div>
                         </motion.div>
 
                         {/* Mobile Pagination (44px target) */}
