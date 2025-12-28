@@ -1,6 +1,6 @@
 "use client";
 
-import { ShoppingBag, ArrowRight, Star, ChevronDown } from "lucide-react";
+import { ShoppingBag, ArrowRight, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -199,19 +199,7 @@ export function NewHero({ heroSlides }: NewHeroProps) {
                 </div>
             </div >
 
-            {/* Scroll Indicator */}
-            <div
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-500 delay-300"
-            >
-                <span className="text-[10px] uppercase tracking-[0.2em] text-white/60 font-medium">Scroll</span>
-                <div
-                    className="w-6 h-10 rounded-full border border-white/20 flex items-start justify-center p-1"
-                >
-                    <div
-                        className="w-1 h-1 rounded-full bg-white animate-bounce"
-                    />
-                </div>
-            </div>
+
 
             {/* Wave Dividers */}
         </section >
