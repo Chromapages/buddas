@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
-import { DM_Sans, Poppins } from "next/font/google";
+import { Outfit, Work_Sans } from "next/font/google";
 import "./globals.css";
+import { buildLocalBusinessJsonLd } from "@/lib/seo-utils";
 
-const poppins = Poppins({
+const outfit = Outfit({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-poppins",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-work-sans",
   display: "swap",
 });
 
@@ -21,7 +29,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.className} ${poppins.variable} antialiased`}>
+      <head>
+        <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="icon" href="/BUDDAHAWAIIANLOGO.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/BUDDAHAWAIIANLOGO.svg" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              buildLocalBusinessJsonLd({
+                name: "Budda's Hawaiian Bakery & Grill",
+                description: "Fresh Hawaiian comfort, baked daily. Guava Chiffon Cake, Kalua Pork Plates, fresh malasadas and more.",
+                openingHours: ["Mo-Su 08:00-20:00"],
+              })
+            ),
+          }}
+        />
+      </head>
+      <body className={`${outfit.variable} ${workSans.variable} antialiased`} suppressHydrationWarning>
         {children}
       </body>
     </html>
