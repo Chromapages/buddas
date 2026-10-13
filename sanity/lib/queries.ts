@@ -108,7 +108,7 @@ export function validateLandingPage(data: unknown, requestedSlug?: string): Rest
   const cateringDescription = text(catering.description);
   const seo = object(result.seo);
   const footer = object(result.footer);
-  const locationIds = new Set(['locations', 'main-content', 'locations-heading', 'promotions', 'promotions-heading', 'qr-heading', 'qr-description']);
+  const locationIds = new Set(['locations', 'location-cards', 'main-content', 'locations-heading', 'promotions', 'promotions-heading', 'qr-heading', 'qr-description']);
   return {
     slug,
     canonicalPath: getProfilePath(slug),

@@ -72,7 +72,7 @@ test('location IDs are unique usable fragments even for invalid imported IDs', (
 
 test('formatted phone numbers become callable and section IDs remain reserved', () => {
   const address = { streetAddress: '123 Main St', addressLocality: 'Provo', addressRegion: 'UT', postalCode: '84601', addressCountry: 'US' };
-  const reserved = ['locations', 'main-content', 'locations-heading', 'promotions', 'promotions-heading', 'qr-heading', 'qr-description'];
+  const reserved = ['locations', 'location-cards', 'main-content', 'locations-heading', 'promotions', 'promotions-heading', 'qr-heading', 'qr-description'];
   const page = validateLandingPage({ slug: 'bakery', brand: { name: 'Bakery' }, locations: reserved.map((id, index) => ({ id, name: `Branch ${index}`, address, telephone: '+1 (801) 555-1234' })) });
   assert.ok(page);
   for (const branch of page.locations) {

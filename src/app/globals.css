@@ -203,7 +203,7 @@ section[id] { scroll-margin-top: 90px; }
 
 /* Budda's supplied mobile reference; other restaurant profiles retain their theme. */
 .buddas-reference { --background: #fdf9ef; --surface: #fffef9; --foreground: #064d49; --muted-foreground: #486768; --border: #e1e4dc; --accent: #07534d; --ring: #08766c; --color-primary-focus: #063f3b; --muted: #eef4e9; background: var(--background); }
-.buddas-reference .profile-topbar { position: relative; background: transparent; border: 0; }
+.buddas-reference .profile-topbar { position: sticky; background: var(--background); border: 0; }
 .buddas-reference .topbar-content { gap: 8px; padding: 8px 20px; }
 .buddas-reference .topbar-brand { font-size: 15px; font-weight: 600; }
 .buddas-reference .topbar-controls { gap: 8px; }
@@ -213,11 +213,33 @@ section[id] { scroll-margin-top: 90px; }
 .buddas-reference .reference-hero-image { position: relative; aspect-ratio: 2.6; overflow: hidden; }
 .buddas-reference .reference-actions { position: relative; margin-top: 8px; }
 .buddas-reference .primary-link { border-radius: 10px; min-height: 48px; font-size: 16px; padding: 10px 14px; }
+/* The 2px decorative stroke is independent of layout spacing and the focus ring. */
+.buddas-reference .reference-order-cta { --order-stroke-width: 2px; position: relative; border-radius: var(--radius-md); border-color: var(--highlight); background: linear-gradient(135deg, var(--accent), var(--color-primary-focus)); box-shadow: var(--shadow-product); }
+.buddas-reference .reference-order-cta:hover, .buddas-reference .reference-order-cta:active { background: var(--color-primary-focus); }
+.buddas-reference .reference-order-cta:active { box-shadow: none; }
+@property --buddas-order-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@supports (background: conic-gradient(from 0deg, transparent, white)) and ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+  .buddas-reference .reference-order-cta { border-color: var(--ring); }
+  .buddas-reference .reference-order-cta::before { content: ""; position: absolute; inset: 0; padding: var(--order-stroke-width); border-radius: inherit; pointer-events: none; background: conic-gradient(from var(--buddas-order-angle), transparent 0deg 240deg, var(--highlight) 275deg, var(--accent-foreground) 305deg, var(--highlight) 330deg, transparent 360deg); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: buddas-order-orbit 2.4s linear 2; }
+  .buddas-reference .reference-order-cta:hover::before, .buddas-reference .reference-order-cta:focus-visible::before { animation-name: buddas-order-orbit-interaction; }
+}
+/* Finite animation: two laps finish within five seconds (WCAG 2.2 SC 2.2.2). */
+@keyframes buddas-order-orbit { to { --buddas-order-angle: 1turn; } }
+@keyframes buddas-order-orbit-interaction { to { --buddas-order-angle: 1turn; } }
+@media (prefers-reduced-motion: reduce) {
+  .buddas-reference .reference-order-cta { border-color: var(--highlight); }
+  .buddas-reference .reference-order-cta::before { display: none; }
+}
+@media (forced-colors: active) {
+  .buddas-reference .reference-order-cta, .buddas-reference .reference-order-cta:hover, .buddas-reference .reference-order-cta:active { border-color: LinkText; background: Canvas; color: LinkText; box-shadow: none; }
+  .buddas-reference .reference-order-cta::before { display: none; }
+  .buddas-reference .reference-order-cta:focus-visible { outline-color: Highlight; }
+}
 .buddas-reference .secondary-link { border-radius: 10px; min-height: 44px; padding: 10px 8px; font-size: 14px; box-shadow: 0 2px 5px rgb(25 55 40 / 5%); }
 .buddas-reference .secondary-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
 .buddas-reference .secondary-actions a { min-width: 0; }
 .buddas-reference .reference-section, .buddas-reference .profile-section { margin-top: 24px; }
-.buddas-reference h2 { font-family: var(--font-display); font-size: 19px; line-height: 1.25; letter-spacing: -0.35px; font-weight: 600; margin-bottom: 12px; }
+.buddas-reference h2 { font-family: var(--font-display); font-size: 19px; line-height: 1.25; letter-spacing: -0.35px; font-weight: var(--font-weight-bold); margin-bottom: 12px; }
 .buddas-reference .reference-section-heading, .buddas-reference .promo-heading { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .buddas-reference .reference-section-heading h2 { display: flex; gap: 8px; align-items: center; margin: 0; }
 .buddas-reference .promo-heading h2 { margin: 0; }
@@ -231,20 +253,20 @@ section[id] { scroll-margin-top: 90px; }
 .buddas-reference .promo-card { box-shadow: 0 2px 6px rgb(25 55 40 / 8%); }
 .buddas-reference .promo-photo { height: auto; aspect-ratio: 2.4; }
 .buddas-reference .promo-copy { padding: 14px; }
-.buddas-reference .reference-promo-navigation { display: flex; align-items: center; justify-content: center; min-height: 44px; position: relative; }
-.buddas-reference .reference-promo-navigation .promo-controls { position: absolute; inset-inline: 0; justify-content: space-between; pointer-events: none; }
-.buddas-reference .reference-promo-navigation .promo-controls button { pointer-events: auto; border: 0; background: transparent; }
-.buddas-reference .reference-promo-dots { display: flex; }
-.buddas-reference .reference-promo-dots button { display: grid; place-items: center; min-height: 44px; width: 44px; border: 0; background: transparent; }
-.buddas-reference .reference-promo-dots span { width: 8px; height: 8px; border-radius: 50%; background: #d0dbd4; }
+.buddas-reference .reference-promo-navigation { display: flex; align-items: center; justify-content: center; gap: var(--spacing-xs); min-height: 44px; }
+.buddas-reference .reference-promo-navigation > button, .buddas-reference .reference-promo-dots button { display: grid; place-items: center; flex: 0 0 44px; min-height: 44px; width: 44px; padding: 0; border: 0; border-radius: var(--radius-md); background: transparent; color: var(--foreground); }
+.buddas-reference .reference-promo-navigation button:hover, .buddas-reference .reference-promo-navigation button:active { background: var(--muted); }
+/* Bring the visible dots together inside separate, non-overlapping 44px tap targets. */
+.buddas-reference .reference-promo-dots { display: flex; --promo-dot-step: max(var(--spacing-xl), calc(44px - (44px - var(--spacing-xs)) / (var(--promo-dot-count) - 1))); }
+.buddas-reference .reference-promo-dots span { width: var(--spacing-xs); height: var(--spacing-xs); border-radius: var(--radius-full); background: #d0dbd4; transform: translateX(calc((var(--promo-dot-index) - (var(--promo-dot-count) - 1) / 2) * (var(--promo-dot-step) - 44px))); }
 .buddas-reference .reference-promo-dots button[aria-current="true"] span { background: var(--accent); }
 .buddas-reference .reference-promotions + .reference-section { margin-top: 12px; }
-.buddas-reference .reference-favorites { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-.buddas-reference .reference-favorite { min-width: 0; text-decoration: none; color: inherit; overflow: hidden; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 2px 5px rgb(25 55 40 / 5%); }
-.buddas-reference .reference-favorite-photo { position: relative; aspect-ratio: 1.6; }
-.buddas-reference .reference-favorite > span { display: flex; justify-content: space-between; align-items: center; gap: 4px; min-height: 44px; padding: 8px; font-size: 11px; line-height: 1.4; font-weight: 600; overflow-wrap: anywhere; }
-.buddas-reference .reference-favorite svg { flex-shrink: 0; }
-.buddas-reference .reference-locations { display: grid; gap: 12px; margin-top: 8px; }
+.buddas-reference .reference-webstore-card { overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); }
+.buddas-reference .reference-webstore-photo { position: relative; aspect-ratio: 2.4; }
+.buddas-reference .reference-webstore-copy { display: flex; flex-direction: column; align-items: flex-start; gap: var(--spacing-sm); padding: var(--spacing-md); }
+.buddas-reference .reference-webstore-status { padding: var(--spacing-xs) var(--spacing-sm); border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-foreground); font-size: var(--text-xs); font-weight: var(--font-weight-semibold); }
+.buddas-reference .reference-webstore-copy p { color: var(--muted-foreground); font-size: var(--text-sm); line-height: var(--text-sm--line-height); }
+.buddas-reference .reference-locations { margin-top: var(--spacing-xs); }
 .buddas-reference .reference-location { min-width: 0; display: flex; flex-direction: column; padding: 16px; border: 1px solid var(--border); border-radius: 12px; background: rgb(255 255 250 / 80%); }
 .buddas-reference .reference-location-details { display: flex; flex: 1; gap: 12px; }
 .buddas-reference .reference-location-details > div:last-child { min-width: 0; }
@@ -266,8 +288,10 @@ section[id] { scroll-margin-top: 90px; }
 .buddas-reference .reference-app-badge { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; background: var(--accent); color: white; border-radius: 10px; padding: 8px; font-size: 15px; font-weight: 600; text-decoration: none; line-height: 1.2; }
 .buddas-reference .reference-app-badge small { display: block; font-size: 9px; font-weight: 400; }
 .buddas-reference .reference-app-badge > svg { flex-shrink: 0; }
-.buddas-reference .reference-socials { display: flex; flex-wrap: wrap; gap: 8px; }
-.buddas-reference .reference-socials a { flex: 1 1 auto; font-size: 11px; padding-inline: 6px; gap: 5px; }
+.buddas-reference .reference-socials { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--spacing-sm); }
+.buddas-reference .reference-social-link { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 44px; width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: var(--radius-full); background: transparent; color: var(--foreground); text-decoration: none; }
+.buddas-reference .reference-social-link svg { width: var(--spacing-lg); height: var(--spacing-lg); }
+.buddas-reference .reference-social-link:hover, .buddas-reference .reference-social-link:active { color: var(--color-primary-focus); }
 .buddas-reference .profile-footer { margin-inline: 20px; padding: 24px 0 calc(24px + env(safe-area-inset-bottom)); font-size: 10px; }
 .buddas-reference .profile-footer nav { gap: 16px; }
 .buddas-reference .profile-footer a { min-width: 44px; padding-inline: 8px; justify-content: center; }
@@ -277,8 +301,10 @@ section[id] { scroll-margin-top: 90px; }
   .buddas-reference .reference-catering > svg { width: 28px; }
   .buddas-reference .reference-catering > a { grid-column: auto; width: 100%; padding-inline: 8px; font-size: 12px; }
 }
-@media (min-width: 420px) {
-  .buddas-reference .reference-locations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 768px) {
+  .buddas-reference .reference-locations { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--spacing-sm); margin: var(--spacing-xs) 0 0; padding: 0; overflow: visible; scroll-snap-type: none; }
+  .buddas-reference .reference-locations.single-promo { grid-template-columns: minmax(0, 1fr); }
+  .buddas-reference .reference-locations-carousel .reference-promo-navigation { display: none; }
   .buddas-reference .reference-location { padding: 12px; }
   .buddas-reference .reference-location-photo { width: 52px; }
   .buddas-reference .reference-location h3 { font-size: 14px; }
@@ -292,5 +318,4 @@ section[id] { scroll-margin-top: 90px; }
   .buddas-reference .reference-hero { margin-inline: -16px; }
   .buddas-reference .reference-section-link { max-width: 92px; font-size: 10px; }
   .buddas-reference h2 { font-size: 17px; }
-  .buddas-reference .reference-favorite > span { padding-inline: 4px; font-size: 10px; }
 }
