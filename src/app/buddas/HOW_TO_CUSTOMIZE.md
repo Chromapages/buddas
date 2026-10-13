@@ -1,37 +1,14 @@
-# How to Customize
+# Customize Budda's page
 
-This landing page is designed to be easily editable without touching complex code.
+Use the **Landing Page** document in the existing Sanity Studio. The page is now an example of the shared restaurant template.
 
-## 1. Updating Links & Text
-Open `src/app/buddas/page.tsx`.
-Look for the `DATA CONFIGURATION` section at the top of the component.
+- Keep the profile slug `buddas`; `/buddas` stays canonical and `/p/buddas` redirects to it.
+- Update actual brand text/logo, ordering/menu links, promotions and grouped secondary links in Sanity.
+- Add Pleasant Grove and Salt Lake City to Locations with stable IDs `pleasant-grove` and `salt-lake-city`, complete addresses, phones, local timezone and verified weekly hours/actions.
+- Until branch fields exist, verified local data keeps both location cards and JSON-LD available. Setting Locations to an empty array intentionally removes the cards.
+- Empty optional story/gallery/catering/review sections stay empty. Reviews need original source links; no sample testimonials are published.
+- Configure primary action or leave it absent to use ordering/menu. Disable it intentionally to remove the hero/bottom action.
+- Warm/Neutral themes use the same accessible layout. Sharing and QR use the public canonical URL.
+- Preview uses the protected draft route described in the repository README; publishing refreshes only the intended profile.
 
-- **URLS**: Update the values in the `URLS` object.
-- **BRAND**: Change the name, tagline, or logo URL.
-
-## 2. Managing Specials (Carousel)
-In `src/app/buddas/page.tsx`, find the `PROMOS` array.
-Each item represents a card in the swipeable carousel.
-
-```javascript
-{
-  title: "Item Name",
-  subtitle: "Short description...",
-  badge: "NEW", // Optional badge (e.g. NEW, POPULAR)
-  imageUrl: "...", // Optional image URL
-}
-```
-
-## 3. Deployment
-When ready, run:
-```bash
-npm run build
-```
-Then deploy to Vercel or your preferred host.
-
-## 4. Google Review Link
-To get your specific Google Review link:
-1. Go to your Google Business Profile.
-2. Search for "Get more reviews".
-3. Copy the link provided there.
-4. Paste it into `URLS.googleReview`.
+See the repository README for onboarding another restaurant, required server settings and verification limits. There are no `URLS`, `BRAND` or `PROMOS` constants to edit in the route anymore.

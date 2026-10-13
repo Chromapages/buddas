@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Budda&apos;s Hawaiian Bakery &amp; Grill",
+  title: "Terms of Service | Budda's Hawaiian Bakery & Grill",
   description:
-    "Terms of service for Budda&apos;s Hawaiian Bakery &amp; Grill. Please read these terms carefully before using our services.",
+    "Terms of service for Budda's Hawaiian Bakery & Grill.",
 };
 
 export default function TermsPage() {
   return (
-    <main className="relative min-h-dvh overflow-hidden bg-background text-foreground">
+    <main id="main-content" tabIndex={-1} className="relative min-h-dvh overflow-hidden bg-background text-foreground">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-24 left-[-110px] h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,var(--highlight)_0%,transparent_60%)] opacity-55" />
         <div className="absolute -bottom-28 right-[-140px] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle_at_center,var(--accent)_0%,transparent_62%)] opacity-40" />
@@ -18,14 +18,14 @@ export default function TermsPage() {
         <nav aria-label="Back to home">
           <a
             href="/buddas"
-            className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+            className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-accent hover:underline"
           >
             ← Back to Budda&apos;s
           </a>
         </nav>
 
         <h1 className="mt-8 text-2xl font-semibold tracking-tight">Terms of Service</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Last updated: May 13, 2026</p>
+        <p className="mt-1 text-sm text-muted-foreground">Last updated: October 12, 2026</p>
 
         <div className="mt-8 space-y-6 text-sm text-foreground/80 leading-relaxed">
           <section>
@@ -74,8 +74,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-base font-semibold text-foreground">Governing Law</h2>
             <p className="mt-2">
-              These terms are governed by the laws of the State of Hawaii. Any disputes
-              shall be resolved in the courts of Honolulu, Hawaii.
+              These terms are governed by the laws of the State of Utah.
             </p>
           </section>
 
@@ -91,8 +90,8 @@ export default function TermsPage() {
             <h2 className="text-base font-semibold text-foreground">Contact Us</h2>
             <p className="mt-2">
               Questions about these terms? Contact us at{" "}
-              <a href="mailto:info@buddashawaiian.com" className="text-accent hover:underline">
-                info@buddashawaiian.com
+              <a href="mailto:buddasbakery@gmail.com" className="text-accent hover:underline">
+                buddasbakery@gmail.com
               </a>
               .
             </p>
@@ -100,9 +99,10 @@ export default function TermsPage() {
         </div>
 
         <footer className="mt-12 text-center text-xs text-muted-foreground">
-          <p>Budda&apos;s Hawaiian Bakery &amp; Grill · Waipahu, HI</p>
+          <p>Budda&apos;s Hawaiian Bakery &amp; Grill · Pleasant Grove & Salt Lake City, UT</p>
         </footer>
       </div>
     </main>
   );
 }
+

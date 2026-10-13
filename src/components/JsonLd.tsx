@@ -1,10 +1,13 @@
-"use client";
-
-import Script from "next/script";
+import { getAbsoluteUrl } from "../lib/seo-utils";
 
 export type RestaurantSchema = {
+  id: string;
   name: string;
   image?: string;
+  logo?: string;
+  description?: string;
+  menu?: string;
+  hasMap?: string;
   address?: {
     streetAddress?: string;
     addressLocality?: string;
@@ -34,18 +37,31 @@ export type RestaurantSchema = {
 };
 
 type Props = {
-  data: RestaurantSchema;
+  data: RestaurantSchema[];
+  canonicalUrl?: string;
 };
 
-export function JsonLd({ data }: Props) {
+function restaurantSchema(data: RestaurantSchema, canonicalUrl: string) {
   const schema: Record<string, unknown> = {
-    "@context": "https://schema.org",
     "@type": "Restaurant",
+    "@id": `${canonicalUrl}#${encodeURIComponent(data.id)}`,
     name: data.name,
   };
 
-  if (data.image) schema.image = data.image;
-  if (data.url) schema.url = data.url;
+  // Omit placeholders and non-web URLs from CMS content.
+  for (const key of ["image", "logo", "url", "menu", "hasMap"] as const) {
+    const value = data[key]?.trim();
+    if (!value || value.startsWith("#") || value.startsWith("PASTE_")) continue;
+    try {
+      const url = new URL(value.startsWith("/") ? new URL(value, canonicalUrl).href : value);
+      if (["http:", "https:"].includes(url.protocol)) schema[key] = url.href;
+    } catch {
+      // Invalid optional URLs do not belong in structured data.
+    }
+  }
+  // Schema.org uses hasMenu; Google still documents menu.
+  if (schema.menu) schema.hasMenu = schema.menu;
+  if (data.description) schema.description = data.description;
 
   if (data.address) {
     schema.address = {
@@ -84,7 +100,14 @@ export function JsonLd({ data }: Props) {
   }
 
   if (data.sameAs && data.sameAs.length > 0) {
-    schema.sameAs = data.sameAs;
+    const sameAs = data.sameAs.filter((value) => {
+      try {
+        return ["http:", "https:"].includes(new URL(value).protocol);
+      } catch {
+        return false;
+      }
+    });
+    if (sameAs.length) schema.sameAs = sameAs;
   }
 
   if (data.geo) {
@@ -95,12 +118,20 @@ export function JsonLd({ data }: Props) {
     };
   }
 
+  return schema;
+}
+
+export function JsonLd({ data, canonicalUrl = getAbsoluteUrl("/buddas") }: Props) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": data.map((restaurant) => restaurantSchema(restaurant, canonicalUrl)),
+  };
+
   return (
-    <Script
+    <script
       id="restaurant-schema"
       type="application/ld+json"
-      strategy="beforeInteractive"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}
     />
   );
 }

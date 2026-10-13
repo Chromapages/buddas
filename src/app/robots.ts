@@ -1,8 +1,9 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { getAbsoluteUrl } from "../lib/seo-utils";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/" },
-    sitemap: "https://buddashawaiian.com/sitemap.xml",
+    rules: { userAgent: "*", allow: "/", disallow: ["/api/"] },
+    sitemap: getAbsoluteUrl("/sitemap.xml"),
   };
 }

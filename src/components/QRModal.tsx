@@ -1,159 +1,47 @@
 "use client";
 
-import * as React from "react";
-import QRCode from "qrcode";
-import { X, Download, Copy, Link2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Copy, Download, X } from "lucide-react";
+import { Toast, useToast } from "./Toast";
 
-import { cn } from "@/lib/cn";
-import { Toast, useToast } from "@/components/Toast";
-
-interface QRModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export function QRModal({ isOpen, onClose }: QRModalProps) {
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
-  const [qrDataUrl, setQrDataUrl] = React.useState<string>("");
-  const { toast, showToast, hideToast } = useToast();
-
-  React.useEffect(() => {
-    if (toast.visible) {
-      const timer = setTimeout(() => hideToast(), 2500);
-      return () => clearTimeout(timer);
-    }
-  }, [toast.visible, hideToast]);
-
-  React.useEffect(() => {
-    if (isOpen && typeof window !== "undefined") {
-      const url = window.location.href;
-      QRCode.toDataURL(url, {
-        width: 280,
-        margin: 2,
-        color: {
-          dark: "#3d2a1a",
-          light: "#FFF8F0",
-        },
-      }).then(setQrDataUrl).catch(console.error);
-    }
+export function QRModal({ isOpen, onClose, url, brandName }: {
+  isOpen: boolean; onClose: () => void; url: string; brandName: string;
+}) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const [qrDataUrl, setQrDataUrl] = useState("");
+  const [error, setError] = useState(false);
+  const { toast, showToast } = useToast();
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog || !isOpen) return;
+    const previousFocus = document.activeElement;
+    dialog.showModal();
+    return () => { dialog.close(); if (previousFocus instanceof HTMLElement) previousFocus.focus(); };
   }, [isOpen]);
-
-  const handleDownload = async () => {
-    if (!canvasRef.current || !qrDataUrl) return;
-    const link = document.createElement("a");
-    link.download = "buddas-qr.png";
-    link.href = qrDataUrl;
-    link.click();
-    showToast("QR code downloaded!", "success");
-  };
-
-  const handleCopyLink = async () => {
-    if (typeof navigator === "undefined") return;
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      showToast("Link copied to clipboard!", "success");
-    } catch {
-      showToast("Couldn't copy — try again", "error");
-    }
-  };
-
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) onClose();
-  };
-
-  if (!isOpen) return null;
-
-  return (
-    <div
-      className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-      onClick={handleBackdropClick}
-    >
-      <div
-        className={cn(
-          "w-full max-w-sm rounded-2xl overflow-hidden",
-          "bg-[#FFF8F0] shadow-xl ring-1 ring-[#3d2a1a]/10"
-        )}
-      >
-        {/* Header */}
-        <div
-          className="flex items-center justify-between px-5 py-4"
-          style={{ backgroundColor: "#3d2a1a" }}
-        >
-          <div className="flex items-center gap-2">
-            <Link2 className="h-4 w-4 text-[#e9c559]" />
-            <span className="text-sm font-semibold text-white">Scan QR Code</span>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className={cn(
-              "p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10",
-              "transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e9c559]"
-            )}
-            aria-label="Close"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-
-        {/* QR Code Display */}
-        <div className="flex items-center justify-center p-6 bg-white">
-          {qrDataUrl ? (
-            <div className="relative">
-              <img
-                src={qrDataUrl}
-                alt="QR Code"
-                className="w-64 h-64 rounded-xl"
-              />
-              <canvas ref={canvasRef} className="hidden" />
-            </div>
-          ) : (
-            <div className="w-64 h-64 flex items-center justify-center">
-              <div className="animate-pulse text-muted-foreground text-sm">Generating...</div>
-            </div>
-          )}
-        </div>
-
-        {/* Page URL */}
-        <div className="px-5 pb-3">
-          <p className="text-xs text-center text-muted-foreground truncate max-w-full">
-            {typeof window !== "undefined" ? window.location.href : ""}
-          </p>
-        </div>
-
-        {/* Actions */}
-        <div
-          className="grid grid-cols-2 divide-x divide-white/20"
-          style={{ backgroundColor: "rgba(61, 42, 26, 0.04)" }}
-        >
-          <button
-            type="button"
-            onClick={handleDownload}
-            className={cn(
-              "flex items-center justify-center gap-2 px-4 py-3.5",
-              "text-sm font-semibold text-[#3d2a1a] hover:bg-[#e9c559]/20",
-              "transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#54bfa5]"
-            )}
-          >
-            <Download className="h-4 w-4" />
-            Download
-          </button>
-          <button
-            type="button"
-            onClick={handleCopyLink}
-            className={cn(
-              "flex items-center justify-center gap-2 px-4 py-3.5",
-              "text-sm font-semibold text-[#3d2a1a] hover:bg-[#e9c559]/20",
-              "transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#54bfa5]"
-            )}
-          >
-            <Copy className="h-4 w-4" />
-            Copy Link
-          </button>
-        </div>
-      </div>
-
-      <Toast {...toast} />
-    </div>
-  );
+  useEffect(() => {
+    if (!isOpen) return;
+    let active = true;
+    setQrDataUrl("");
+    setError(false);
+    import("qrcode").then((module) => module.default.toDataURL(url, {
+      width: 280, margin: 3, color: { dark: "#123d32", light: "#ffffff" },
+    })).then((data) => { if (active) setQrDataUrl(data); }).catch(() => { if (active) setError(true); });
+    return () => { active = false; };
+  }, [isOpen, url]);
+  async function copyLink() {
+    try { await navigator.clipboard.writeText(url); showToast("Link copied."); }
+    catch { showToast("Couldn't copy. You can select and copy the link below.", "error"); }
+  }
+  return <dialog ref={dialogRef} className="qr-dialog" aria-labelledby="qr-heading" aria-describedby="qr-description" onCancel={(event) => { event.preventDefault(); onClose(); }} onClick={(event) => {
+    if (event.target !== event.currentTarget) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) onClose();
+  }}>
+    <div className="qr-heading"><h2 id="qr-heading">Share {brandName}</h2><button autoFocus type="button" onClick={onClose} aria-label="Close QR code"><X aria-hidden="true" size={20} /></button></div>
+    <p id="qr-description">Scan to open this page.</p>
+    <div className="qr-image">{qrDataUrl ? <img src={qrDataUrl} alt={`QR code for ${brandName}`} width={280} height={280} /> : <p role={error ? "alert" : "status"}>{error ? "Couldn't generate the QR code. Close and try again, or copy the link." : "Generating QR code…"}</p>}</div>
+    <p className="qr-url">{url}</p>
+    <div className="qr-actions">{qrDataUrl && <a className="secondary-link" href={qrDataUrl} download="restaurant-profile-qr.png"><Download aria-hidden="true" size={18} />Download QR</a>}<button className="secondary-link" type="button" onClick={copyLink}><Copy aria-hidden="true" size={18} />Copy link</button></div>
+    <Toast {...toast} />
+  </dialog>;
 }

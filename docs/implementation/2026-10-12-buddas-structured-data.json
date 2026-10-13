@@ -1,0 +1,116 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": "https://buddashawaiian.com/buddas#pleasant-grove",
+      "@type": "Restaurant",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "US",
+        "addressLocality": "Pleasant Grove",
+        "addressRegion": "UT",
+        "postalCode": "84062",
+        "streetAddress": "205 East 700 South"
+      },
+      "description": "Budda’s Hawaiian Bakery & Grill. Island flavors. Local roots. Good food brings people together. Home of the Budda Rolls.",
+      "hasMap": "https://www.google.com/maps/search/?api=1&query=205+East+700+South+Pleasant+Grove+UT+84062",
+      "hasMenu": "https://buddashawaiian.com/menu",
+      "image": "https://buddashawaiian.com/buddas/pleasant-grove-reference.png",
+      "logo": "https://cdn.sanity.io/images/ixrc25dm/production/db7e702fae196b52d722eff191f2257c8f54d2e5-3750x3750.png",
+      "menu": "https://buddashawaiian.com/menu",
+      "name": "Buddas Hawaiian — Pleasant Grove",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "closes": "20:00",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "08:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "closes": "14:00",
+          "dayOfWeek": [
+            "Sunday"
+          ],
+          "opens": "08:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.tiktok.com/@buddas_bakery?is_from_webapp=1&sender_device=pc",
+        "https://www.instagram.com/buddashawaiian/",
+        "https://www.facebook.com/BuddasBakery"
+      ],
+      "servesCuisine": [
+        "Hawaiian"
+      ],
+      "telephone": "+18017010617",
+      "url": "https://buddashawaiian.com/buddas#pleasant-grove"
+    },
+    {
+      "@id": "https://buddashawaiian.com/buddas#salt-lake-city",
+      "@type": "Restaurant",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "US",
+        "addressLocality": "Salt Lake City",
+        "addressRegion": "UT",
+        "postalCode": "84115",
+        "streetAddress": "1465 S State St #12"
+      },
+      "description": "Budda’s Hawaiian Bakery & Grill. Island flavors. Local roots. Good food brings people together. Home of the Budda Rolls.",
+      "hasMap": "https://www.google.com/maps/search/?api=1&query=1465+S+State+St+%2312+Salt+Lake+City+UT+84115",
+      "hasMenu": "https://buddashawaiian.com/menu",
+      "image": "https://buddashawaiian.com/buddas/salt-lake-city-reference.png",
+      "logo": "https://cdn.sanity.io/images/ixrc25dm/production/db7e702fae196b52d722eff191f2257c8f54d2e5-3750x3750.png",
+      "menu": "https://buddashawaiian.com/menu",
+      "name": "Buddas Hawaiian — Salt Lake City",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "closes": "19:40",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
+          ],
+          "opens": "08:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "closes": "21:30",
+          "dayOfWeek": [
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "08:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "closes": "14:00",
+          "dayOfWeek": [
+            "Sunday"
+          ],
+          "opens": "08:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.tiktok.com/@buddas_bakery?is_from_webapp=1&sender_device=pc",
+        "https://www.instagram.com/buddashawaiian/",
+        "https://www.facebook.com/BuddasBakery"
+      ],
+      "servesCuisine": [
+        "Hawaiian"
+      ],
+      "telephone": "+13852027184",
+      "url": "https://buddashawaiian.com/buddas#salt-lake-city"
+    }
+  ]
+}

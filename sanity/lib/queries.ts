@@ -1,231 +1,170 @@
-import { groq } from "next-sanity";
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { groq } from 'next-sanity';
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import type { LocationData, RestaurantProfile } from '../../src/lib/profile-types';
+import { validateImageUrl } from '../../src/lib/image-utils';
+import { safeHref, safeWebUrl } from '../../src/lib/url-utils';
+import { getProfilePath, isProfileSlug } from '../../src/lib/profile-routes';
+import { formatLocationHours } from '../../src/lib/location-hours';
+import { urlFor } from './image';
 
-import { urlFor } from "./image";
+export type LandingPageData = RestaurantProfile;
+export type LandingPageQueryResult = Record<string, unknown>;
+export type SanityImageAsset = SanityImageSource;
+export type BrandData = RestaurantProfile['brand'];
+export type MainLinksData = RestaurantProfile['mainLinks'];
+export type PromoData = RestaurantProfile['promos'][number];
+export type LinkItemData = RestaurantProfile['linkList'][number];
 
-/**
- * Sanity image asset type for logo and promo images
- */
-export type SanityImageAsset = SanityImageSource & {
-  _type: "image";
-  asset: {
-    _ref: string;
-    _type: "reference";
-  };
-};
-
-/**
- * Brand information from CMS
- */
-export interface BrandData {
-  name: string;
-  tagline?: string;
-  subline?: string;
-  hoursText?: string;
-  openingHour?: string;
-  closingHour?: string;
-  statusMode?: "auto" | "open" | "closed";
-  googleMapsUrl?: string;
-  logo?: SanityImageAsset;
+function object(value: unknown): Record<string, unknown> {
+  return value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {};
 }
 
-/**
- * Main navigation links
- */
-export interface MainLinksData {
-  menuUrl?: string;
-  orderUrl?: string;
-  reviewUrl?: string;
+function text(value: unknown): string | undefined {
+  return typeof value === 'string' && value.trim() ? value.trim() : undefined;
 }
 
-/**
- * Promo card data
- */
-export interface PromoData {
-  title: string;
-  subtitle?: string;
-  badge?: string;
-  url?: string;
-  image?: SanityImageAsset;
+function items(value: unknown): Record<string, unknown>[] {
+  return Array.isArray(value) ? value.map(object).filter(item => item.enabled !== false) : [];
 }
 
-/**
- * Link list item data
- */
-export interface LinkItemData {
-  label: string;
-  url: string;
-  description?: string;
-  icon?: string;
-  emphasize?: boolean;
-}
-
-/**
- * Raw query result from Sanity - uses specific types, not unknown
- */
-export interface LandingPageQueryResult {
-  brand: BrandData;
-  mainLinks?: MainLinksData;
-  promos?: Array<PromoData>;
-  linkList?: Array<LinkItemData>;
-}
-
-/**
- * Validated landing page data ready for rendering
- */
-export interface LandingPageData {
-  brand: {
-    name: string;
-    tagline?: string;
-    subline?: string;
-    logoUrl?: string;
-    hoursText?: string;
-    isOpenNow: boolean;
-    googleMapsUrl?: string;
-  };
-  mainLinks: {
-    menuUrl?: string;
-    orderUrl?: string;
-    reviewUrl?: string;
-  };
-  promos: Array<{
-    title: string;
-    subtitle?: string;
-    badge?: string;
-    url?: string;
-    imageUrl?: string;
-  }>;
-  linkList: Array<LinkItemData>;
-  // New sections - schema/GROQ may not include these yet
-  storySection?: {
-    headline?: string;
-    body?: string;
-    imageUrl?: string;
-    imageCaption?: string;
-  };
-  testimonials?: Array<{
-    name: string;
-    quote: string;
-    rating?: number;
-    source?: string;
-  }>;
-  galleryImages?: Array<{
-    imageUrl: string;
-    caption?: string;
-  }>;
-  visitSection?: {
-    address?: string;
-    hoursFull?: string;
-    phone?: string;
-    mapImageUrl?: string;
-    directionsUrl?: string;
-  };
-  cateringSection?: {
-    headline?: string;
-    description?: string;
-    imageUrl?: string;
-    ctaLabel?: string;
-    ctaUrl?: string;
-  };
-}
-
-/**
- * Validates and type-checks raw CMS data
- * Returns null if validation fails, otherwise returns typed LandingPageData
- */
-export function validateLandingPage(data: unknown): LandingPageData | null {
-  if (!data || typeof data !== "object") {
-    return null;
+function image(data: Record<string, unknown>, field = 'image'): string | undefined {
+  const direct = validateImageUrl(data[`${field}Url`]);
+  if (direct) return direct;
+  const source = data[field];
+  if (!source) return undefined;
+  try {
+    return validateImageUrl(urlFor(source as SanityImageSource).width(1200).auto('format').url());
+  } catch {
+    return undefined;
   }
+}
 
-  const result = data as LandingPageQueryResult;
+const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const TIME = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
 
-  // Required: brand must exist with a name
-  if (!result.brand || typeof result.brand.name !== "string" || !result.brand.name.trim()) {
-    return null;
+function location(data: Record<string, unknown>, index: number, usedIds: Set<string>): LocationData | undefined {
+  const name = text(data.name);
+  const rawAddress = object(data.address);
+  const streetAddress = text(rawAddress.streetAddress);
+  const addressLocality = text(rawAddress.addressLocality);
+  const addressRegion = text(rawAddress.addressRegion);
+  const postalCode = text(rawAddress.postalCode);
+  const addressCountry = text(rawAddress.addressCountry);
+  if (!name || !streetAddress || !addressLocality || !addressRegion || !postalCode || !addressCountry) return undefined;
+  const key = text(data._key);
+  const keyId = key && /^\d[A-Za-z0-9_.:-]*$/.test(key) ? `location-${key}` : key;
+  let id = [text(data.id), keyId].find((candidate): candidate is string => !!candidate && !!safeHref(`#${candidate}`) && !usedIds.has(candidate)) ?? `location-${index}`;
+  while (usedIds.has(id)) id += '-branch';
+  usedIds.add(id);
+  let timezone = text(data.timezone);
+  if (timezone) {
+    try { new Intl.DateTimeFormat('en-US', { timeZone: timezone }); } catch { timezone = undefined; }
   }
-
-  // Validate promos array if present
-  const promos = Array.isArray(result.promos)
-    ? result.promos.map((p) => ({
-        title: typeof p.title === "string" ? p.title : "",
-        subtitle: typeof p.subtitle === "string" ? p.subtitle : undefined,
-        badge: typeof p.badge === "string" ? p.badge : undefined,
-        url: typeof p.url === "string" ? p.url : undefined,
-        imageUrl: p.image ? urlFor(p.image).width(1200).height(700).fit("crop").auto("format").url() : undefined,
-      }))
-    : [];
-
-  // Validate linkList array if present
-  const linkList = Array.isArray(result.linkList)
-    ? result.linkList
-        .filter((l): l is LinkItemData =>
-          typeof l === "object" &&
-          l !== null &&
-          typeof l.label === "string" &&
-          typeof l.url === "string"
-        )
-        .map((l) => ({
-          label: l.label,
-          url: l.url,
-          description: typeof l.description === "string" ? l.description : undefined,
-          icon: typeof l.icon === "string" ? l.icon : undefined,
-          emphasize: typeof l.emphasize === "boolean" ? l.emphasize : false,
-        }))
-    : [];
-
+  const telephone = text(data.telephone);
+  const openingHoursSpecification = items(data.openingHoursSpecification).flatMap(hours => {
+    const dayOfWeek = Array.isArray(hours.dayOfWeek) ? hours.dayOfWeek.filter((day): day is string => typeof day === 'string' && DAYS.includes(day)) : [];
+    const opens = text(hours.opens);
+    const closes = text(hours.closes);
+    return dayOfWeek.length && opens && TIME.test(opens) && closes && (TIME.test(closes) || closes === '24:00') ? [{ dayOfWeek, opens, closes }] : [];
+  });
   return {
-    brand: {
-      name: result.brand.name,
-      tagline: typeof result.brand.tagline === "string" ? result.brand.tagline : undefined,
-      subline: typeof result.brand.subline === "string" ? result.brand.subline : undefined,
-      logoUrl: result.brand.logo ? urlFor(result.brand.logo).width(512).height(256).fit("max").auto("format").url() : undefined,
-      hoursText: typeof result.brand.hoursText === "string" ? result.brand.hoursText : undefined,
-      isOpenNow: false, // Will be calculated by caller
-      googleMapsUrl: typeof result.brand.googleMapsUrl === "string" ? result.brand.googleMapsUrl : undefined,
-    },
-    mainLinks: {
-      menuUrl: typeof result.mainLinks?.menuUrl === "string" ? result.mainLinks.menuUrl : undefined,
-      orderUrl: typeof result.mainLinks?.orderUrl === "string" ? result.mainLinks.orderUrl : undefined,
-      reviewUrl: typeof result.mainLinks?.reviewUrl === "string" ? result.mainLinks.reviewUrl : undefined,
-    },
-    promos,
-    linkList,
-    // New sections not yet in CMS schema - pass through undefined
+    id,
+    name,
+    address: { streetAddress, addressLocality, addressRegion, postalCode, addressCountry },
+    telephone: telephone && /^\+?[\d ().-]+$/.test(telephone) && telephone.replace(/\D/g, '').length >= 7 ? telephone.replace(/[ ().-]/g, '') : undefined,
+    timezone,
+    openingHoursSpecification,
+    hoursFull: formatLocationHours(openingHoursSpecification, timezone) ?? text(data.hoursFull),
+    directionsUrl: safeWebUrl(data.directionsUrl),
+    orderUrl: safeWebUrl(data.orderUrl),
+    menuUrl: safeWebUrl(data.menuUrl),
+    reviewUrl: safeWebUrl(data.reviewUrl),
+  };
+}
+
+export function validateLandingPage(data: unknown, requestedSlug?: string): RestaurantProfile | null {
+  if (!data || typeof data !== 'object' || Array.isArray(data)) return null;
+  const result = object(data);
+  if (result.enabled === false) return null;
+  const brand = object(result.brand);
+  const name = text(brand.name);
+  const storedSlug = text(object(result.slug).current) ?? text(result.slug);
+  const slug = storedSlug ?? requestedSlug ?? (name?.startsWith('Budda') ? 'buddas' : undefined);
+  if (!name || !isProfileSlug(slug) || (requestedSlug && slug !== requestedSlug)) return null;
+  const links = object(result.mainLinks);
+  const mainLinks = { orderUrl: safeWebUrl(links.orderUrl), menuUrl: safeWebUrl(links.menuUrl), reviewUrl: safeWebUrl(links.reviewUrl) };
+  const action = object(result.primaryAction);
+  const actionUrl = safeHref(action.url);
+  const actionLabel = text(action.label);
+  const primaryAction = result.primaryAction != null
+    ? action.enabled !== false && actionUrl && actionLabel ? { label: actionLabel, url: actionUrl } : null
+    : mainLinks.orderUrl ? { label: 'Order online', url: mainLinks.orderUrl }
+      : mainLinks.menuUrl ? { label: 'View menu', url: mainLinks.menuUrl } : undefined;
+  const story = object(result.storySection);
+  const storyHeadline = text(story.headline);
+  const storyBody = text(story.body);
+  const catering = object(result.cateringSection);
+  const cateringHeadline = text(catering.headline);
+  const cateringDescription = text(catering.description);
+  const seo = object(result.seo);
+  const footer = object(result.footer);
+  const locationIds = new Set(['locations', 'main-content', 'locations-heading', 'promotions', 'promotions-heading', 'qr-heading', 'qr-description']);
+  return {
+    slug,
+    canonicalPath: getProfilePath(slug),
+    theme: result.theme === 'neutral' ? 'neutral' : 'warm',
+    brand: { name, tagline: text(brand.tagline), subline: text(brand.subline), logoUrl: image(brand, 'logo'), servesCuisine: Array.isArray(brand.servesCuisine) ? brand.servesCuisine.flatMap(value => { const cuisine = text(value); return cuisine ? [cuisine] : []; }) : undefined },
+    mainLinks,
+    primaryAction,
+    promos: items(result.promos).flatMap((promo, index) => {
+      const title = text(promo.title);
+      return title ? [{ id: text(promo.id) ?? text(promo._key) ?? `promo-${index}`, title, subtitle: text(promo.subtitle), badge: text(promo.badge), url: safeHref(promo.url), imageUrl: image(promo) }] : [];
+    }),
+    linkList: items(result.linkList).flatMap((link, index) => {
+      const label = text(link.label);
+      const url = safeHref(link.url);
+      return label && url ? [{ id: text(link.id) ?? text(link._key) ?? `link-${index}`, label, url, description: text(link.description), icon: text(link.icon), group: text(link.group), emphasize: link.emphasize === true }] : [];
+    }),
+    locations: items(result.locations).flatMap((item, index) => { const valid = location(item, index, locationIds); return valid ? [valid] : []; }),
+    storySection: story.enabled !== false && storyHeadline && storyBody ? { headline: storyHeadline, body: storyBody, imageUrl: image(story), imageCaption: text(story.imageCaption) } : undefined,
+    galleryImages: items(result.galleryImages).flatMap((item, index) => {
+      const imageUrl = image(item);
+      return imageUrl ? [{ id: text(item.id) ?? text(item._key) ?? `photo-${index}`, imageUrl, caption: text(item.caption) }] : [];
+    }),
+    testimonials: items(result.testimonials).flatMap((item, index) => {
+      const name = text(item.name);
+      const quote = text(item.quote);
+      const sourceUrl = safeWebUrl(item.sourceUrl);
+      return name && quote && sourceUrl ? [{ id: text(item.id) ?? text(item._key) ?? `review-${index}`, name, quote, sourceUrl, source: text(item.source), rating: typeof item.rating === 'number' && Number.isFinite(item.rating) && item.rating >= 1 && item.rating <= 5 ? item.rating : undefined }] : [];
+    }),
+    cateringSection: catering.enabled !== false && cateringHeadline && cateringDescription ? { headline: cateringHeadline, description: cateringDescription, imageUrl: image(catering), ctaLabel: text(catering.ctaLabel), ctaUrl: safeHref(catering.ctaUrl) } : undefined,
+    seo: result.seo ? { title: text(seo.title), description: text(seo.description), imageUrl: image(seo) } : undefined,
+    footer: result.footer ? { text: text(footer.text), privacyUrl: safeWebUrl(footer.privacyUrl), termsUrl: safeWebUrl(footer.termsUrl) } : undefined,
+    isDemo: result.isDemo === true,
   };
 }
 
 export const landingPageQuery = groq`
-  *[_type == "landingPage"][0]{
-    brand{
-      name,
-      tagline,
-      subline,
-      hoursText,
-      openingHour,
-      closingHour,
-      statusMode,
-      googleMapsUrl,
-      logo
-    },
-    mainLinks{
-      menuUrl,
-      orderUrl,
-      reviewUrl
-    },
-    promos[]{
-      title,
-      subtitle,
-      badge,
-      url,
-      image
-    },
-    linkList[]{
-      label,
-      url,
-      description,
-      icon,
-      emphasize
-    }
+  *[_type == "landingPage" && (slug.current == $slug || ($slug == "buddas" && !defined(slug.current) && brand.name match "Budda*"))]
+  | order(defined(slug.current) desc, _updatedAt desc)[0]{
+    _id, "updatedAt": _updatedAt, slug, enabled, isDemo, theme,
+    brand{ name, tagline, subline, servesCuisine, logo, "logoUrl": logo.asset->url },
+    mainLinks{ menuUrl, orderUrl, reviewUrl },
+    primaryAction{ enabled, label, url },
+    promos[]{ _key, id, enabled, title, subtitle, badge, url, image, "imageUrl": image.asset->url },
+    linkList[]{ _key, id, enabled, label, url, description, icon, group, emphasize },
+    locations[]{ _key, id, enabled, name, address, telephone, timezone, openingHoursSpecification, hoursFull, directionsUrl, orderUrl, menuUrl, reviewUrl },
+    storySection{ enabled, headline, body, image, "imageUrl": image.asset->url, imageCaption },
+    galleryImages[]{ _key, id, enabled, image, "imageUrl": image.asset->url, caption },
+    testimonials[]{ _key, id, enabled, name, quote, rating, source, sourceUrl },
+    cateringSection{ enabled, headline, description, image, "imageUrl": image.asset->url, ctaLabel, ctaUrl },
+    seo{ title, description, image, "imageUrl": image.asset->url },
+    footer{ text, privacyUrl, termsUrl }
+  }
+`;
+
+export const publishedProfilesQuery = groq`
+  *[_type == "landingPage" && enabled != false && isDemo != true && defined(slug.current) && !(_id in path("drafts.**"))]{
+    "slug": slug.current, "updatedAt": _updatedAt
   }
 `;
